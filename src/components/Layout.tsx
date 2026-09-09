@@ -48,6 +48,7 @@ export default function Layout() {
           </div>
           <div className="flex gap-2 sm:gap-4 md:gap-8 items-center">
             <Link to="/" className="hidden md:block text-sm font-black uppercase hover:text-yellow-600 transition-colors">Tools</Link>
+            <Link to="/analytics" className="hidden md:block text-sm font-black uppercase hover:text-yellow-600 transition-colors">Analytics</Link>
             <Link to="/blog" className="hidden md:block text-sm font-black uppercase hover:text-yellow-600 transition-colors">Blog</Link>
             <Link to="/about" className="hidden md:block text-sm font-black uppercase hover:text-yellow-600 transition-colors">About</Link>
             <ThemeToggle />
@@ -88,6 +89,7 @@ export default function Layout() {
           <div>
             <h4 className="font-black uppercase text-xl mb-6 text-yellow-400 italic">Resources</h4>
             <ul className="space-y-3 font-bold uppercase text-sm">
+              <li><Link to="/analytics" className="hover:text-yellow-400 transition-colors">Web Analytics</Link></li>
               <li><Link to="/blog" className="hover:text-yellow-400 transition-colors">Blog</Link></li>
               <li><Link to="/about" className="hover:text-yellow-400 transition-colors">About Us</Link></li>
               <li><Link to="/contact" className="hover:text-yellow-400 transition-colors">Contact</Link></li>

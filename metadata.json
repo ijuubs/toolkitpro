@@ -1,5 +1,6 @@
 {
   "name": "ToolKitPro: Premium Utility Tools",
   "description": "ToolKitPro is a premium content and utility platform providing professional browser-side tools, in-depth technical guides, and health insights.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

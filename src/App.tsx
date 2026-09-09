@@ -1,12 +1,14 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
 import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from './context/ThemeProvider';
+import { initAnalytics, trackPageView } from './utils/analytics';
 
 // Lazy load components
 const HomePage = lazy(() => import('./pages/HomePage'));
 const ToolTemplate = lazy(() => import('./pages/ToolTemplate'));
+const AnalyticsPage = lazy(() => import('./pages/AnalyticsPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
@@ -25,16 +27,41 @@ const LoadingFallback = () => (
   </div>
 );
 
+function AnalyticsTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      trackPageView(location.pathname + location.search, document.title);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [location.pathname, location.search]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
+        <AnalyticsTracker />
         <Routes>
             <Route path="/" element={<Layout />}>
             <Route index element={
               <ErrorBoundary>
               <Suspense fallback={<LoadingFallback />}>
                 <HomePage />
+              </Suspense>
+              </ErrorBoundary>
+            } />
+            <Route path="analytics" element={
+              <ErrorBoundary>
+              <Suspense fallback={<LoadingFallback />}>
+                <AnalyticsPage />
               </Suspense>
               </ErrorBoundary>
             } />

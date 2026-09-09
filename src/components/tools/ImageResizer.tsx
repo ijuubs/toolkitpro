@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import imageCompression from 'browser-image-compression';
+import { trackToolUsage, trackDownload } from '../../utils/analytics';
 
 export default function ImageResizer() {
   const [file, setFile] = useState<File | null>(null);
@@ -26,6 +27,13 @@ export default function ImageResizer() {
         url: url,
         size: compressedFile.size,
         name: `resized_${file.name}`,
+      });
+
+      trackToolUsage('image-resizer', 'Image Resizer', 'Design & Media', 'resize_image', {
+        maxWidth,
+        maxSizeMB,
+        originalSize: file.size,
+        resultSize: compressedFile.size
       });
     } catch (error) {
       console.error(error);
@@ -106,6 +114,7 @@ export default function ImageResizer() {
             <a 
               href={result.url} 
               download={result.name}
+              onClick={() => trackDownload('image-resizer', 'Image Resizer', result.name, 'image', result.size)}
               className="block text-center bg-black text-white p-4 font-black uppercase border-b-4 border-r-4 border-black active:border-0 hover:bg-green-600 transition-colors"
             >
               Download Resized Image

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { PDFDocument } from 'pdf-lib';
+import { trackToolUsage, trackDownload } from '../../utils/analytics';
 
 export default function PdfCompressor() {
   const [file, setFile] = useState<File | null>(null);
@@ -26,6 +27,12 @@ export default function PdfCompressor() {
         name: `compressed_${file.name}`,
         size: blob.size,
         url: url
+      });
+
+      trackToolUsage('pdf-compressor', 'PDF Compressor', 'Utility', 'compress_pdf', {
+        originalSize: file.size,
+        compressedSize: blob.size,
+        reductionPercent: Math.round(((file.size - blob.size) / file.size) * 100)
       });
     } catch (error) {
       console.error('Compression failed:', error);
@@ -80,6 +87,7 @@ export default function PdfCompressor() {
           <a 
             href={result.url} 
             download={result.name}
+            onClick={() => trackDownload('pdf-compressor', 'PDF Compressor', result.name, 'pdf', result.size)}
             className="block text-center bg-black text-white p-4 font-black uppercase border-b-4 border-r-4 border-black active:border-0 hover:bg-green-600 transition-colors"
           >
             Download Compressed PDF

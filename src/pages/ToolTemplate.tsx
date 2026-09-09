@@ -1,7 +1,8 @@
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { TOOLS } from '../data/toolsData';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
+import { trackToolView } from '../utils/analytics';
 import AdSlot from '../components/AdSlot';
 import AdsterraSlot from '../components/AdsterraSlot';
 import ErrorBoundary from '../components/ErrorBoundary';
@@ -63,6 +64,12 @@ export default function ToolTemplate() {
   const displayTitle = isAlias && slug 
     ? slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') 
     : tool.name;
+
+  useEffect(() => {
+    if (tool) {
+      trackToolView(tool.id, tool.name, tool.category);
+    }
+  }, [tool?.id]);
 
   const renderTool = () => {
     switch(tool.id) {
