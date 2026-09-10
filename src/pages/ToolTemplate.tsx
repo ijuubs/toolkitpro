@@ -7,6 +7,7 @@ import AdSlot from '../components/AdSlot';
 import ErrorBoundary from '../components/ErrorBoundary';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ReactMarkdown from 'react-markdown';
+import { SITE_URL } from '../config/site';
 
 // Lazy load tools
 const WordCounter = lazy(() => import('../components/tools/WordCounter'));
@@ -188,10 +189,10 @@ export default function ToolTemplate() {
           <title>{tool.titleTag || `${displayTitle} | ToolKitPro`}</title>
           <meta name="description" content={tool.metaDescription || tool.description} />
           
-          <link rel="canonical" href={`https://toolkitpro.app/tools/${tool.slug}`} />
+          <link rel="canonical" href={`${SITE_URL}/tools/${tool.slug}`} />
           <meta property="og:title" content={tool.titleTag || `${displayTitle} | ToolKitPro`} />
           <meta property="og:description" content={tool.metaDescription || tool.description} />
-          <meta property="og:url" content={`https://toolkitpro.app/tools/${tool.slug}`} />
+          <meta property="og:url" content={`${SITE_URL}/tools/${tool.slug}`} />
           <meta property="og:type" content="website" />
           
           <meta name="twitter:card" content="summary_large_image" />

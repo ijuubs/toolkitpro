@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { BLOG_POSTS } from '../data/blogData';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ReactMarkdown from 'react-markdown';
+import { SITE_URL } from '../config/site';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -22,7 +23,7 @@ export default function BlogPost() {
       <Helmet>
         <title>{post.title} | ToolKitPro Blog</title>
         <meta name="description" content={post.excerpt} />
-        <link rel="canonical" href={`https://toolkitpro.app/blog/${post.slug}`} />
+        <link rel="canonical" href={`${SITE_URL}/blog/${post.slug}`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -37,12 +38,12 @@ export default function BlogPost() {
             "publisher": {
               "@type": "Organization",
               "name": "ToolKitPro",
-              "url": "https://toolkitpro.app/",
-              "logo": "https://toolkitpro.app/toolkitpro-logo.jpg"
+              "url": `${SITE_URL}/`,
+              "logo": `${SITE_URL}/toolkitpro-logo.jpg`
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": `https://toolkitpro.app/blog/${post.slug}`
+              "@id": `${SITE_URL}/blog/${post.slug}`
             }
           })}
         </script>

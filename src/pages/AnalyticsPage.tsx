@@ -10,6 +10,7 @@ import {
   GA_MEASUREMENT_ID
 } from '../utils/analytics';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { SITE_URL } from '../config/site';
 
 export default function AnalyticsPage() {
   const [data, setData] = useState<AnalyticsSummary | null>(null);
@@ -83,13 +84,13 @@ export default function AnalyticsPage() {
       <Helmet>
         <title>Web Analytics Dashboard | ToolKitPro</title>
         <meta name="description" content="Live web analytics for ToolKitPro: Track page views, unique visitors, tool usage frequency, and conversion rates for downloads." />
-        <link rel="canonical" href="https://toolkitpro.app/analytics" />
+        <link rel="canonical" href={`${SITE_URL}/analytics`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Web Analytics Dashboard - ToolKitPro",
-            "url": "https://toolkitpro.app/analytics",
+            "url": `${SITE_URL}/analytics`,
             "description": "Live metrics, tool usage frequency, and download conversion rates."
           })}
         </script>

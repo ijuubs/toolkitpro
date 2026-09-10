@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { TOOLS } from '../data/toolsData';
 import { BLOG_POSTS } from '../data/blogData';
+import { SITE_URL } from '../config/site';
 
 export default function SitemapPage() {
   return (
@@ -9,13 +10,13 @@ export default function SitemapPage() {
       <Helmet>
         <title>HTML Sitemap | ToolKitPro</title>
         <meta name="description" content="Sitemap for ToolKitPro. Find all our utility tools and blog posts in one place." />
-        <link rel="canonical" href="https://toolkitpro.app/sitemap" />
+        <link rel="canonical" href={`${SITE_URL}/sitemap`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "HTML Sitemap - ToolKitPro",
-            "url": "https://toolkitpro.app/sitemap",
+            "url": `${SITE_URL}/sitemap`,
             "description": "Sitemap for ToolKitPro. Find all our utility tools and blog posts in one place."
           })}
         </script>

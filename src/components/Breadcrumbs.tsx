@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import { SITE_URL } from '../config/site';
 
 interface BreadcrumbItem {
   label: string;
@@ -17,13 +18,13 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://toolkitpro.app/"
+      "item": `${SITE_URL}/`
     },
     ...items.map((item, index) => ({
       "@type": "ListItem",
       "position": index + 2,
       "name": item.label,
-      "item": item.path ? `https://toolkitpro.app${item.path}` : undefined
+      "item": item.path ? `${SITE_URL}${item.path}` : undefined
     }))
   ];
 

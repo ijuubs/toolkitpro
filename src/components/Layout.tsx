@@ -3,14 +3,15 @@ import { Helmet } from 'react-helmet-async';
 import ThemeToggle from './ThemeToggle';
 import Logo from './Logo';
 import CookieConsent from './CookieConsent';
+import { SITE_URL } from '../config/site';
 
 export default function Layout() {
   const orgSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "ToolKitPro",
-    "url": "https://toolkitpro.app/",
-    "logo": "https://toolkitpro.app/icon.png",
+    "url": `${SITE_URL}/`,
+    "logo": `${SITE_URL}/toolkitpro-logo.jpg`,
     "description": "Premium browser-side utility ecosystem. Fast, private, and professional."
   };
 
@@ -18,10 +19,10 @@ export default function Layout() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "ToolKitPro",
-    "url": "https://toolkitpro.app/",
+    "url": `${SITE_URL}/`,
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://toolkitpro.app/?q={search_term_string}",
+      "target": `${SITE_URL}/?q={search_term_string}`,
       "query-input": "required name=search_term_string"
     }
   };

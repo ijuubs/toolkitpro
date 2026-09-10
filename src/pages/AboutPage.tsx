@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { SITE_URL } from '../config/site';
 
 export default function AboutPage() {
   return (
@@ -6,19 +7,19 @@ export default function AboutPage() {
       <Helmet>
         <title>About Us | ToolKitPro</title>
         <meta name="description" content="Learn more about ToolKitPro, your premier destination for high-performance, private, and secure online utility tools." />
-        <link rel="canonical" href="https://toolkitpro.app/about" />
+        <link rel="canonical" href={`${SITE_URL}/about`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AboutPage",
             "name": "About Us - ToolKitPro",
-            "url": "https://toolkitpro.app/about",
+            "url": `${SITE_URL}/about`,
             "description": "Learn more about ToolKitPro, your premier destination for high-performance, private, and secure online utility tools.",
             "publisher": {
               "@type": "Organization",
               "name": "ToolKitPro",
-              "url": "https://toolkitpro.app/",
-              "logo": "https://toolkitpro.app/toolkitpro-logo.jpg"
+              "url": `${SITE_URL}/`,
+              "logo": `${SITE_URL}/toolkitpro-logo.jpg`
             }
           })}
         </script>

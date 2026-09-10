@@ -18,6 +18,5 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://toolkitpro.app/sitemap.xml
 Sitemap: https://utility-tools-eta.vercel.app/sitemap.xml
 

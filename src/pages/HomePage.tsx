@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { TOOLS } from '../data/toolsData';
 import { BLOG_POSTS } from '../data/blogData';
 import AdSlot from '../components/AdSlot';
+import { SITE_URL } from '../config/site';
 
 interface PersonaCategory {
   id: string;
@@ -81,10 +82,10 @@ export default function HomePage() {
           <title>Free Online Utility Tools & Calculators | ToolKitPro</title>
           <meta name="description" content="Access a massive collection of free online utility tools, developer utilities, calculators, and productivity apps. Process everything instantly and securely in your browser." />
           
-          <link rel="canonical" href="https://toolkitpro.app/" />
+          <link rel="canonical" href={`${SITE_URL}/`} />
           <meta property="og:title" content="Free Online Utility Tools & Calculators | ToolKitPro" />
           <meta property="og:description" content="Access a massive collection of free online utility tools, developer utilities, calculators, and productivity apps. Process everything instantly and securely in your browser." />
-          <meta property="og:url" content="https://toolkitpro.app/" />
+          <meta property="og:url" content={`${SITE_URL}/`} />
           <meta property="og:type" content="website" />
           
           <meta name="twitter:card" content="summary_large_image" />
@@ -97,15 +98,15 @@ export default function HomePage() {
                 "@context": "https://schema.org",
                 "@type": "WebSite",
                 "name": "ToolKitPro",
-                "url": "https://toolkitpro.app/",
+                "url": `${SITE_URL}/`,
                 "description": "Free online utility tools, developer utilities, calculators, and productivity apps."
               },
               {
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 "name": "ToolKitPro",
-                "url": "https://toolkitpro.app/",
-                "logo": "https://toolkitpro.app/toolkitpro-logo.jpg"
+                "url": `${SITE_URL}/`,
+                "logo": `${SITE_URL}/toolkitpro-logo.jpg`
               }
             ])}
           </script>
