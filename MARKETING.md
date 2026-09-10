@@ -11,14 +11,14 @@ This file contains the "Copy-Paste" assets needed to execute Phases 2 and 3 of t
 **Your Response:**
 > "I ran into the same issue—got tired of slow, ad-choked tools tracking my data just to compress a simple PDF. 
 > 
-> I built [ToolKitPro](https://utility-tools-eta.vercel.app) as a 100% free, privacy-first alternative. The big difference is that **nothing is uploaded to a server**. Everything (PDF compression, JSON formatting, etc.) happens locally in your browser using JS/WebAssembly.
+> I built [ToolKitPro](https://toolkitpro-e5y5.vercel.app) as a 100% free, privacy-first alternative. The big difference is that **nothing is uploaded to a server**. Everything (PDF compression, JSON formatting, etc.) happens locally in your browser using JS/WebAssembly.
 > 
 > It's fast, works offline, and your data stays on your machine. Hope it helps!"
 
 ### Scenario B: Design/Social Media Assets (r/design, r/socialmedia)
 **Thread:** "What's the best tool for resizing images without losing too much quality?"
 **Your Response:**
-> "If you're looking for something fast and secure, I built a client-side [Image Resizer](https://utility-tools-eta.vercel.app/tools/image-resizer). 
+> "If you're looking for something fast and secure, I built a client-side [Image Resizer](https://toolkitpro-e5y5.vercel.app/tools/image-resizer). 
 > 
 > It uses Lanczos resampling for sharpness and processes everything in your browser so you don't have to wait for uploads. No ads, just the tool."
 
@@ -46,7 +46,7 @@ This file contains the "Copy-Paste" assets needed to execute Phases 2 and 3 of t
 - **License:** Free / Open Web.
 
 ### TinyHelpers.dev
-- **URL:** https://utility-tools-eta.vercel.app
+- **URL:** https://toolkitpro-e5y5.vercel.app
 - **Description:** A collection of 10+ browser-based utilities with zero server-side processing for maximum privacy.
 - **Categories:** Dev Tools, Design, Security.
 

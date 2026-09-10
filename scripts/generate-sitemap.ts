@@ -7,8 +7,17 @@ import { BLOG_POSTS } from '../src/data/blogData';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const rawBaseUrl = process.env.VITE_SITE_URL || process.env.SITE_URL || 'https://toolkitpro-e5y5.vercel.app';
-const BASE_URL = rawBaseUrl.replace(/\/+$/, '');
+const getBaseUrl = () => {
+  if (process.env.VITE_SITE_URL && process.env.VITE_SITE_URL.trim() !== '') {
+    return process.env.VITE_SITE_URL.replace(/\/+$/, '');
+  }
+  if (process.env.SITE_URL && process.env.SITE_URL.trim() !== '') {
+    return process.env.SITE_URL.replace(/\/+$/, '');
+  }
+  return 'https://toolkitpro-e5y5.vercel.app';
+};
+
+const BASE_URL = getBaseUrl();
 const TODAY = new Date().toISOString().split('T')[0];
 
 function generateSitemap() {
