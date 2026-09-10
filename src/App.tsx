@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense, lazy, useEffect } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from './context/ThemeProvider';
@@ -155,6 +156,7 @@ export default function App() {
             } />
           </Route>
         </Routes>
+        <SpeedInsights />
       </BrowserRouter>
     </ThemeProvider>
   );
