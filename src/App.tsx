@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from './context/ThemeProvider';
 import { initAnalytics, trackPageView } from './utils/analytics';
+import { Analytics } from '@vercel/analytics/react';
 
 // Lazy load components
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -49,6 +50,7 @@ export default function App() {
     <ThemeProvider>
       <BrowserRouter>
         <AnalyticsTracker />
+        <Analytics />
         <Routes>
             <Route path="/" element={<Layout />}>
             <Route index element={
