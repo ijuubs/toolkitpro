@@ -4,7 +4,6 @@ import { TOOLS } from '../data/toolsData';
 import { Suspense, lazy, useEffect } from 'react';
 import { trackToolView } from '../utils/analytics';
 import AdSlot from '../components/AdSlot';
-import AdsterraSlot from '../components/AdsterraSlot';
 import ErrorBoundary from '../components/ErrorBoundary';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ReactMarkdown from 'react-markdown';
@@ -247,8 +246,6 @@ export default function ToolTemplate() {
                 </div>
             ))}
           </div>
-
-          <AdsterraSlot id="footer-banner" minHeight="150px" className="mt-16" />
         </section>
       </div>
     </div>
