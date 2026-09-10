@@ -1,6 +1,6 @@
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '../config/site';
-import { Tool } from '../data/toolsData';
-import { BlogPost } from '../data/blogData';
+import { Tool, TOOLS } from '../data/toolsData';
+import { BlogPost, BLOG_POSTS } from '../data/blogData';
 
 /**
  * Options for generic page SEO generation
@@ -229,3 +229,69 @@ export function generatePageSEO({
     image: image || `${SITE_URL.replace(/\/+$/, '')}/toolkitpro-logo.jpg`
   };
 }
+
+/**
+ * Generates a complete, valid XML sitemap string strictly adhering to sitemaps.org standards
+ * using the configured canonical base URL (VITE_SITE_URL or fallback).
+ *
+ * @param customBaseUrl - Optional custom canonical base URL to override the default
+ * @returns Fully formatted sitemap.xml string with exact absolute canonical URLs
+ */
+export function generateXmlSitemap(customBaseUrl?: string): string {
+  const baseUrl = (customBaseUrl || SITE_URL).replace(/\/+$/, '');
+  const today = new Date().toISOString().split('T')[0];
+
+  const staticRoutes = [
+    { path: '/', priority: '1.0', changefreq: 'daily' },
+    { path: '/blog', priority: '0.9', changefreq: 'weekly' },
+    { path: '/about', priority: '0.8', changefreq: 'monthly' },
+    { path: '/contact', priority: '0.7', changefreq: 'monthly' },
+    { path: '/faq', priority: '0.8', changefreq: 'monthly' },
+    { path: '/analytics', priority: '0.8', changefreq: 'daily' },
+    { path: '/sitemap', priority: '0.5', changefreq: 'monthly' },
+    { path: '/privacy', priority: '0.3', changefreq: 'monthly' },
+    { path: '/terms', priority: '0.3', changefreq: 'monthly' },
+    { path: '/disclaimer', priority: '0.3', changefreq: 'monthly' },
+  ];
+
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+  // Static routes
+  staticRoutes.forEach(route => {
+    const loc = route.path === '/' ? `${baseUrl}/` : `${baseUrl}${route.path}`;
+    xml += `  <url>\n`;
+    xml += `    <loc>${loc}</loc>\n`;
+    xml += `    <lastmod>${today}</lastmod>\n`;
+    xml += `    <changefreq>${route.changefreq}</changefreq>\n`;
+    xml += `    <priority>${route.priority}</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  // Tools
+  TOOLS.forEach(tool => {
+    const loc = `${baseUrl}/tools/${tool.slug}`;
+    xml += `  <url>\n`;
+    xml += `    <loc>${loc}</loc>\n`;
+    xml += `    <lastmod>${today}</lastmod>\n`;
+    xml += `    <changefreq>weekly</changefreq>\n`;
+    xml += `    <priority>0.9</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  // Blog Posts
+  BLOG_POSTS.forEach(post => {
+    const loc = `${baseUrl}/blog/${post.slug}`;
+    const lastmod = post.date || today;
+    xml += `  <url>\n`;
+    xml += `    <loc>${loc}</loc>\n`;
+    xml += `    <lastmod>${lastmod}</lastmod>\n`;
+    xml += `    <changefreq>monthly</changefreq>\n`;
+    xml += `    <priority>0.8</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  xml += `</urlset>\n`;
+  return xml;
+}
+

@@ -1,85 +1,308 @@
+import { useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { Copy, Check, Download, ExternalLink, FileCode, Search, Globe, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { TOOLS } from '../data/toolsData';
 import { BLOG_POSTS } from '../data/blogData';
-import { SITE_URL } from '../config/site';
+import { SITE_URL, SITE_NAME } from '../config/site';
+import { generateCanonicalUrl, generateXmlSitemap } from '../utils/seo';
 
 export default function SitemapPage() {
+  const [copied, setCopied] = useState(false);
+  const [showXmlViewer, setShowXmlViewer] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Generate canonical URLs and valid XML string strictly using SITE_URL (https://toolkitpro-e5y5.vercel.app)
+  const canonicalUrl = generateCanonicalUrl('/sitemap');
+  const xmlSitemapUrl = `${SITE_URL.replace(/\/+$/, '')}/sitemap.xml`;
+  const xmlContent = useMemo(() => generateXmlSitemap(), []);
+
+  // Calculate indexed totals
+  const totalStatic = 10;
+  const totalTools = TOOLS.length;
+  const totalBlogPosts = BLOG_POSTS.length;
+  const totalUrls = totalStatic + totalTools + totalBlogPosts;
+
+  const handleCopyXml = async () => {
+    try {
+      await navigator.clipboard.writeText(xmlContent);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      // Fallback
+      setCopied(false);
+    }
+  };
+
+  const handleDownloadXml = () => {
+    const blob = new Blob([xmlContent], { type: 'application/xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'sitemap.xml';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  // Filter tools and blog posts based on search query
+  const filteredTools = useMemo(() => {
+    if (!searchQuery.trim()) return TOOLS;
+    const q = searchQuery.toLowerCase();
+    return TOOLS.filter(t => 
+      t.name.toLowerCase().includes(q) || 
+      t.slug.toLowerCase().includes(q) ||
+      t.category.toLowerCase().includes(q) ||
+      t.aliases?.some(a => a.toLowerCase().includes(q))
+    );
+  }, [searchQuery]);
+
+  const filteredBlogPosts = useMemo(() => {
+    if (!searchQuery.trim()) return BLOG_POSTS;
+    const q = searchQuery.toLowerCase();
+    return BLOG_POSTS.filter(p => 
+      p.title.toLowerCase().includes(q) || 
+      p.slug.toLowerCase().includes(q)
+    );
+  }, [searchQuery]);
+
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 space-y-12">
+    <div className="max-w-5xl mx-auto py-10 px-4 space-y-12">
       <Helmet>
-        <title>HTML Sitemap | ToolKitPro</title>
-        <meta name="description" content="Sitemap for ToolKitPro. Find all our utility tools and blog posts in one place." />
-        <link rel="canonical" href={`${SITE_URL}/sitemap`} />
+        <title>Sitemap & XML Index | {SITE_NAME}</title>
+        <meta 
+          name="description" 
+          content={`Complete HTML and XML sitemap index for ${SITE_NAME}. Access all ${totalUrls} verified canonical URLs for search engines and visitors.`} 
+        />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={`Sitemap & XML Index | ${SITE_NAME}`} />
+        <meta property="og:description" content={`Explore all ${totalUrls} verified canonical URLs on ${SITE_NAME}.`} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "HTML Sitemap - ToolKitPro",
-            "url": `${SITE_URL}/sitemap`,
-            "description": "Sitemap for ToolKitPro. Find all our utility tools and blog posts in one place."
+            "name": `Sitemap - ${SITE_NAME}`,
+            "url": canonicalUrl,
+            "description": `Complete HTML and XML sitemap index for ${SITE_NAME} containing ${totalUrls} canonical URLs.`
           })}
         </script>
       </Helmet>
-      
-      <h1 className="text-5xl font-black uppercase tracking-tighter border-b-8 border-black pb-4">HTML Sitemap</h1>
 
-      <div className="bg-yellow-100 border-4 border-black p-4 md:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-        <h3 className="font-black uppercase text-lg mb-2">Are you a search engine?</h3>
-        <p className="font-medium text-black">
-          This page is an HTML sitemap designed for human visitors. If you are trying to submit this site to Google Search Console or another indexing service, please use our XML Sitemap instead: <br/><br/>
-          <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="bg-black text-white px-4 py-2 font-black uppercase text-sm hover:bg-yellow-400 hover:text-black transition-all">View sitemap.xml</a>
+      {/* Header Banner */}
+      <div className="border-b-8 border-black pb-6 space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <span className="bg-yellow-400 text-black text-xs font-black uppercase px-3 py-1 border-2 border-black tracking-wider">
+            SEO Index & Site Directory
+          </span>
+          <div className="flex items-center gap-2 text-xs font-black uppercase bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 px-3 py-1 border-2 border-black">
+            <Globe size={14} className="text-yellow-500" />
+            Canonical Host: <span className="font-mono text-black dark:text-yellow-400">{SITE_URL}</span>
+          </div>
+        </div>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight">
+          Website Sitemap
+        </h1>
+        <p className="font-medium text-base sm:text-lg text-neutral-700 dark:text-neutral-300">
+          Complete indexed directory of all {totalUrls} published pages, tools, and technical articles.
         </p>
       </div>
-      
-      <div className="grid md:grid-cols-2 gap-12">
-        <section className="space-y-6">
-          <h2 className="text-3xl font-black uppercase italic border-b-4 border-yellow-400 pb-2 inline-block">Main Pages</h2>
-          <ul className="space-y-3 font-bold uppercase underline">
-            <li><Link to="/" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Home</Link></li>
-            <li><Link to="/about" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">About Us</Link></li>
-            <li><Link to="/contact" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Contact</Link></li>
-            <li><Link to="/blog" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Blog</Link></li>
-            <li><Link to="/privacy" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Privacy Policy</Link></li>
-            <li><Link to="/terms" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Terms of Service</Link></li>
-            <li><Link to="/disclaimer" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Disclaimer</Link></li>
-            <li><Link to="/faq" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">FAQ</Link></li>
-          </ul>
-        </section>
 
-        <section className="space-y-6 md:col-span-2 lg:col-span-1">
-          <h2 className="text-3xl font-black uppercase italic border-b-4 border-yellow-400 pb-2 inline-block">Utility Tools & Variations</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-8 pt-4">
-            {TOOLS.map(tool => (
-              <div key={tool.id} className="space-y-3">
-                <Link to={`/tools/${tool.slug}`} className="block font-black text-xl uppercase underline hover:bg-yellow-400 hover:text-black px-1 transition-colors">
-                  {tool.name}
-                </Link>
-                {tool.aliases && tool.aliases.length > 0 && (
-                  <ul className="pl-6 space-y-2 text-xs font-bold uppercase text-[var(--muted)] underline decoration-gray-400">
-                    {tool.aliases.map(alias => (
-                      <li key={alias}>
-                        <Link to={`/tools/${alias}`} className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">
-                          {alias.replace(/-/g, ' ')}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
+      {/* XML Search Engine Card */}
+      <div className="bg-white dark:bg-[#181922] border-4 border-black p-6 sm:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-4 border-black/10 dark:border-white/10 pb-5">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <FileCode className="text-yellow-500 shrink-0" size={24} />
+              <h2 className="text-2xl font-black uppercase tracking-tight">
+                Search Engine XML Sitemap
+              </h2>
+            </div>
+            <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+              Valid XML sitemap formatted to strict sitemaps.org standards for Google Search Console & Bing Webmaster.
+            </p>
           </div>
-        </section>
+          <div className="flex items-center gap-2 self-start sm:self-center bg-yellow-400 text-black font-black text-xs uppercase px-3 py-1.5 border-2 border-black shrink-0">
+            <ShieldCheck size={16} />
+            {totalUrls} Canonical URLs
+          </div>
+        </div>
 
-        <section className="space-y-6">
-          <h2 className="text-3xl font-black uppercase italic border-b-4 border-yellow-400 pb-2 inline-block">Blog Posts</h2>
-          <ul className="space-y-3 font-bold uppercase underline">
-            {BLOG_POSTS.map(post => (
-              <li key={post.id}><Link to={`/blog/${post.slug}`} className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">{post.title}</Link></li>
-            ))}
-          </ul>
-        </section>
+        <div className="grid sm:grid-cols-3 gap-4">
+          <div className="p-4 bg-neutral-50 dark:bg-neutral-900 border-2 border-black space-y-1">
+            <span className="text-xs font-bold uppercase text-neutral-500">Core Routes</span>
+            <p className="text-2xl font-black">{totalStatic}</p>
+          </div>
+          <div className="p-4 bg-neutral-50 dark:bg-neutral-900 border-2 border-black space-y-1">
+            <span className="text-xs font-bold uppercase text-neutral-500">Browser Utilities</span>
+            <p className="text-2xl font-black">{totalTools}</p>
+          </div>
+          <div className="p-4 bg-neutral-50 dark:bg-neutral-900 border-2 border-black space-y-1">
+            <span className="text-xs font-bold uppercase text-neutral-500">Articles & Guides</span>
+            <p className="text-2xl font-black">{totalBlogPosts}</p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3 pt-2">
+          <a
+            href={xmlSitemapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-yellow-400 text-black font-black text-xs sm:text-sm uppercase border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+          >
+            <ExternalLink size={16} className="stroke-[2.5]" />
+            Open sitemap.xml
+          </a>
+          <button
+            onClick={handleCopyXml}
+            className="inline-flex items-center gap-2 px-5 py-3 bg-white dark:bg-black text-black dark:text-white font-black text-xs sm:text-sm uppercase border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer"
+          >
+            {copied ? <Check size={16} className="text-green-500 stroke-[3]" /> : <Copy size={16} />}
+            {copied ? 'XML Copied!' : 'Copy XML'}
+          </button>
+          <button
+            onClick={handleDownloadXml}
+            className="inline-flex items-center gap-2 px-5 py-3 bg-white dark:bg-black text-black dark:text-white font-black text-xs sm:text-sm uppercase border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer"
+          >
+            <Download size={16} />
+            Download sitemap.xml
+          </button>
+          <button
+            onClick={() => setShowXmlViewer(!showXmlViewer)}
+            className="inline-flex items-center gap-2 px-4 py-3 bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 font-bold text-xs uppercase border-2 border-black hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors ml-auto cursor-pointer"
+          >
+            {showXmlViewer ? 'Hide XML Source' : 'View XML Source'}
+          </button>
+        </div>
+
+        {showXmlViewer && (
+          <div className="space-y-2 pt-2">
+            <div className="flex items-center justify-between text-xs font-mono font-bold text-neutral-500">
+              <span>Canonical target: {xmlSitemapUrl}</span>
+              <span>{xmlContent.length} bytes</span>
+            </div>
+            <pre className="p-4 bg-neutral-900 text-yellow-300 font-mono text-xs border-4 border-black overflow-x-auto max-h-[350px] leading-relaxed shadow-inner">
+              {xmlContent}
+            </pre>
+          </div>
+        )}
+      </div>
+
+      {/* Interactive Search Bar for HTML Sitemap */}
+      <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <h2 className="text-3xl font-black uppercase italic border-b-4 border-yellow-400 pb-1 inline-block">
+            HTML Directory
+          </h2>
+          <div className="relative w-full sm:w-72">
+            <input
+              type="text"
+              placeholder="Search directory..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-9 pr-4 py-2 bg-white dark:bg-[#181922] border-4 border-black text-sm font-bold placeholder:text-neutral-400 focus:outline-none focus:bg-yellow-50 dark:focus:bg-neutral-800"
+            />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" />
+          </div>
+        </div>
+
+        {/* Directory Grid */}
+        <div className="grid md:grid-cols-3 gap-8 pt-4">
+          {/* Main Pages */}
+          <section className="bg-white dark:bg-[#181922] border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-4">
+            <div className="flex items-center justify-between border-b-2 border-black pb-2">
+              <h3 className="text-xl font-black uppercase">Main Pages</h3>
+              <span className="text-xs font-black bg-neutral-200 dark:bg-neutral-700 px-2 py-0.5 border border-black">
+                {totalStatic}
+              </span>
+            </div>
+            <ul className="space-y-2.5 font-bold uppercase text-sm">
+              {[
+                { to: '/', label: 'Home Page' },
+                { to: '/blog', label: 'Blog & Guides' },
+                { to: '/analytics', label: 'Analytics Dashboard' },
+                { to: '/about', label: 'About Us' },
+                { to: '/contact', label: 'Contact Us' },
+                { to: '/faq', label: 'FAQ' },
+                { to: '/privacy', label: 'Privacy Policy' },
+                { to: '/terms', label: 'Terms of Service' },
+                { to: '/disclaimer', label: 'Disclaimer' },
+                { to: '/sitemap', label: 'HTML Sitemap' },
+              ].map(page => (
+                <li key={page.to}>
+                  <Link 
+                    to={page.to} 
+                    className="flex items-center justify-between hover:bg-yellow-400 hover:text-black px-2 py-1 transition-colors border border-transparent hover:border-black"
+                  >
+                    <span>{page.label}</span>
+                    <CheckCircle2 size={12} className="text-yellow-500 shrink-0" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Tools & Utilities */}
+          <section className="bg-white dark:bg-[#181922] border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-4 md:col-span-2">
+            <div className="flex items-center justify-between border-b-2 border-black pb-2">
+              <h3 className="text-xl font-black uppercase">Web Utilities ({filteredTools.length})</h3>
+              <span className="text-xs font-black bg-yellow-400 text-black px-2 py-0.5 border border-black">
+                Client-Side
+              </span>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3 pt-1">
+              {filteredTools.map(tool => (
+                <div key={tool.id} className="space-y-1">
+                  <Link 
+                    to={`/tools/${tool.slug}`} 
+                    className="block font-black text-sm uppercase underline hover:bg-yellow-400 hover:text-black px-1.5 py-0.5 transition-colors border border-transparent hover:border-black"
+                  >
+                    {tool.name}
+                  </Link>
+                  {tool.aliases && tool.aliases.length > 0 && (
+                    <div className="pl-4 flex flex-wrap gap-1 text-[11px] font-bold text-neutral-500 dark:text-neutral-400">
+                      {tool.aliases.map(alias => (
+                        <Link 
+                          key={alias} 
+                          to={`/tools/${alias}`} 
+                          className="hover:text-black dark:hover:text-white underline decoration-dotted"
+                        >
+                          +{alias.replace(/-/g, ' ')}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Technical Guides & Articles */}
+          <section className="bg-white dark:bg-[#181922] border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-4 md:col-span-3">
+            <div className="flex items-center justify-between border-b-2 border-black pb-2">
+              <h3 className="text-xl font-black uppercase">Technical Guides & Articles ({filteredBlogPosts.length})</h3>
+              <span className="text-xs font-black bg-neutral-200 dark:bg-neutral-700 px-2 py-0.5 border border-black">
+                Verified Content
+              </span>
+            </div>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 pt-1">
+              {filteredBlogPosts.map(post => (
+                <Link
+                  key={post.id}
+                  to={`/blog/${post.slug}`}
+                  className="p-3 bg-neutral-50 dark:bg-neutral-900 border-2 border-black hover:bg-yellow-400 hover:text-black transition-all space-y-1"
+                >
+                  <p className="font-bold text-xs uppercase line-clamp-2">{post.title}</p>
+                  <span className="text-[10px] font-mono text-neutral-500 uppercase">{post.date}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );
 }
+
