@@ -2,10 +2,11 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { BLOG_POSTS } from '../data/blogData';
-import { SITE_URL } from '../config/site';
+import { generateCanonicalUrl } from '../utils/seo';
 
 export default function BlogPage() {
   const [subscribed, setSubscribed] = useState(false);
+  const canonicalUrl = generateCanonicalUrl('/blog');
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,13 +18,16 @@ export default function BlogPage() {
       <Helmet>
         <title>Blog | ToolKitPro Insights</title>
         <meta name="description" content="Stay updated with the latest in health metrics, web development utilities, and data security from the ToolKitPro editorial team." />
-        <link rel="canonical" href={`${SITE_URL}/blog`} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content="Blog | ToolKitPro Insights" />
+        <meta property="og:description" content="Stay updated with the latest in health metrics, web development utilities, and data security from the ToolKitPro editorial team." />
+        <meta property="og:url" content={canonicalUrl} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Blog",
             "name": "ToolKitPro Blog",
-            "url": `${SITE_URL}/blog`,
+            "url": canonicalUrl,
             "description": "Deep dives into the science, math, and technology behind our utility suite."
           })}
         </script>

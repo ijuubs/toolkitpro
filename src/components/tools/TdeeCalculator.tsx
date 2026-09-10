@@ -105,14 +105,14 @@ export default function TdeeCalculator() {
           <h2 className="text-2xl font-black uppercase mb-4 text-center">Your Energy Needs</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
              <div className="bg-white border-4 border-black p-4 text-center">
-              <div className="text-sm font-bold uppercase text-gray-600 mb-1">BMR (Basal Metabolic Rate)</div>
+              <div className="text-sm font-bold uppercase text-neutral-800 dark:text-neutral-200 mb-1">BMR (Basal Metabolic Rate)</div>
               <div className="text-3xl font-black">{Math.round(results.bmr).toLocaleString()}</div>
-              <div className="text-xs font-bold text-gray-400 mt-1 uppercase">Calories / Day (At Rest)</div>
+              <div className="text-xs font-bold text-neutral-700 dark:text-neutral-300 mt-1 uppercase">Calories / Day (At Rest)</div>
             </div>
             <div className="bg-black border-4 border-black p-4 text-center text-white">
               <div className="text-sm font-bold uppercase text-yellow-400 mb-1">TDEE (Maintenance)</div>
               <div className="text-4xl font-black">{Math.round(results.tdee).toLocaleString()}</div>
-              <div className="text-xs font-bold text-gray-400 mt-1 uppercase">Calories / Day (Active)</div>
+              <div className="text-xs font-bold text-neutral-300 mt-1 uppercase">Calories / Day (Active)</div>
             </div>
           </div>
           

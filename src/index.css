@@ -94,12 +94,9 @@ body {
 .dark .text-gray-800,
 .dark .text-gray-700,
 .dark .text-gray-600,
-.dark .text-gray-500 {
-  color: #d1d5db !important;
-}
-
+.dark .text-gray-500,
 .dark .text-gray-400 {
-  color: #9ca3af !important;
+  color: #e5e7eb !important;
 }
 
 /* Inputs, Textareas, Selects in Dark Mode */
@@ -205,3 +202,46 @@ body {
   font-weight: 900;
   color: var(--g6);
 }
+
+/* ==========================================================================
+   Premium Neu-Brutalist CSS Skeleton Loading
+   ========================================================================== */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.05) 20%,
+    rgba(0, 0, 0, 0.14) 40%,
+    rgba(250, 204, 21, 0.25) 50%,
+    rgba(0, 0, 0, 0.14) 60%,
+    rgba(0, 0, 0, 0.05) 80%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  background-size: 300% 100%;
+  animation: skeleton-shimmer 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.dark .skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.04) 20%,
+    rgba(255, 255, 255, 0.14) 40%,
+    rgba(250, 204, 21, 0.3) 50%,
+    rgba(255, 255, 255, 0.14) 60%,
+    rgba(255, 255, 255, 0.04) 80%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 300% 100%;
+  animation: skeleton-shimmer 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+

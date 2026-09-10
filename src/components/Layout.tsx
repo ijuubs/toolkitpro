@@ -110,7 +110,7 @@ export default function Layout() {
           </div>
         </div>
         
-        <div className="max-w-[1200px] mx-auto mt-20 pt-8 border-t border-gray-800 text-xs font-black uppercase tracking-widest text-gray-400 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="max-w-[1200px] mx-auto mt-20 pt-8 border-t border-neutral-800 text-xs font-black uppercase tracking-widest text-neutral-300 flex flex-col md:flex-row justify-between items-center gap-4">
           <p>&copy; {new Date().getFullYear()} ToolKitPro. Designed for High-Performance Utilities.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-white transition-colors">Twitter</a>

@@ -97,15 +97,15 @@ export default function AgeCalculator() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-black border-4 border-black p-4 text-center text-white">
-              <div className="text-sm font-bold uppercase text-gray-400 mb-1">Total Months</div>
+              <div className="text-sm font-bold uppercase text-neutral-300 mb-1">Total Months</div>
               <div className="text-2xl font-black">{results.totalMonths.toLocaleString()}</div>
             </div>
             <div className="bg-black border-4 border-black p-4 text-center text-white">
-              <div className="text-sm font-bold uppercase text-gray-400 mb-1">Total Weeks</div>
+              <div className="text-sm font-bold uppercase text-neutral-300 mb-1">Total Weeks</div>
               <div className="text-2xl font-black">{results.totalWeeks.toLocaleString()}</div>
             </div>
             <div className="bg-black border-4 border-black p-4 text-center text-white">
-              <div className="text-sm font-bold uppercase text-gray-400 mb-1">Total Days</div>
+              <div className="text-sm font-bold uppercase text-neutral-300 mb-1">Total Days</div>
               <div className="text-2xl font-black">{results.totalDays.toLocaleString()}</div>
             </div>
           </div>

@@ -10,7 +10,8 @@ import {
   GA_MEASUREMENT_ID
 } from '../utils/analytics';
 import Breadcrumbs from '../components/Breadcrumbs';
-import { SITE_URL } from '../config/site';
+import { PageSkeleton } from '../components/SkeletonLoader';
+import { generateCanonicalUrl } from '../utils/seo';
 
 export default function AnalyticsPage() {
   const [data, setData] = useState<AnalyticsSummary | null>(null);
@@ -70,27 +71,27 @@ export default function AnalyticsPage() {
   };
 
   if (!data) {
-    return (
-      <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="w-16 h-16 border-8 border-black border-t-yellow-400 rounded-full animate-spin"></div>
-      </div>
-    );
+    return <PageSkeleton />;
   }
 
   const maxToolCount = Math.max(...data.toolUsageRanking.map(t => t.count), 1);
+  const canonicalUrl = generateCanonicalUrl('/analytics');
 
   return (
     <div className="space-y-12 max-w-[1200px] mx-auto pb-16">
       <Helmet>
         <title>Web Analytics Dashboard | ToolKitPro</title>
         <meta name="description" content="Live web analytics for ToolKitPro: Track page views, unique visitors, tool usage frequency, and conversion rates for downloads." />
-        <link rel="canonical" href={`${SITE_URL}/analytics`} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content="Web Analytics Dashboard | ToolKitPro" />
+        <meta property="og:description" content="Live web analytics for ToolKitPro: Track page views, unique visitors, tool usage frequency, and conversion rates for downloads." />
+        <meta property="og:url" content={canonicalUrl} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Web Analytics Dashboard - ToolKitPro",
-            "url": `${SITE_URL}/analytics`,
+            "url": canonicalUrl,
             "description": "Live metrics, tool usage frequency, and download conversion rates."
           })}
         </script>
@@ -190,30 +191,30 @@ export default function AnalyticsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Page Views */}
         <div className="bg-white dark:bg-[#1a1a1a] border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden">
-          <div className="text-xs font-black uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
+          <div className="text-xs font-black uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1">
             Total Traffic
           </div>
           <h3 className="text-2xl font-black uppercase text-black dark:text-white mb-2">
             Page Views
           </h3>
-          <p className="text-5xl font-black tracking-tight text-blue-600 dark:text-blue-400 font-mono">
+          <p className="text-5xl font-black tracking-tight text-blue-700 dark:text-blue-400 font-mono">
             {data.totalPageViews.toLocaleString()}
           </p>
           <div className="mt-4 pt-3 border-t-2 border-black text-xs font-bold flex justify-between">
             <span>Route Changes:</span>
-            <span className="font-mono text-green-600">Active</span>
+            <span className="font-mono text-green-700 dark:text-green-400 font-bold">Active</span>
           </div>
         </div>
 
         {/* Unique Visitors */}
         <div className="bg-white dark:bg-[#1a1a1a] border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden">
-          <div className="text-xs font-black uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
+          <div className="text-xs font-black uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1">
             Audience Reach
           </div>
           <h3 className="text-2xl font-black uppercase text-black dark:text-white mb-2">
             Unique Visitors
           </h3>
-          <p className="text-5xl font-black tracking-tight text-purple-600 dark:text-purple-400 font-mono">
+          <p className="text-5xl font-black tracking-tight text-purple-700 dark:text-purple-400 font-mono">
             {data.uniqueVisitorsCount.toLocaleString()}
           </p>
           <div className="mt-4 pt-3 border-t-2 border-black text-xs font-bold flex justify-between">
@@ -224,13 +225,13 @@ export default function AnalyticsPage() {
 
         {/* Tool Usage Frequency */}
         <div className="bg-white dark:bg-[#1a1a1a] border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden">
-          <div className="text-xs font-black uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
+          <div className="text-xs font-black uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1">
             Engagement
           </div>
           <h3 className="text-2xl font-black uppercase text-black dark:text-white mb-2">
             Tool Usages
           </h3>
-          <p className="text-5xl font-black tracking-tight text-yellow-500 dark:text-yellow-400 font-mono">
+          <p className="text-5xl font-black tracking-tight text-amber-800 dark:text-yellow-300 font-mono">
             {data.totalToolUsages.toLocaleString()}
           </p>
           <div className="mt-4 pt-3 border-t-2 border-black text-xs font-bold flex justify-between">
@@ -241,13 +242,13 @@ export default function AnalyticsPage() {
 
         {/* Conversion Rate */}
         <div className="bg-white dark:bg-[#1a1a1a] border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden">
-          <div className="text-xs font-black uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
+          <div className="text-xs font-black uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-1">
             Fulfillment
           </div>
           <h3 className="text-2xl font-black uppercase text-black dark:text-white mb-2">
             Download Conv.
           </h3>
-          <p className="text-5xl font-black tracking-tight text-green-600 dark:text-green-400 font-mono">
+          <p className="text-5xl font-black tracking-tight text-green-700 dark:text-green-400 font-mono">
             {data.overallConversionRate}%
           </p>
           <div className="mt-4 pt-3 border-t-2 border-black text-xs font-bold flex justify-between">

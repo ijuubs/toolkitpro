@@ -49,13 +49,13 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         
         {items.map((item, index) => (
           <div key={index} className="flex items-center space-x-2">
-            <ChevronRight size={14} className="text-gray-500 dark:text-gray-300" />
+            <ChevronRight size={14} className="text-black dark:text-white" />
             {item.path ? (
               <Link to={item.path} className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">
                 {item.label}
               </Link>
             ) : (
-              <span className="text-gray-600 dark:text-gray-300 cursor-default">{item.label}</span>
+              <span className="text-neutral-900 dark:text-neutral-100 font-black cursor-default">{item.label}</span>
             )}
           </div>
         ))}

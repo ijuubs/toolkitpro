@@ -130,7 +130,7 @@ export default function HomePage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for a tool... (e.g. JSON Formatter, Unit Converter, Loan Calculator)" 
-                className="w-full text-base sm:text-lg md:text-xl font-bold px-4 py-2 border-2 border-transparent focus:border-black focus:outline-none placeholder-gray-500"
+                className="w-full text-base sm:text-lg md:text-xl font-bold px-4 py-2 border-2 border-transparent focus:border-black focus:outline-none placeholder-neutral-600 dark:placeholder-neutral-400"
               />
               <button 
                 onClick={() => setSearchQuery('')}
@@ -184,7 +184,7 @@ export default function HomePage() {
               {activeCategory !== 'all' && (
                 <button 
                   onClick={() => setActiveCategory('all')} 
-                  className="text-xs font-black uppercase underline hover:text-yellow-500 transition-colors"
+                  className="text-xs font-black uppercase underline hover:bg-yellow-300 hover:text-black px-1.5 py-0.5 border border-black transition-colors"
                 >
                   Reset Category Filter
                 </button>
@@ -222,8 +222,10 @@ export default function HomePage() {
                           <p className="font-medium text-sm md:text-base text-[var(--muted)] leading-relaxed">{tool.description}</p>
                         </div>
                         <div className="mt-6 pt-3 border-t-2 border-black flex items-center justify-between text-xs font-black uppercase">
-                          <span className="text-yellow-600 dark:text-yellow-400 font-black">Open Tool</span>
-                          <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400">100% Client-Side</span>
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-yellow-300 text-black border-2 border-black font-black text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] group-hover:bg-black group-hover:text-yellow-300 group-hover:shadow-none transition-all">
+                            Open Tool <span aria-hidden="true">→</span>
+                          </span>
+                          <span className="text-[11px] font-black text-black dark:text-white tracking-wide">100% Client-Side</span>
                         </div>
                     </Link>
                     {/* Insert an ad after every 6 tools for in-feed monetization */}
@@ -327,9 +329,9 @@ export default function HomePage() {
               {BLOG_POSTS.slice(0, 3).map(post => (
                 <Link key={post.id} to={`/blog/${post.slug}`} className="block border-4 border-black bg-white hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_rgba(251,191,36,1)] transition-all flex flex-col h-full">
                   <div className="p-4 sm:p-6 flex flex-col flex-grow">
-                    <div className="text-xs font-black uppercase text-gray-600 mb-2">{post.category}</div>
+                    <div className="text-xs font-black uppercase text-neutral-900 dark:text-neutral-100 mb-2">{post.category}</div>
                     <h3 className="text-xl sm:text-2xl font-black uppercase mb-3 leading-tight">{post.title}</h3>
-                    <p className="font-medium text-sm sm:text-base text-gray-700 flex-grow">{post.excerpt}</p>
+                    <p className="font-medium text-sm sm:text-base text-neutral-900 dark:text-neutral-100 flex-grow">{post.excerpt}</p>
                     <div className="mt-4 pt-4 border-t-2 border-black flex justify-between items-center text-xs font-bold uppercase">
                       <span>{post.date}</span>
                       <span>{post.readTime}</span>
