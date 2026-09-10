@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { SITE_URL } from '../config/site';
 
 export default function TermsPage() {
   return (
@@ -6,13 +7,13 @@ export default function TermsPage() {
       <Helmet>
         <title>Terms & Conditions | ToolKitPro</title>
         <meta name="description" content="View the Terms and Conditions for using the ToolKitPro utility platform." />
-        <link rel="canonical" href="https://toolkitpro.app/terms" />
+        <link rel="canonical" href={`${SITE_URL}/terms`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Terms & Conditions - ToolKitPro",
-            "url": "https://toolkitpro.app/terms",
+            "url": `${SITE_URL}/terms`,
             "description": "View the Terms and Conditions for using the ToolKitPro utility platform."
           })}
         </script>

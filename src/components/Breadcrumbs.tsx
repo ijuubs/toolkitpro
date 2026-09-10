@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import { SITE_URL } from '../config/site';
 
 interface BreadcrumbItem {
   label: string;
@@ -17,13 +18,13 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://toolkitpro.app/"
+      "item": `${SITE_URL}/`
     },
     ...items.map((item, index) => ({
       "@type": "ListItem",
       "position": index + 2,
       "name": item.label,
-      "item": item.path ? `https://toolkitpro.app${item.path}` : undefined
+      "item": item.path ? `${SITE_URL}${item.path}` : undefined
     }))
   ];
 
@@ -41,20 +42,20 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         </script>
       </Helmet>
       <nav className="flex items-center space-x-2 text-sm font-black uppercase tracking-wider mb-6 overflow-x-auto no-scrollbar whitespace-nowrap py-2">
-        <Link to="/" className="flex items-center gap-1 hover:text-yellow-600 transition-colors">
+        <Link to="/" className="flex items-center gap-1 hover:bg-yellow-400 hover:text-black px-1 transition-colors">
           <Home size={14} />
           <span>Home</span>
         </Link>
         
         {items.map((item, index) => (
           <div key={index} className="flex items-center space-x-2">
-            <ChevronRight size={14} className="text-gray-600" />
+            <ChevronRight size={14} className="text-black dark:text-white" />
             {item.path ? (
-              <Link to={item.path} className="hover:text-yellow-600 transition-colors">
+              <Link to={item.path} className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">
                 {item.label}
               </Link>
             ) : (
-              <span className="text-gray-600 cursor-default">{item.label}</span>
+              <span className="text-neutral-900 dark:text-neutral-100 font-black cursor-default">{item.label}</span>
             )}
           </div>
         ))}

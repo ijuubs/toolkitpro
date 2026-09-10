@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
+import { SITE_URL } from '../config/site';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
@@ -17,13 +18,13 @@ export default function ContactPage() {
       <Helmet>
         <title>Contact Us | ToolKitPro</title>
         <meta name="description" content="Reach out to the ToolKitPro team for support, feature requests, or business inquiries." />
-        <link rel="canonical" href="https://toolkitpro.app/contact" />
+        <link rel="canonical" href={`${SITE_URL}/contact`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ContactPage",
             "name": "Contact Us - ToolKitPro",
-            "url": "https://toolkitpro.app/contact",
+            "url": `${SITE_URL}/contact`,
             "description": "Reach out to the ToolKitPro team for support, feature requests, or business inquiries."
           })}
         </script>

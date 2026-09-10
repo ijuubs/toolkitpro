@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { SITE_URL } from '../config/site';
 
 const FAQS = [
   {
@@ -33,13 +34,13 @@ export default function FAQPage() {
       <Helmet>
         <title>FAQ | ToolKitPro</title>
         <meta name="description" content="Frequently Asked Questions about ToolKitPro's privacy, tools, and mission." />
-        <link rel="canonical" href="https://toolkitpro.app/faq" />
+        <link rel="canonical" href={`${SITE_URL}/faq`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "FAQPage",
             "name": "FAQ - ToolKitPro",
-            "url": "https://toolkitpro.app/faq",
+            "url": `${SITE_URL}/faq`,
             "mainEntity": FAQS.map(faq => ({
               "@type": "Question",
               "name": faq.q,

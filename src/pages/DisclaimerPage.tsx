@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { SITE_URL } from '../config/site';
 
 export default function DisclaimerPage() {
   return (
@@ -6,13 +7,13 @@ export default function DisclaimerPage() {
       <Helmet>
         <title>Disclaimer | ToolKitPro</title>
         <meta name="description" content="Important disclaimer regarding the use of utility tools and calculators on ToolKitPro." />
-        <link rel="canonical" href="https://toolkitpro.app/disclaimer" />
+        <link rel="canonical" href={`${SITE_URL}/disclaimer`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Disclaimer - ToolKitPro",
-            "url": "https://toolkitpro.app/disclaimer",
+            "url": `${SITE_URL}/disclaimer`,
             "description": "Important disclaimer regarding the use of utility tools and calculators on ToolKitPro."
           })}
         </script>

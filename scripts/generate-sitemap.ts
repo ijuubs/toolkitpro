@@ -7,25 +7,54 @@ import { BLOG_POSTS } from '../src/data/blogData';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BASE_URL = 'https://toolkitpro-e5y5.vercel.app';
+const getBaseUrl = () => {
+  if (process.env.VITE_SITE_URL && process.env.VITE_SITE_URL.trim() !== '') {
+    return process.env.VITE_SITE_URL.replace(/\/+$/, '');
+  }
+  if (process.env.SITE_URL && process.env.SITE_URL.trim() !== '') {
+    return process.env.SITE_URL.replace(/\/+$/, '');
+  }
+  return 'https://toolkitpro-e5y5.vercel.app';
+};
+
+const BASE_URL = getBaseUrl();
+const TODAY = new Date().toISOString().split('T')[0];
 
 function generateSitemap() {
   const sitemapHeader = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
-  const sitemapFooter = `\n</urlset>`;
+  const sitemapFooter = `\n</urlset>\n`;
 
-  const urls = [
-    { loc: `${BASE_URL}/`, priority: '1.0' },
-    { loc: `${BASE_URL}/blog`, priority: '0.9' },
-    { loc: `${BASE_URL}/about`, priority: '0.8' },
-    { loc: `${BASE_URL}/contact`, priority: '0.7' },
-    { loc: `${BASE_URL}/faq`, priority: '0.7' },
+  const staticRoutes = [
+    { path: '/', priority: '1.0', changefreq: 'daily' },
+    { path: '/blog', priority: '0.9', changefreq: 'weekly' },
+    { path: '/about', priority: '0.8', changefreq: 'monthly' },
+    { path: '/contact', priority: '0.7', changefreq: 'monthly' },
+    { path: '/faq', priority: '0.7', changefreq: 'weekly' },
+    { path: '/analytics', priority: '0.6', changefreq: 'monthly' },
+    { path: '/sitemap', priority: '0.5', changefreq: 'weekly' },
+    { path: '/privacy', priority: '0.3', changefreq: 'monthly' },
+    { path: '/terms', priority: '0.3', changefreq: 'monthly' },
+    { path: '/disclaimer', priority: '0.3', changefreq: 'monthly' },
   ];
+
+  const urls: Array<{ loc: string; priority: string; changefreq: string; lastmod: string }> = [];
+
+  staticRoutes.forEach(route => {
+    urls.push({
+      loc: route.path === '/' ? `${BASE_URL}/` : `${BASE_URL}${route.path}`,
+      priority: route.priority,
+      changefreq: route.changefreq,
+      lastmod: TODAY,
+    });
+  });
 
   TOOLS.forEach((tool) => {
     urls.push({
       loc: `${BASE_URL}/tools/${tool.slug}`,
       priority: '0.9',
+      changefreq: 'weekly',
+      lastmod: TODAY,
     });
   });
 
@@ -33,29 +62,62 @@ function generateSitemap() {
     urls.push({
       loc: `${BASE_URL}/blog/${post.slug}`,
       priority: '0.8',
+      changefreq: 'monthly',
+      lastmod: TODAY,
     });
   });
 
   const urlNodes = urls
     .map(
-      (url) => `
-  <url>
+      (url) => `  <url>
     <loc>${url.loc}</loc>
+    <lastmod>${url.lastmod}</lastmod>
+    <changefreq>${url.changefreq}</changefreq>
     <priority>${url.priority}</priority>
-    <changefreq>weekly</changefreq>
   </url>`
     )
-    .join('');
+    .join('\n');
 
-  const sitemapContent = `${sitemapHeader}${urlNodes}${sitemapFooter}`;
+  const sitemapContent = `${sitemapHeader}\n${urlNodes}${sitemapFooter}`;
 
   const publicDir = path.join(__dirname, '..', 'public');
   if (!fs.existsSync(publicDir)) {
     fs.mkdirSync(publicDir, { recursive: true });
   }
-
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapContent, 'utf8');
-  console.log('Sitemap successfully generated at public/sitemap.xml');
+
+  // Also update robots.txt with current base URL
+  const robotsTxtContent = `User-agent: *
+Allow: /
+
+# Allow Google AdSense crawler
+User-agent: Mediapartners-Google
+Allow: /
+
+# Allow AI Search Crawlers
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: ${BASE_URL}/sitemap.xml
+`;
+  fs.writeFileSync(path.join(publicDir, 'robots.txt'), robotsTxtContent, 'utf8');
+
+  const distDir = path.join(__dirname, '..', 'dist');
+  if (fs.existsSync(distDir)) {
+    fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapContent, 'utf8');
+    fs.writeFileSync(path.join(distDir, 'robots.txt'), robotsTxtContent, 'utf8');
+  }
+
+  console.log(`Sitemap generated successfully (${urls.length} URLs, domain: ${BASE_URL})`);
 }
 
 generateSitemap();

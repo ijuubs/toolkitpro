@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { SITE_URL } from '../config/site';
 
 export default function PrivacyPage() {
   return (
@@ -6,13 +7,13 @@ export default function PrivacyPage() {
       <Helmet>
         <title>Privacy Policy | ToolKitPro</title>
         <meta name="description" content="Read our Privacy Policy to understand how ToolKitPro handles your data with transparency and security." />
-        <link rel="canonical" href="https://toolkitpro.app/privacy" />
+        <link rel="canonical" href={`${SITE_URL}/privacy`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Privacy Policy - ToolKitPro",
-            "url": "https://toolkitpro.app/privacy",
+            "url": `${SITE_URL}/privacy`,
             "description": "Read our Privacy Policy to understand how ToolKitPro handles your data with transparency and security."
           })}
         </script>

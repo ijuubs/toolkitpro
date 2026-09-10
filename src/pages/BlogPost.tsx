@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { BLOG_POSTS } from '../data/blogData';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ReactMarkdown from 'react-markdown';
+import { generateBlogSEO } from '../utils/seo';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -17,34 +18,23 @@ export default function BlogPost() {
     );
   }
 
+  const { titleTag, metaDescription, canonicalUrl, structuredData } = generateBlogSEO(post);
+
   return (
     <div className="max-w-4xl mx-auto py-12 px-4 space-y-8">
       <Helmet>
-        <title>{post.title} | ToolKitPro Blog</title>
-        <meta name="description" content={post.excerpt} />
-        <link rel="canonical" href={`https://toolkitpro.app/blog/${post.slug}`} />
+        <title>{titleTag}</title>
+        <meta name="description" content={metaDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={titleTag} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={titleTag} />
+        <meta name="twitter:description" content={metaDescription} />
         <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": post.title,
-            "description": post.excerpt,
-            "datePublished": post.date,
-            "author": {
-              "@type": "Person",
-              "name": post.author
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "ToolKitPro",
-              "url": "https://toolkitpro.app/",
-              "logo": "https://toolkitpro.app/toolkitpro-logo.jpg"
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": `https://toolkitpro.app/blog/${post.slug}`
-            }
-          })}
+          {JSON.stringify(structuredData)}
         </script>
       </Helmet>
 

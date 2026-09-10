@@ -4,10 +4,11 @@ import { TOOLS } from '../data/toolsData';
 import { Suspense, lazy, useEffect } from 'react';
 import { trackToolView } from '../utils/analytics';
 import AdSlot from '../components/AdSlot';
-import AdsterraSlot from '../components/AdsterraSlot';
 import ErrorBoundary from '../components/ErrorBoundary';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ReactMarkdown from 'react-markdown';
+import { generateToolSEO } from '../utils/seo';
+import { ToolSkeleton } from '../components/SkeletonLoader';
 
 // Lazy load tools
 const WordCounter = lazy(() => import('../components/tools/WordCounter'));
@@ -59,11 +60,15 @@ export default function ToolTemplate() {
     );
   }
 
-  // Determine if we are on an alias and set dynamic title
-  const isAlias = tool.aliases?.includes(slug || '');
-  const displayTitle = isAlias && slug 
-    ? slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') 
-    : tool.name;
+  // Generate dynamic SEO metadata, canonical URL, and structured data
+  const {
+    displayTitle,
+    titleTag,
+    metaDescription,
+    canonicalUrl,
+    currentUrl,
+    structuredData
+  } = generateToolSEO(tool, slug);
 
   useEffect(() => {
     if (tool) {
@@ -112,35 +117,6 @@ export default function ToolTemplate() {
     .filter(t => t.id !== tool.id && (t.category === tool.category))
     .slice(0, 4);
 
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": displayTitle,
-      "description": tool.metaDescription || tool.description,
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "featureList": tool.description
-    },
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": tool.faqs.map(faq => ({
-            "@type": "Question",
-            "name": faq.question,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.answer
-            }
-        }))
-    }
-  ];
-
   return (
     <div className="flex flex-col lg:flex-row gap-8">
       {/* Sticky Sidebar */}
@@ -186,18 +162,18 @@ export default function ToolTemplate() {
       {/* Main Content */}
       <div className="flex-1 space-y-8 min-w-0 order-1 lg:order-2">
         <Helmet>
-          <title>{tool.titleTag || `${displayTitle} | ToolKitPro`}</title>
-          <meta name="description" content={tool.metaDescription || tool.description} />
+          <title>{titleTag}</title>
+          <meta name="description" content={metaDescription} />
           
-          <link rel="canonical" href={`https://toolkitpro.app/tools/${tool.slug}`} />
-          <meta property="og:title" content={tool.titleTag || `${displayTitle} | ToolKitPro`} />
-          <meta property="og:description" content={tool.metaDescription || tool.description} />
-          <meta property="og:url" content={`https://toolkitpro.app/tools/${tool.slug}`} />
+          <link rel="canonical" href={canonicalUrl} />
+          <meta property="og:title" content={titleTag} />
+          <meta property="og:description" content={metaDescription} />
+          <meta property="og:url" content={currentUrl} />
           <meta property="og:type" content="website" />
           
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={tool.titleTag || `${displayTitle} | ToolKitPro`} />
-          <meta name="twitter:description" content={tool.metaDescription || tool.description} />
+          <meta name="twitter:title" content={titleTag} />
+          <meta name="twitter:description" content={metaDescription} />
 
           <script type="application/ld+json">
             {JSON.stringify(structuredData)}
@@ -212,7 +188,7 @@ export default function ToolTemplate() {
 
         <div className="bg-[var(--surface)] border-4 border-black p-4 sm:p-8 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] min-h-[400px]">
           <ErrorBoundary>
-            <Suspense fallback={<div className="text-center font-bold uppercase animate-pulse">Loading tool interface...</div>}>
+            <Suspense fallback={<ToolSkeleton />}>
                 {renderTool()}
             </Suspense>
           </ErrorBoundary>
@@ -247,8 +223,6 @@ export default function ToolTemplate() {
                 </div>
             ))}
           </div>
-
-          <AdsterraSlot id="footer-banner" minHeight="150px" className="mt-16" />
         </section>
       </div>
     </div>

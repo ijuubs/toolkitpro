@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense, lazy, useEffect } from 'react';
 import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
+import GlobalErrorOverlay from './components/GlobalErrorOverlay';
+import { PageSkeleton } from './components/SkeletonLoader';
 import { ThemeProvider } from './context/ThemeProvider';
 import { initAnalytics, trackPageView } from './utils/analytics';
 
@@ -20,12 +22,15 @@ const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
-// Simple loading fallback
-const LoadingFallback = () => (
-  <div className="flex items-center justify-center min-h-[60vh]">
-    <div className="w-16 h-16 border-8 border-black border-t-yellow-400 rounded-full animate-spin"></div>
-  </div>
-);
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  return null;
+}
 
 function AnalyticsTracker() {
   const location = useLocation();
@@ -47,97 +52,99 @@ function AnalyticsTracker() {
 export default function App() {
   return (
     <ThemeProvider>
+      <GlobalErrorOverlay />
       <BrowserRouter>
+        <ScrollToTop />
         <AnalyticsTracker />
         <Routes>
             <Route path="/" element={<Layout />}>
             <Route index element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <HomePage />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="analytics" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <AnalyticsPage />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="tools/:slug" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <ToolTemplate />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="about" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <AboutPage />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="contact" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <ContactPage />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="privacy" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <PrivacyPage />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="terms" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <TermsPage />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="disclaimer" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <DisclaimerPage />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="faq" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <FAQPage />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="sitemap" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <SitemapPage />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="blog" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <BlogPage />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="blog/:slug" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <BlogPost />
               </Suspense>
               </ErrorBoundary>
             } />
             <Route path="*" element={
               <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
+              <Suspense fallback={<PageSkeleton />}>
                 <NotFound />
               </Suspense>
               </ErrorBoundary>
