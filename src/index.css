@@ -1,28 +1,169 @@
 @import "tailwindcss";
 @import "./toolverde-theme.css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
-  --color-black: var(--border);
-  --color-white: var(--surface);
 }
 
 body {
   background-color: var(--g0);
   color: var(--ink);
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+/* Light mode defaults (WCAG AAA Compliant) */
+:root {
+  --g0: #f5f5f6;
+  --ink: #09090b;
+  --surface: #ffffff;
+  --muted: #27272a; /* 12.5:1 contrast against white */
+  --g6: #09090b;
+  --border: #000000;
+}
+
+/* Dark mode (MS-DOS 5.0 High Contrast & Neu-Brutalism) */
 .dark {
-  --g0: #212121; /* Slightly lighter and warmer than before */
-  --ink: #f0f0f0;
-  --surface: #2d2d2d;
-  --muted: #9e9e9e;
-  --g6: #fafafa;
-  --border: #b0b0b0; /* Softer light border for dark mode */
+  --g0: #0d0e12; /* Deep terminal background */
+  --ink: #ffffff; /* Crisp white body text (17:1 on card surface) */
+  --surface: #181922; /* Solid card surface */
+  --muted: #d1d5db; /* Clean readable silver text (10:1 on card surface) */
+  --g6: #ffffff; /* Crisp white headings */
+  --border: #ffffff; /* MS-DOS white window borders */
 }
 
+/* Accessible High-Contrast Dark Mode Overrides */
+.dark body {
+  background-color: #0d0e12 !important;
+  color: #ffffff !important;
+}
+
+/* Borders in Dark Mode */
+.dark .border-black,
+.dark .border-2.border-black,
+.dark .border-4.border-black,
+.dark .border-8.border-black,
+.dark .border-t-black,
+.dark .border-b-black,
+.dark .border-l-black,
+.dark .border-r-black,
+.dark [class*="border-black"] {
+  border-color: #ffffff !important;
+}
+
+/* Background surfaces in Dark Mode */
+.dark .bg-white {
+  background-color: #181922 !important;
+  color: #ffffff !important;
+}
+
+.dark .bg-yellow-50,
+.dark .bg-yellow-100 {
+  background-color: #1f1e14 !important;
+  border-color: #facc15 !important;
+  color: #f3f4f6 !important;
+}
+
+/* Pure Black Text on Yellow Accents (Always WCAG AAA 12.8:1 contrast in both light & dark) */
+.bg-yellow-400,
+.bg-yellow-300,
+.bg-yellow-200,
+.dark .bg-yellow-400,
+.dark .bg-yellow-300,
+.dark .bg-yellow-200 {
+  color: #000000 !important;
+}
+
+.bg-yellow-400 *,
+.bg-yellow-300 *,
+.bg-yellow-200 *,
+.dark .bg-yellow-400 *,
+.dark .bg-yellow-300 *,
+.dark .bg-yellow-200 * {
+  color: #000000 !important;
+}
+
+/* Text in Dark Mode: Prevent black-on-dark text */
+.dark .text-black:not(.bg-yellow-400 *):not(.bg-yellow-300 *):not(.bg-yellow-200 *):not(.bg-yellow-400):not(.bg-yellow-300):not(.bg-yellow-200) {
+  color: #ffffff !important;
+}
+
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700,
+.dark .text-gray-600,
+.dark .text-gray-500 {
+  color: #d1d5db !important;
+}
+
+.dark .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+/* Inputs, Textareas, Selects in Dark Mode */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #0d0e12 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: #facc15 !important;
+}
+
+/* MS-DOS 5.0 Box Shadows in Dark Mode */
+.dark [class*="shadow-["] {
+  box-shadow: 6px 6px 0px 0px #facc15 !important;
+}
+
+.dark [class*="shadow-[2px"] {
+  box-shadow: 2px 2px 0px 0px #facc15 !important;
+}
+
+.dark [class*="shadow-[3px"] {
+  box-shadow: 3px 3px 0px 0px #facc15 !important;
+}
+
+.dark [class*="shadow-[4px"] {
+  box-shadow: 4px 4px 0px 0px #facc15 !important;
+}
+
+.dark [class*="shadow-[6px"] {
+  box-shadow: 6px 6px 0px 0px #facc15 !important;
+}
+
+.dark [class*="shadow-[8px"] {
+  box-shadow: 8px 8px 0px 0px #facc15 !important;
+}
+
+.dark [class*="shadow-[16px"] {
+  box-shadow: 12px 12px 0px 0px #facc15 !important;
+}
+
+.dark [class*="hover:shadow-none"]:hover,
+.dark button:active,
+.dark [class*="active:shadow-none"]:active {
+  box-shadow: none !important;
+}
+
+/* Header in Dark Mode */
+.dark header {
+  background-color: rgba(13, 14, 18, 0.92) !important;
+  border-bottom-color: #ffffff !important;
+}
+
+/* Markdown documentation readability */
 .markdown-body h3 {
   font-size: 1.5rem;
   font-weight: 900;
@@ -42,20 +183,25 @@ body {
 
 .markdown-body p {
   margin-bottom: 1rem;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 .markdown-body ul {
   list-style-type: disc;
   padding-left: 1.5rem;
   margin-bottom: 1rem;
+  color: var(--muted);
 }
 
 .markdown-body ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
   margin-bottom: 1rem;
+  color: var(--muted);
 }
 
 .markdown-body strong {
   font-weight: 900;
+  color: var(--g6);
 }

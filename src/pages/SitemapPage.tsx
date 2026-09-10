@@ -33,32 +33,32 @@ export default function SitemapPage() {
       
       <div className="grid md:grid-cols-2 gap-12">
         <section className="space-y-6">
-          <h2 className="text-3xl font-black uppercase italic text-yellow-600">Main Pages</h2>
+          <h2 className="text-3xl font-black uppercase italic border-b-4 border-yellow-400 pb-2 inline-block">Main Pages</h2>
           <ul className="space-y-3 font-bold uppercase underline">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-            <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/privacy">Privacy Policy</Link></li>
-            <li><Link to="/terms">Terms of Service</Link></li>
-            <li><Link to="/disclaimer">Disclaimer</Link></li>
-            <li><Link to="/faq">FAQ</Link></li>
+            <li><Link to="/" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Home</Link></li>
+            <li><Link to="/about" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">About Us</Link></li>
+            <li><Link to="/contact" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Contact</Link></li>
+            <li><Link to="/blog" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Blog</Link></li>
+            <li><Link to="/privacy" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Privacy Policy</Link></li>
+            <li><Link to="/terms" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Terms of Service</Link></li>
+            <li><Link to="/disclaimer" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">Disclaimer</Link></li>
+            <li><Link to="/faq" className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">FAQ</Link></li>
           </ul>
         </section>
 
         <section className="space-y-6 md:col-span-2 lg:col-span-1">
-          <h2 className="text-3xl font-black uppercase italic text-yellow-600 border-b-4 border-yellow-600 pb-2">Utility Tools & Variations</h2>
+          <h2 className="text-3xl font-black uppercase italic border-b-4 border-yellow-400 pb-2 inline-block">Utility Tools & Variations</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-8 pt-4">
             {TOOLS.map(tool => (
               <div key={tool.id} className="space-y-3">
-                <Link to={`/tools/${tool.slug}`} className="block font-black text-xl uppercase underline hover:text-yellow-600 transition-colors">
+                <Link to={`/tools/${tool.slug}`} className="block font-black text-xl uppercase underline hover:bg-yellow-400 hover:text-black px-1 transition-colors">
                   {tool.name}
                 </Link>
                 {tool.aliases && tool.aliases.length > 0 && (
-                  <ul className="pl-6 space-y-2 text-xs font-bold uppercase text-gray-600 underline decoration-gray-300">
+                  <ul className="pl-6 space-y-2 text-xs font-bold uppercase text-[var(--muted)] underline decoration-gray-400">
                     {tool.aliases.map(alias => (
                       <li key={alias}>
-                        <Link to={`/tools/${alias}`} className="hover:text-black transition-colors">
+                        <Link to={`/tools/${alias}`} className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">
                           {alias.replace(/-/g, ' ')}
                         </Link>
                       </li>
@@ -71,10 +71,10 @@ export default function SitemapPage() {
         </section>
 
         <section className="space-y-6">
-          <h2 className="text-3xl font-black uppercase italic text-yellow-600">Blog Posts</h2>
+          <h2 className="text-3xl font-black uppercase italic border-b-4 border-yellow-400 pb-2 inline-block">Blog Posts</h2>
           <ul className="space-y-3 font-bold uppercase underline">
             {BLOG_POSTS.map(post => (
-              <li key={post.id}><Link to={`/blog/${post.slug}`}>{post.title}</Link></li>
+              <li key={post.id}><Link to={`/blog/${post.slug}`} className="hover:bg-yellow-400 hover:text-black px-1 transition-colors">{post.title}</Link></li>
             ))}
           </ul>
         </section>

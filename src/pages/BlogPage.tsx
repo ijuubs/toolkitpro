@@ -48,9 +48,9 @@ export default function BlogPage() {
                 </h2>
                 <p className="text-[var(--muted)] font-medium leading-relaxed">{post.excerpt}</p>
             </div>
-            <div className="p-6 border-t-4 border-black bg-gray-50 flex items-center justify-between">
+            <div className="p-6 border-t-4 border-black bg-white flex items-center justify-between">
                 <span className="text-sm font-bold italic">{post.date}</span>
-                <Link to={`/blog/${post.slug}`} className="font-black uppercase text-sm hover:text-yellow-600 underline">Read Article →</Link>
+                <Link to={`/blog/${post.slug}`} className="font-black uppercase text-sm hover:bg-yellow-400 hover:text-black px-1 underline transition-colors">Read Article →</Link>
             </div>
           </article>
         ))}

@@ -16,14 +16,50 @@
   <body>
     <div id="root"></div>
     <script>
-      // Clean up and unregister any legacy service workers
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for (var i = 0; i < registrations.length; i++) {
-            registrations[i].unregister();
-          }
-        }).catch(function() {});
-      }
+      (function() {
+        // 1. Force unregister all active and pending service workers
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (var i = 0; i < registrations.length; i++) {
+              registrations[i].unregister();
+            }
+          }).catch(function() {});
+        }
+
+        // 2. Purge all cache storage to remove cached ad network scripts
+        if ('caches' in window) {
+          caches.keys().then(function(names) {
+            for (var i = 0; i < names.length; i++) {
+              caches.delete(names[i]);
+            }
+          }).catch(function() {});
+        }
+
+        // 3. Clear any leftover storage keys from previous ad networks
+        try {
+          var cleanStorage = function(storage) {
+            for (var i = storage.length - 1; i >= 0; i--) {
+              var key = storage.key(i);
+              if (key && (/adsterra|monetag|quge|3nbf4|_as_|bluntutil/i.test(key))) {
+                storage.removeItem(key);
+              }
+            }
+          };
+          cleanStorage(localStorage);
+          cleanStorage(sessionStorage);
+        } catch (e) {}
+
+        // 4. Delete any IndexedDB databases created by ad networks
+        if (window.indexedDB && indexedDB.databases) {
+          indexedDB.databases().then(function(dbs) {
+            for (var i = 0; i < dbs.length; i++) {
+              if (dbs[i].name && /adsterra|monetag|push|sw/i.test(dbs[i].name)) {
+                indexedDB.deleteDatabase(dbs[i].name);
+              }
+            }
+          }).catch(function() {});
+        }
+      })();
     </script>
     <script type="module" src="/src/main.tsx"></script>
     

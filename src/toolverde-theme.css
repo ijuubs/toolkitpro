@@ -1,20 +1,22 @@
 /*
-  ToolVerde Design Tokens (CSS Variables)
-  Apply these to the ToolKitPro project to match the requested design.
+  ToolKitPro Design Tokens
+  Neu-Brutalist & MS-DOS 5.0 High Contrast Color System
+  WCAG AAA Compliant (> 7:1 for normal text, > 4.5:1 for large text)
 */
 :root {
-  --g0: #f5f5f5;
-  --g1: #e0e0e0;
-  --g2: #bdbdbd;
-  --g3: #9e9e9e;
-  --g4: #757575;
-  --g5: #616161;
-  --g6: #000000;
-  --ink: #000000;
-  --muted: #424242;
-  --surface: #ffffff;
-  --border: #000000;
+  --g0: #f5f5f6; /* Clean off-white canvas */
+  --g1: #e5e5e7;
+  --g2: #d4d4d8;
+  --g3: #a1a1aa;
+  --g4: #71717a;
+  --g5: #3f3f46;
+  --g6: #09090b; /* Pure black text */
+  --ink: #09090b; /* Crisp body text */
+  --muted: #27272a; /* Deep slate gray for readable body text (12.5:1 on white) */
+  --surface: #ffffff; /* Crisp white card surface */
+  --border: #000000; /* 4px solid black borders */
   --radius: 0px;
   --font-display: 'Inter', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
 }
+

@@ -5,15 +5,75 @@ import { TOOLS } from '../data/toolsData';
 import { BLOG_POSTS } from '../data/blogData';
 import AdSlot from '../components/AdSlot';
 
+interface PersonaCategory {
+  id: string;
+  label: string;
+  shortLabel: string;
+  badge: string;
+}
+
+const CATEGORIES: PersonaCategory[] = [
+  { id: 'all', label: 'All Tools', shortLabel: 'All', badge: 'All Utilities' },
+  { id: 'developers', label: '💻 Developers & Tech', shortLabel: 'Developers', badge: 'Developer' },
+  { id: 'homeowners-construction', label: '🏠 Homeowners & Construction', shortLabel: 'Construction & Home', badge: 'Construction' },
+  { id: 'finance-business', label: '📈 Finance & Business', shortLabel: 'Finance', badge: 'Finance' },
+  { id: 'health-lifestyle', label: '❤️ Health & Lifestyle', shortLabel: 'Health', badge: 'Health' },
+  { id: 'regional-fiji', label: '🌴 Fiji Utilities', shortLabel: 'Fiji Utilities', badge: 'Fiji Utility' }
+];
+
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('all');
 
-  const filteredTools = TOOLS.filter(tool => 
-    tool.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    tool.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    tool.aliases?.some(alias => alias.replace(/-/g, ' ').includes(searchQuery.toLowerCase()))
-  );
+  const isToolInPersona = (tool: typeof TOOLS[0], categoryId: string) => {
+    if (categoryId === 'all') return true;
+    if (categoryId === 'developers') {
+      return ['json-formatter', 'url-encoder', 'qr-code-generator', 'password-generator', 'color-picker', 'word-counter', 'pdf-compressor', 'image-resizer', 'lorem-ipsum'].includes(tool.id);
+    }
+    if (categoryId === 'homeowners-construction') {
+      return ['unit-converter', 'loan-calculator', 'percentage-calculator', 'fiji-mortgage-calculator', 'fiji-electricity-bill-calculator', 'fiji-vehicle-cost-calculator'].includes(tool.id);
+    }
+    if (categoryId === 'finance-business') {
+      return ['compound-interest-calculator', 'roi-calculator', 'sip-calculator', 'loan-calculator', 'percentage-calculator', 'fiji-salary-calculator', 'fiji-loan-repayment-calculator', 'fiji-duty-import-calculator'].includes(tool.id);
+    }
+    if (categoryId === 'health-lifestyle') {
+      return ['bmi-calculator', 'tdee-calculator', 'age-calculator', 'word-counter', 'password-generator', 'fiji-grocery-budget-calculator'].includes(tool.id);
+    }
+    if (categoryId === 'regional-fiji') {
+      return tool.category === 'Fiji Tools' || tool.id.startsWith('fiji-');
+    }
+    return true;
+  };
+
+  const filteredTools = TOOLS.filter(tool => {
+    const matchesCategory = isToolInPersona(tool, activeCategory);
+    const matchesSearch = !searchQuery.trim() || (
+      tool.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tool.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tool.aliases?.some(alias => alias.replace(/-/g, ' ').includes(searchQuery.toLowerCase()))
+    );
+    return matchesCategory && matchesSearch;
+  });
+
+  const getToolBadge = (tool: typeof TOOLS[0]) => {
+    if (['json-formatter', 'url-encoder', 'qr-code-generator', 'password-generator', 'color-picker', 'lorem-ipsum'].includes(tool.id)) {
+      return 'Developer';
+    }
+    if (['unit-converter', 'fiji-mortgage-calculator', 'fiji-electricity-bill-calculator'].includes(tool.id)) {
+      return 'Construction & Home';
+    }
+    if (['compound-interest-calculator', 'roi-calculator', 'sip-calculator', 'loan-calculator'].includes(tool.id)) {
+      return 'Finance';
+    }
+    if (['bmi-calculator', 'tdee-calculator', 'age-calculator'].includes(tool.id)) {
+      return 'Health & Lifestyle';
+    }
+    if (tool.id.startsWith('fiji-')) {
+      return 'Fiji Utility';
+    }
+    return tool.category.replace(' Tools', '');
+  };
 
   return (
     <div className="space-y-12 md:space-y-20">
@@ -61,27 +121,84 @@ export default function HomePage() {
             </p>
         </div>
 
-        {/* SEARCH BAR */}
-        <div className="bg-white border-4 border-black p-4 flex gap-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-            <input 
-              type="text" 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search for a tool... (e.g. JSON Formatter, Unit Converter)" 
-              className="w-full text-lg md:text-xl font-bold px-4 py-2 border-2 border-transparent focus:border-black focus:outline-none placeholder-gray-600"
-            />
-            {/* Keeping button for visual consistency, search works automatically onChange */}
-            <button className="bg-black text-white px-6 py-2 font-black uppercase tracking-wider hover:bg-yellow-400 hover:text-black transition-colors">
-              Search
-            </button>
+        {/* SEARCH BAR & CATEGORIES */}
+        <div className="space-y-6">
+          <div className="bg-white border-4 border-black p-4 flex flex-col sm:flex-row gap-3 sm:gap-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+              <input 
+                type="text" 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for a tool... (e.g. JSON Formatter, Unit Converter, Loan Calculator)" 
+                className="w-full text-base sm:text-lg md:text-xl font-bold px-4 py-2 border-2 border-transparent focus:border-black focus:outline-none placeholder-gray-500"
+              />
+              <button 
+                onClick={() => setSearchQuery('')}
+                className="bg-black text-white px-6 py-2.5 font-black uppercase tracking-wider hover:bg-yellow-400 hover:text-black transition-colors shrink-0"
+              >
+                {searchQuery ? 'Clear' : 'Search'}
+              </button>
+          </div>
+
+          {/* CATEGORY & PERSONA TABS */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <p className="text-xs sm:text-sm font-black uppercase tracking-wider text-[var(--muted)]">
+                Filter By Category & Audience:
+              </p>
+              <span className="text-xs font-bold uppercase text-[var(--muted)]">
+                Showing {filteredTools.length} of {TOOLS.length} tools
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-2 sm:gap-3">
+              {CATEGORIES.map(cat => {
+                const count = TOOLS.filter(t => isToolInPersona(t, cat.id)).length;
+                const isActive = activeCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={`px-3 py-2 sm:px-4 sm:py-2.5 font-black uppercase text-xs sm:text-sm border-2 sm:border-4 border-black transition-all flex items-center gap-2 ${
+                      isActive 
+                        ? 'bg-yellow-400 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] translate-x-[-1px] translate-y-[-1px]' 
+                        : 'bg-white text-black hover:bg-yellow-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                    }`}
+                  >
+                    <span>{cat.label}</span>
+                    <span className={`text-[10px] sm:text-xs px-1.5 py-0.5 border border-black font-black ${isActive ? 'bg-black text-white' : 'bg-yellow-200 text-black'}`}>
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         {/* ALL TOOLS SECTION */}
         <div className="space-y-6">
-            <h2 className="text-3xl font-black uppercase tracking-tighter border-b-4 border-black pb-2">All Tools Directory</h2>
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b-4 border-black pb-2 gap-2">
+              <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter">
+                {CATEGORIES.find(c => c.id === activeCategory)?.badge || 'All Tools'} Directory
+              </h2>
+              {activeCategory !== 'all' && (
+                <button 
+                  onClick={() => setActiveCategory('all')} 
+                  className="text-xs font-black uppercase underline hover:text-yellow-500 transition-colors"
+                >
+                  Reset Category Filter
+                </button>
+              )}
+            </div>
             {filteredTools.length === 0 ? (
-                <div className="text-center py-12 border-4 border-black border-dashed">
-                    <p className="text-2xl font-black uppercase text-gray-600">No tools found matching "{searchQuery}"</p>
+                <div className="text-center py-12 border-4 border-black border-dashed bg-white p-8">
+                    <p className="text-xl sm:text-2xl font-black uppercase mb-3">No tools found matching your criteria</p>
+                    <p className="text-sm font-medium text-[var(--muted)] mb-6">Try searching for generic terms like "calculator", "converter", or select "All Tools".</p>
+                    <button 
+                      onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}
+                      className="px-6 py-3 bg-black text-white font-black uppercase text-sm border-2 border-black hover:bg-yellow-400 hover:text-black transition-all"
+                    >
+                      Show All Tools
+                    </button>
                 </div>
             ) : (
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
@@ -89,10 +206,24 @@ export default function HomePage() {
                       <Fragment key={tool.id}>
                     <Link 
                       to={`/tools/${tool.slug}`} 
-                      className="p-6 md:p-8 bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all"
+                      className="group p-6 md:p-8 bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all flex flex-col justify-between"
                     >
-                        <h3 className="text-xl md:text-2xl font-black mb-3 md:mb-4 uppercase leading-tight">{tool.name}</h3>
-                        <p className="text-black font-medium text-sm md:text-base">{tool.description}</p>
+                        <div>
+                          <div className="flex items-center justify-between gap-2 mb-3">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 border border-black bg-yellow-300 text-black inline-block">
+                              {getToolBadge(tool)}
+                            </span>
+                            <span className="text-xs font-black uppercase group-hover:translate-x-1 transition-transform">
+                              →
+                            </span>
+                          </div>
+                          <h3 className="text-xl md:text-2xl font-black mb-2 uppercase leading-tight">{tool.name}</h3>
+                          <p className="font-medium text-sm md:text-base text-[var(--muted)] leading-relaxed">{tool.description}</p>
+                        </div>
+                        <div className="mt-6 pt-3 border-t-2 border-black flex items-center justify-between text-xs font-black uppercase">
+                          <span className="text-yellow-600 dark:text-yellow-400 font-black">Open Tool</span>
+                          <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400">100% Client-Side</span>
+                        </div>
                     </Link>
                     {/* Insert an ad after every 6 tools for in-feed monetization */}
                     {(index + 1) % 6 === 0 && (
@@ -189,7 +320,7 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto space-y-6 md:space-y-8">
             <div className="flex justify-between items-end border-b-8 border-black pb-4">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter leading-tight">Latest Articles</h2>
-              <Link to="/blog" className="hidden sm:block text-lg font-black uppercase hover:text-yellow-600 transition-colors">View All &rarr;</Link>
+              <Link to="/blog" className="hidden sm:block text-lg font-black uppercase underline hover:bg-yellow-400 hover:text-black px-2 py-1 transition-colors">View All &rarr;</Link>
             </div>
             <div className="grid md:grid-cols-3 gap-6 md:gap-8">
               {BLOG_POSTS.slice(0, 3).map(post => (

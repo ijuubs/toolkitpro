@@ -27,6 +27,16 @@ const LoadingFallback = () => (
   </div>
 );
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  return null;
+}
+
 function AnalyticsTracker() {
   const location = useLocation();
 
@@ -48,6 +58,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <AnalyticsTracker />
         <Routes>
             <Route path="/" element={<Layout />}>

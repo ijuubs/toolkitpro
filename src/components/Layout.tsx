@@ -42,15 +42,15 @@ export default function Layout() {
             <Logo size="sm" />
             <span className="text-xl sm:text-3xl">ToolKitPro</span>
           </Link>
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-green-100 border-2 border-black rounded-full">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+          <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-emerald-200 text-black border-2 border-black">
+            <div className="w-2 h-2 bg-emerald-600 rounded-full animate-pulse" />
             <span className="text-[10px] font-black uppercase tracking-wider">100% Client-Side / Secure</span>
           </div>
-          <div className="flex gap-2 sm:gap-4 md:gap-8 items-center">
-            <Link to="/" className="hidden md:block text-sm font-black uppercase hover:text-yellow-600 transition-colors">Tools</Link>
-            <Link to="/analytics" className="hidden md:block text-sm font-black uppercase hover:text-yellow-600 transition-colors">Analytics</Link>
-            <Link to="/blog" className="hidden md:block text-sm font-black uppercase hover:text-yellow-600 transition-colors">Blog</Link>
-            <Link to="/about" className="hidden md:block text-sm font-black uppercase hover:text-yellow-600 transition-colors">About</Link>
+          <div className="flex gap-2 sm:gap-4 md:gap-6 items-center">
+            <Link to="/" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">Tools</Link>
+            <Link to="/analytics" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">Analytics</Link>
+            <Link to="/blog" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">Blog</Link>
+            <Link to="/about" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">About</Link>
             <ThemeToggle />
             <Link to="/" className="bg-black text-white px-3 py-1.5 sm:px-6 sm:py-2 border-2 border-black font-black uppercase text-xs sm:text-sm hover:bg-yellow-400 hover:text-black transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
               Explore
@@ -70,7 +70,7 @@ export default function Layout() {
               <Logo size="md" theme="dark" />
               ToolKitPro
             </Link>
-            <p className="text-gray-400 font-bold leading-relaxed">
+            <p className="text-gray-300 font-medium leading-relaxed">
               Premium browser-side utility ecosystem. Fast, private, and professional. No login required, ever.
             </p>
           </div>
