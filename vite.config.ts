@@ -5,8 +5,19 @@ import {defineConfig, loadEnv} from 'vite';
 
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
+  const gaId = env.VITE_GA_MEASUREMENT_ID || process.env.VITE_GA_MEASUREMENT_ID || 'G-TOOLKITPRO1';
+
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      react(),
+      tailwindcss(),
+      {
+        name: 'html-transform',
+        transformIndexHtml(html) {
+          return html.replace(/%VITE_GA_MEASUREMENT_ID%/g, gaId);
+        }
+      }
+    ],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
     },

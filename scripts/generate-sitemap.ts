@@ -8,11 +8,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const getBaseUrl = () => {
-  if (process.env.VITE_SITE_URL && process.env.VITE_SITE_URL.trim() !== '') {
-    return process.env.VITE_SITE_URL.replace(/\/+$/, '');
-  }
-  if (process.env.SITE_URL && process.env.SITE_URL.trim() !== '') {
-    return process.env.SITE_URL.replace(/\/+$/, '');
+  const envUrl = process.env.VITE_SITE_URL || process.env.SITE_URL;
+  if (envUrl && envUrl.trim() !== '' && !envUrl.includes('utility-tools-eta')) {
+    return envUrl.replace(/\/+$/, '');
   }
   return 'https://toolkitpro-e5y5.vercel.app';
 };

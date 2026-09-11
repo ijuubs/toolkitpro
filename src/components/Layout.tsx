@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import ThemeToggle from './ThemeToggle';
 import Logo from './Logo';
 import CookieConsent from './CookieConsent';
+import BackToTop from './BackToTop';
 import { SITE_URL } from '../config/site';
 
 export default function Layout() {
@@ -120,6 +121,7 @@ export default function Layout() {
         </div>
       </footer>
       <CookieConsent />
+      <BackToTop />
     </div>
   );
 }

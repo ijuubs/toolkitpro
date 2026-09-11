@@ -197,7 +197,7 @@ export function initAnalytics() {
     window.gtag('js', new Date());
   }
 
-  // Inject GA script if not already present
+  // Inject GA script if not already present in HTML head
   const scriptId = 'google-analytics-script';
   if (!document.getElementById(scriptId) && GA_MEASUREMENT_ID) {
     const script = document.createElement('script');
@@ -205,7 +205,9 @@ export function initAnalytics() {
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
     document.head.appendChild(script);
+  }
 
+  if (window.gtag && GA_MEASUREMENT_ID) {
     window.gtag('config', GA_MEASUREMENT_ID, {
       send_page_view: false, // We manually trigger on route change
       client_id: visitorId
