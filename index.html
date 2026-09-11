@@ -57,25 +57,15 @@
         };
       })();
     </script>
-    <!-- Google tag (gtag.js) -->
-    <script async id="google-analytics-script" src="https://www.googletagmanager.com/gtag/js?id=G-QR3WP8T7T6"></script>
+    <!-- DataLayer & Analytics Queue Initialization (Synchronous, 0 Blocking) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
-      gtag('config', 'G-QR3WP8T7T6');
+      gtag('config', 'G-QR3WP8T7T6', { 'send_page_view': false });
     </script>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MXB9J8GM');</script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" as="style" />
@@ -95,7 +85,7 @@
     <meta property="og:type" content="website" />
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript fallback) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXB9J8GM"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
@@ -125,40 +115,95 @@
               }
             }).catch(function() {});
           }
+
+          // Link Accessibility Enhancer (Ensures third-party injected links like CookieHub have descriptive accessible labels)
+          var enhanceLinks = function() {
+            var links = document.querySelectorAll('a');
+            for (var i = 0; i < links.length; i++) {
+              var a = links[i];
+              var txt = (a.innerText || a.textContent || '').trim().toLowerCase();
+              var href = (a.getAttribute('href') || '').toLowerCase();
+              
+              if (txt === 'learn more' || txt === 'learn more.' || txt === 'more') {
+                if (href.indexOf('cookiehub') !== -1 || href.indexOf('about-cookies') !== -1) {
+                  a.setAttribute('aria-label', 'Learn more about cookies on CookieHub');
+                  a.setAttribute('title', 'Learn more about CookieHub cookie management');
+                } else if (href.indexOf('privacy') !== -1) {
+                  a.setAttribute('aria-label', 'Learn more about our Privacy Policy');
+                } else if (href.indexOf('terms') !== -1) {
+                  a.setAttribute('aria-label', 'Learn more about our Terms of Service');
+                } else {
+                  a.setAttribute('aria-label', 'Learn more about ToolKitPro services and utilities');
+                }
+              } else if (href.indexOf('cookiehub.com') !== -1 || href.indexOf('/about-cookies') !== -1) {
+                if (!a.getAttribute('aria-label')) {
+                  a.setAttribute('aria-label', 'Read more about CookieHub cookie policy');
+                }
+              }
+            }
+          };
+
+          if (typeof MutationObserver !== 'undefined') {
+            var observer = new MutationObserver(function() {
+              enhanceLinks();
+            });
+            observer.observe(document.documentElement, { childList: true, subtree: true });
+          }
+          window.addEventListener('DOMContentLoaded', enhanceLinks);
         } catch (e) {}
       })();
     </script>
     <script type="module" src="/src/main.tsx"></script>
     
     <script>
-      // Delay heavy 3rd-party scripts to improve Core Web Vitals (LCP/TBT)
-      let adsLoaded = false;
-      const loadAds = () => {
-        if (adsLoaded) return;
-        adsLoaded = true;
+      // Load heavy 3rd-party scripts (GTM, GA, AdSense) lazily to maximize Lighthouse Performance & Core Web Vitals
+      let scriptsLoaded = false;
+      const loadThirdPartyScripts = () => {
+        if (scriptsLoaded) return;
+        scriptsLoaded = true;
 
-        // Only load AdSense on production canonical domains (avoids iframe/preview Script error)
-        if (window.location.hostname.indexOf('localhost') !== -1 || window.location.hostname.indexOf('run.app') !== -1) {
-          return;
+        const isDevOrPreview = window.location.hostname.indexOf('localhost') !== -1 || window.location.hostname.indexOf('run.app') !== -1;
+
+        // 1. Google Analytics (gtag.js)
+        if (!document.getElementById('google-analytics-script')) {
+          const ga = document.createElement('script');
+          ga.id = 'google-analytics-script';
+          ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-QR3WP8T7T6';
+          ga.async = true;
+          document.head.appendChild(ga);
         }
 
-        // AdSense
-        const adsense = document.createElement("script");
-        adsense.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6659085318131236";
-        adsense.async = true;
-        adsense.crossOrigin = "anonymous";
-        document.body.appendChild(adsense);
+        // 2. Google Tag Manager
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MXB9J8GM');
+
+        // 3. AdSense (Production only)
+        if (!isDevOrPreview) {
+          const adsense = document.createElement("script");
+          adsense.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6659085318131236";
+          adsense.async = true;
+          adsense.crossOrigin = "anonymous";
+          document.body.appendChild(adsense);
+        }
       };
 
-      // Load on interaction or after 3 seconds
-      const events = ['scroll', 'mousemove', 'mousedown', 'keydown', 'touchstart'];
-      const triggerAds = () => {
-        loadAds();
-        events.forEach(e => window.removeEventListener(e, triggerAds, {passive: true}));
+      // Load on first user interaction or idle callback
+      const triggerEvents = ['scroll', 'mousemove', 'mousedown', 'keydown', 'touchstart'];
+      const onUserInteraction = () => {
+        loadThirdPartyScripts();
+        triggerEvents.forEach(e => window.removeEventListener(e, onUserInteraction, {passive: true}));
       };
       
-      events.forEach(e => window.addEventListener(e, triggerAds, {passive: true}));
-      setTimeout(loadAds, 3000);
+      triggerEvents.forEach(e => window.addEventListener(e, onUserInteraction, {passive: true}));
+      
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => setTimeout(loadThirdPartyScripts, 2500));
+      } else {
+        setTimeout(loadThirdPartyScripts, 3000);
+      }
     </script>
   </body>
 </html>

@@ -68,8 +68,30 @@ export default defineConfig(({mode}) => {
     build: {
       rollupOptions: {
         output: {
-          manualChunks: {
-            vendor: ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('react/') || id.includes('react-dom/') || id.includes('scheduler')) {
+                return 'vendor-react';
+              }
+              if (id.includes('react-router') || id.includes('react-helmet-async')) {
+                return 'vendor-router';
+              }
+              if (id.includes('lucide-react')) {
+                return 'vendor-icons';
+              }
+              if (id.includes('motion')) {
+                return 'vendor-motion';
+              }
+              if (id.includes('pdf-lib')) {
+                return 'lib-pdf';
+              }
+              if (id.includes('browser-image-compression')) {
+                return 'lib-image-compression';
+              }
+              if (id.includes('qrcode')) {
+                return 'lib-qrcode';
+              }
+            }
           }
         }
       }
