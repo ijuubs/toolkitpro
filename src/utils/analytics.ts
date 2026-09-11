@@ -56,7 +56,7 @@ const VISITOR_ID_KEY = 'tkp_visitor_id';
 
 // Default GA ID if not set via env
 export const GA_MEASUREMENT_ID = 
-  import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-TOOLKITPRO1';
+  import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-QR3WP8T7T6';
 
 // Initialize storage structure
 interface StoredAnalytics {
