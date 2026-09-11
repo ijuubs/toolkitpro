@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Salad, Wheat, Utensils, Coffee } from 'lucide-react';
 
 export default function FijiGroceryBudgetCalculator() {
   const [familySize, setFamilySize] = useState<string>('4');
@@ -94,26 +95,38 @@ export default function FijiGroceryBudgetCalculator() {
             <h4 className="font-black uppercase text-sm mb-3">Suggested Weekly Staple Breakdown (In FJD)</h4>
             
             <div className="space-y-2">
-              <div className="flex justify-between font-bold text-sm bg-white p-2 border-2 border-black">
-                <span>🥬 Roots & Fresh Greens (25%)</span>
+              <div className="flex justify-between items-center font-bold text-sm bg-white p-2 border-2 border-black">
+                <span className="flex items-center gap-2">
+                  <Salad className="w-4 h-4 stroke-[2.5]" />
+                  <span>Roots & Fresh Greens (25%)</span>
+                </span>
                 <span>FJD ${results.produce.toFixed(2)}</span>
               </div>
               <p className="text-[10px] text-gray-600 font-bold pl-2">Dalo, Cassava, Bele, Rourou, Tomatoes, Eggplants & Bananas bought from Suva or Lautoka municipal markets.</p>
 
-              <div className="flex justify-between font-bold text-sm bg-white p-2 border-2 border-black">
-                <span>🍚 Staple Grains & Cooking Oils (25%)</span>
+              <div className="flex justify-between items-center font-bold text-sm bg-white p-2 border-2 border-black">
+                <span className="flex items-center gap-2">
+                  <Wheat className="w-4 h-4 stroke-[2.5]" />
+                  <span>Staple Grains & Cooking Oils (25%)</span>
+                </span>
                 <span>FJD ${results.grains.toFixed(2)}</span>
               </div>
               <p className="text-[10px] text-gray-600 font-bold pl-2">Rice, Punjas flour, Punjas oil, sugar, dry noodles, yeast, and salt.</p>
 
-              <div className="flex justify-between font-bold text-sm bg-white p-2 border-2 border-black">
-                <span>🍖 Proteins, Seafood & Canned Goods (30%)</span>
+              <div className="flex justify-between items-center font-bold text-sm bg-white p-2 border-2 border-black">
+                <span className="flex items-center gap-2">
+                  <Utensils className="w-4 h-4 stroke-[2.5]" />
+                  <span>Proteins, Seafood & Canned Goods (30%)</span>
+                </span>
                 <span>FJD ${results.proteins.toFixed(2)}</span>
               </div>
               <p className="text-[10px] text-gray-600 font-bold pl-2">Fresh reef fish, chicken, canned corned beef, canned mackerel, eggs, and milk.</p>
 
-              <div className="flex justify-between font-bold text-sm bg-white p-2 border-2 border-black">
-                <span>☕ Beverages & Household Essentials (20%)</span>
+              <div className="flex justify-between items-center font-bold text-sm bg-white p-2 border-2 border-black">
+                <span className="flex items-center gap-2">
+                  <Coffee className="w-4 h-4 stroke-[2.5]" />
+                  <span>Beverages & Household Essentials (20%)</span>
+                </span>
                 <span>FJD ${results.pantryEssentials.toFixed(2)}</span>
               </div>
               <p className="text-[10px] text-gray-600 font-bold pl-2">Fiji tea, coffee, morning glory biscuits, spices, washing soap, toothpaste.</p>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { PDFDocument } from 'pdf-lib';
 import { trackToolUsage, trackDownload } from '../../utils/analytics';
+import { FileText } from 'lucide-react';
 
 export default function PdfCompressor() {
   const [file, setFile] = useState<File | null>(null);
@@ -56,7 +57,9 @@ export default function PdfCompressor() {
           }}
         />
         <label htmlFor="pdf-upload" className="cursor-pointer space-y-2 block">
-            <div className="text-4xl">📄</div>
+            <div className="flex justify-center text-black">
+              <FileText className="w-12 h-12 stroke-[2.5]" />
+            </div>
             <p className="font-black uppercase">{file ? file.name : 'Select PDF to Compress'}</p>
             {!file && <p className="text-xs font-bold text-gray-600 italic">No files are uploaded to our servers</p>}
         </label>

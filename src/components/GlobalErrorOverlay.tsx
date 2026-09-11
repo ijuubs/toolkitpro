@@ -21,12 +21,24 @@ export default function GlobalErrorOverlay() {
   useEffect(() => {
     // Handler for global JavaScript runtime errors
     const handleGlobalError = (event: ErrorEvent) => {
-      // Avoid intercepting non-critical benign errors (e.g. standard browser extension or benign resize observer)
+      const msg = event.message || '';
+      const src = event.filename || '';
+
+      // Avoid intercepting non-critical benign errors (e.g. cross-origin script error, standard browser extension, or benign resize observer)
       if (
-        event.message?.includes('ResizeObserver loop') ||
-        event.message?.includes('failed to connect to websocket') ||
-        event.message?.includes('Script error.')
+        !msg ||
+        msg.includes('ResizeObserver') ||
+        msg.includes('websocket') ||
+        msg.includes('Script error') ||
+        msg.includes('adsbygoogle') ||
+        msg.includes('googletagmanager') ||
+        src.includes('googletagmanager') ||
+        src.includes('googlesyndication') ||
+        src.includes('google-analytics') ||
+        src.includes('doubleclick') ||
+        (!src && event.lineno === 0)
       ) {
+        event.preventDefault();
         return;
       }
 

@@ -1,6 +1,62 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      (function() {
+        var isCrossOrBenign = function(msg, url) {
+          if (!msg) return true;
+          var s = String(msg);
+          if (
+            s === 'Script error.' ||
+            s === 'Script error' ||
+            s.indexOf('Script error') !== -1 ||
+            s.indexOf('ResizeObserver') !== -1 ||
+            s.indexOf('websocket') !== -1 ||
+            s.indexOf('adsbygoogle') !== -1 ||
+            s.indexOf('googletagmanager') !== -1 ||
+            s.indexOf('SecurityError') !== -1
+          ) {
+            return true;
+          }
+          if (url) {
+            var u = String(url);
+            if (
+              u.indexOf('googletagmanager') !== -1 ||
+              u.indexOf('googlesyndication') !== -1 ||
+              u.indexOf('google-analytics') !== -1 ||
+              u.indexOf('doubleclick') !== -1
+            ) {
+              return true;
+            }
+          }
+          return false;
+        };
+
+        window.addEventListener('error', function(e) {
+          if (isCrossOrBenign(e.message, e.filename)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return true;
+          }
+        }, true);
+
+        window.addEventListener('unhandledrejection', function(e) {
+          var reason = e.reason;
+          var msg = typeof reason === 'string' ? reason : (reason && reason.message) || '';
+          if (isCrossOrBenign(msg, '')) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return true;
+          }
+        }, true);
+
+        window.onerror = function(msg, url) {
+          if (isCrossOrBenign(msg, url)) {
+            return true;
+          }
+        };
+      })();
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async id="google-analytics-script" src="https://www.googletagmanager.com/gtag/js?id=G-QR3WP8T7T6"></script>
     <script>
@@ -30,6 +86,8 @@
     <title>ToolKitPro | High-Performance Utility Ecosystem</title>
     <meta name="description" content="ToolKitPro is a premium content and utility platform providing professional browser-side tools, in-depth technical guides, and health insights." />
     <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#facc15" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href="https://toolkitpro-e5y5.vercel.app/" />
     <meta property="og:title" content="ToolKitPro | High-Performance Utility Ecosystem" />
     <meta property="og:description" content="ToolKitPro is a premium content and utility platform providing professional browser-side tools, in-depth technical guides, and health insights." />
@@ -44,26 +102,8 @@
     <div id="root"></div>
     <script>
       (function() {
-        // 1. Force unregister all active and pending service workers
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.getRegistrations().then(function(registrations) {
-            for (var i = 0; i < registrations.length; i++) {
-              registrations[i].unregister();
-            }
-          }).catch(function() {});
-        }
-
-        // 2. Purge all cache storage to remove cached ad network scripts
-        if ('caches' in window) {
-          caches.keys().then(function(names) {
-            for (var i = 0; i < names.length; i++) {
-              caches.delete(names[i]);
-            }
-          }).catch(function() {});
-        }
-
-        // 3. Clear any leftover storage keys from previous ad networks
         try {
+          // Clear any leftover storage keys from previous ad networks
           var cleanStorage = function(storage) {
             for (var i = storage.length - 1; i >= 0; i--) {
               var key = storage.key(i);
@@ -74,18 +114,18 @@
           };
           cleanStorage(localStorage);
           cleanStorage(sessionStorage);
-        } catch (e) {}
 
-        // 4. Delete any IndexedDB databases created by ad networks
-        if (window.indexedDB && indexedDB.databases) {
-          indexedDB.databases().then(function(dbs) {
-            for (var i = 0; i < dbs.length; i++) {
-              if (dbs[i].name && /adsterra|monetag|push|sw/i.test(dbs[i].name)) {
-                indexedDB.deleteDatabase(dbs[i].name);
+          // Delete any IndexedDB databases created by previous malicious ad networks
+          if (window.indexedDB && indexedDB.databases) {
+            indexedDB.databases().then(function(dbs) {
+              for (var i = 0; i < dbs.length; i++) {
+                if (dbs[i].name && /adsterra|monetag|push/i.test(dbs[i].name)) {
+                  indexedDB.deleteDatabase(dbs[i].name);
+                }
               }
-            }
-          }).catch(function() {});
-        }
+            }).catch(function() {});
+          }
+        } catch (e) {}
       })();
     </script>
     <script type="module" src="/src/main.tsx"></script>
@@ -96,6 +136,11 @@
       const loadAds = () => {
         if (adsLoaded) return;
         adsLoaded = true;
+
+        // Only load AdSense on production canonical domains (avoids iframe/preview Script error)
+        if (window.location.hostname.indexOf('localhost') !== -1 || window.location.hostname.indexOf('run.app') !== -1) {
+          return;
+        }
 
         // AdSense
         const adsense = document.createElement("script");

@@ -70,7 +70,23 @@ export default function BlogPost() {
         </p>
         
         <div className="markdown-body">
-            <ReactMarkdown>{post.content}</ReactMarkdown>
+            <ReactMarkdown
+              components={{
+                h1: ({ children }) => <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[var(--g6)] mt-8 mb-4 border-b-2 border-black pb-1">{children}</h3>,
+                h2: ({ children }) => <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[var(--g6)] mt-8 mb-3 border-b-2 border-black pb-1">{children}</h3>,
+                h3: ({ children }) => <h4 className="text-lg sm:text-xl font-black uppercase tracking-tight text-[var(--g6)] mt-6 mb-2">{children}</h4>,
+                h4: ({ children }) => <h5 className="text-base sm:text-lg font-bold uppercase tracking-tight text-[var(--g6)] mt-4 mb-2">{children}</h5>,
+                p: ({ children }) => <p className="mb-4 text-[var(--muted)] leading-relaxed font-medium text-base sm:text-lg">{children}</p>,
+                ul: ({ children }) => <ul className="list-disc list-outside ml-6 space-y-2 mb-6 text-[var(--muted)] font-medium text-base sm:text-lg">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal list-outside ml-6 space-y-2 mb-6 text-[var(--muted)] font-medium text-base sm:text-lg">{children}</ol>,
+                li: ({ children }) => <li className="leading-relaxed pl-1">{children}</li>,
+                strong: ({ children }) => <strong className="font-black text-[var(--g6)]">{children}</strong>,
+                code: ({ children }) => <code className="px-2 py-0.5 bg-yellow-200 border border-black font-mono text-xs sm:text-sm font-bold text-black">{children}</code>,
+                blockquote: ({ children }) => <blockquote className="border-l-4 border-black bg-yellow-100 p-4 my-6 italic font-bold text-base">{children}</blockquote>
+              }}
+            >
+              {post.content}
+            </ReactMarkdown>
         </div>
       </div>
 

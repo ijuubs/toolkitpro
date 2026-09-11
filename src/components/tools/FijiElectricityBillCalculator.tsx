@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { CheckCircle2 } from 'lucide-react';
 
 export default function FijiElectricityBillCalculator() {
   const [kwhUsage, setKwhUsage] = useState<string>('120'); // Average monthly usage in kWh
@@ -109,8 +110,9 @@ export default function FijiElectricityBillCalculator() {
           </div>
 
           {parseFloat(kwhUsage) <= 100 && (
-            <div className="p-3 bg-emerald-100 border-2 border-dashed border-emerald-800 font-bold text-xs uppercase text-emerald-800 text-center">
-              🎉 50% Government Electricity Subsidy applied (Usage is under 100 kWh threshold).
+            <div className="p-3 bg-emerald-100 border-2 border-dashed border-emerald-800 font-bold text-xs uppercase text-emerald-800 text-center flex items-center justify-center gap-2">
+              <CheckCircle2 className="w-4 h-4 shrink-0" />
+              <span>50% Government Electricity Subsidy applied (Usage is under 100 kWh threshold).</span>
             </div>
           )}
         </div>

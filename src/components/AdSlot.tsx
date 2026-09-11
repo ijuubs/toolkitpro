@@ -41,9 +41,16 @@ export default function AdSlot({ minHeight = '250px', className = '', adSlot, ad
     };
   }, []);
 
+  // Use a safe way to check for development or iframe preview environment
+  const isDev = (import.meta as any).env?.DEV || 
+    (typeof window !== 'undefined' && (
+      window.location.hostname.includes('run.app') || 
+      window.location.hostname.includes('localhost')
+    ));
+
   // Now push the ad once the element is rendered in DOM
   useEffect(() => {
-    if (!canRenderAd || isPushed || adError) return;
+    if (!canRenderAd || isPushed || adError || isDev) return;
 
     let timeoutId = window.setTimeout(() => {
       if (!containerRef.current) return;
@@ -68,10 +75,7 @@ export default function AdSlot({ minHeight = '250px', className = '', adSlot, ad
     }, 200);
 
     return () => window.clearTimeout(timeoutId);
-  }, [canRenderAd, isPushed, adError]);
-
-  // Use a safe way to check for development environment in Vite
-  const isDev = (import.meta as any).env?.DEV;
+  }, [canRenderAd, isPushed, adError, isDev]);
 
   if (adError || (isDev && !(window as any).adsbygoogle)) {
     return (

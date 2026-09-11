@@ -201,10 +201,28 @@ export default function ToolTemplate() {
             </div>
         )}
 
-        <section className="prose max-w-none mt-10 md:mt-12">
-          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[var(--g6)] border-b-4 border-black pb-2 leading-tight">How to use {displayTitle}</h2>
+        <section className="max-w-none mt-10 md:mt-12">
+          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[var(--g6)] border-b-4 border-black pb-2 leading-tight">
+            How to use {displayTitle}
+          </h2>
           <div className="text-[var(--muted)] leading-relaxed mt-4 sm:mt-6 text-sm sm:text-base markdown-body">
-            <ReactMarkdown>{tool.howTo}</ReactMarkdown>
+            <ReactMarkdown
+              components={{
+                h1: ({ children }) => <h3 className="text-2xl font-black uppercase tracking-tight text-[var(--g6)] mt-8 mb-3 border-b-2 border-black pb-1">{children}</h3>,
+                h2: ({ children }) => <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[var(--g6)] mt-8 mb-3 border-b-2 border-black pb-1">{children}</h3>,
+                h3: ({ children }) => <h4 className="text-lg sm:text-xl font-black uppercase tracking-tight text-[var(--g6)] mt-6 mb-2">{children}</h4>,
+                h4: ({ children }) => <h5 className="text-base sm:text-lg font-bold uppercase tracking-tight text-[var(--g6)] mt-4 mb-2">{children}</h5>,
+                p: ({ children }) => <p className="mb-4 text-[var(--muted)] leading-relaxed font-medium text-sm sm:text-base">{children}</p>,
+                ul: ({ children }) => <ul className="list-disc list-outside ml-6 space-y-1.5 mb-4 text-[var(--muted)] font-medium">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal list-outside ml-6 space-y-1.5 mb-4 text-[var(--muted)] font-medium">{children}</ol>,
+                li: ({ children }) => <li className="leading-relaxed pl-1">{children}</li>,
+                strong: ({ children }) => <strong className="font-black text-[var(--g6)]">{children}</strong>,
+                code: ({ children }) => <code className="px-1.5 py-0.5 bg-yellow-200 border border-black font-mono text-xs font-bold text-black">{children}</code>,
+                blockquote: ({ children }) => <blockquote className="border-l-4 border-black bg-yellow-100 p-3 my-4 italic font-bold">{children}</blockquote>
+              }}
+            >
+              {tool.howTo}
+            </ReactMarkdown>
           </div>
           
           <div className="my-8 sm:my-12 p-6 sm:p-10 bg-yellow-400 border-4 sm:border-8 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] sm:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]">

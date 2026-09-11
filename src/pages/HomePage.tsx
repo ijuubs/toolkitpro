@@ -1,25 +1,41 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, type ComponentType } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { TOOLS } from '../data/toolsData';
 import { BLOG_POSTS } from '../data/blogData';
 import AdSlot from '../components/AdSlot';
+import HeroMiniTool from '../components/HeroMiniTool';
 import { SITE_URL } from '../config/site';
+import { 
+  Code2, 
+  HardHat, 
+  TrendingUp, 
+  HeartPulse, 
+  Compass, 
+  LayoutGrid, 
+  ShieldCheck, 
+  Search, 
+  Zap, 
+  Lock,
+  ArrowRight
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface PersonaCategory {
   id: string;
   label: string;
   shortLabel: string;
   badge: string;
+  icon: ComponentType<{ className?: string }>;
 }
 
 const CATEGORIES: PersonaCategory[] = [
-  { id: 'all', label: 'All Tools', shortLabel: 'All', badge: 'All Utilities' },
-  { id: 'developers', label: '💻 Developers & Tech', shortLabel: 'Developers', badge: 'Developer' },
-  { id: 'homeowners-construction', label: '🏠 Homeowners & Construction', shortLabel: 'Construction & Home', badge: 'Construction' },
-  { id: 'finance-business', label: '📈 Finance & Business', shortLabel: 'Finance', badge: 'Finance' },
-  { id: 'health-lifestyle', label: '❤️ Health & Lifestyle', shortLabel: 'Health', badge: 'Health' },
-  { id: 'regional-fiji', label: '🌴 Fiji Utilities', shortLabel: 'Fiji Utilities', badge: 'Fiji Utility' }
+  { id: 'all', label: 'All Tools', shortLabel: 'All', badge: 'All Utilities', icon: LayoutGrid },
+  { id: 'developers', label: 'Developers & Tech', shortLabel: 'Developers', badge: 'Developer', icon: Code2 },
+  { id: 'homeowners-construction', label: 'Home & Construction', shortLabel: 'Construction & Home', badge: 'Construction', icon: HardHat },
+  { id: 'finance-business', label: 'Finance & Business', shortLabel: 'Finance', badge: 'Finance', icon: TrendingUp },
+  { id: 'health-lifestyle', label: 'Health & Lifestyle', shortLabel: 'Health', badge: 'Health', icon: HeartPulse },
+  { id: 'regional-fiji', label: 'Fiji Utilities', shortLabel: 'Fiji Utilities', badge: 'Fiji Utility', icon: Compass }
 ];
 
 export default function HomePage() {
@@ -114,27 +130,37 @@ export default function HomePage() {
         
         {/* HERO SECTION */}
         <div className="text-center md:text-left space-y-6">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter uppercase leading-none">
-              Free Online Utility Tools & Calculators
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-yellow-300 border-2 border-black font-black uppercase text-xs shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+              <ShieldCheck className="w-4 h-4 text-black" />
+              <span>100% Client-Side Privacy • Zero Server Uploads</span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter uppercase leading-[0.95] text-[var(--g6)]">
+              Fast, Private Utilities & Everyday Calculators
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-black bg-yellow-200 inline-block px-3 py-1.5 md:px-4 md:py-2 border-2 border-black font-bold max-w-full break-words">
-              Fast, secure, and ready-to-use tools. 100% Client-Side. No Sign-up Required.
+            <p className="text-base sm:text-lg md:text-xl text-[var(--muted)] font-bold max-w-3xl leading-relaxed">
+              Process code, documents, text, and financial calculations directly inside your browser. No sign-ups, no tracking cookies, and zero cloud uploads — your data stays safe in local memory.
             </p>
+
+            {/* Interactive Live Mini-Tool Sandbox */}
+            <HeroMiniTool />
         </div>
 
         {/* SEARCH BAR & CATEGORIES */}
         <div className="space-y-6">
           <div className="bg-white border-4 border-black p-4 flex flex-col sm:flex-row gap-3 sm:gap-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-              <input 
-                type="text" 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for a tool... (e.g. JSON Formatter, Unit Converter, Loan Calculator)" 
-                className="w-full text-base sm:text-lg md:text-xl font-bold px-4 py-2 border-2 border-transparent focus:border-black focus:outline-none placeholder-neutral-600 dark:placeholder-neutral-400"
-              />
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <Search className="w-5 h-5 text-black shrink-0" />
+                <input 
+                  type="text" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search for a tool... (e.g. JSON Formatter, Word Counter, Loan Calculator)" 
+                  className="w-full text-base sm:text-lg md:text-xl font-bold px-2 py-1 border-2 border-transparent focus:border-black focus:outline-none placeholder-neutral-600 dark:placeholder-neutral-400"
+                />
+              </div>
               <button 
                 onClick={() => setSearchQuery('')}
-                className="bg-black text-white px-6 py-2.5 font-black uppercase tracking-wider hover:bg-yellow-400 hover:text-black transition-colors shrink-0"
+                className="bg-black text-white px-6 py-2.5 font-black uppercase tracking-wider hover:bg-yellow-400 hover:text-black transition-all border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 shrink-0"
               >
                 {searchQuery ? 'Clear' : 'Search'}
               </button>
@@ -144,7 +170,7 @@ export default function HomePage() {
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <p className="text-xs sm:text-sm font-black uppercase tracking-wider text-[var(--muted)]">
-                Filter By Category & Audience:
+                Filter By Category:
               </p>
               <span className="text-xs font-bold uppercase text-[var(--muted)]">
                 Showing {filteredTools.length} of {TOOLS.length} tools
@@ -154,16 +180,18 @@ export default function HomePage() {
               {CATEGORIES.map(cat => {
                 const count = TOOLS.filter(t => isToolInPersona(t, cat.id)).length;
                 const isActive = activeCategory === cat.id;
+                const IconComponent = cat.icon;
                 return (
                   <button
                     key={cat.id}
                     onClick={() => setActiveCategory(cat.id)}
                     className={`px-3 py-2 sm:px-4 sm:py-2.5 font-black uppercase text-xs sm:text-sm border-2 sm:border-4 border-black transition-all flex items-center gap-2 ${
                       isActive 
-                        ? 'bg-yellow-400 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] translate-x-[-1px] translate-y-[-1px]' 
+                        ? 'bg-yellow-400 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -translate-x-0.5 -translate-y-0.5' 
                         : 'bg-white text-black hover:bg-yellow-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
                     }`}
                   >
+                    <IconComponent className="w-4 h-4 stroke-[2.5]" />
                     <span>{cat.label}</span>
                     <span className={`text-[10px] sm:text-xs px-1.5 py-0.5 border border-black font-black ${isActive ? 'bg-black text-white' : 'bg-yellow-200 text-black'}`}>
                       {count}
@@ -202,41 +230,66 @@ export default function HomePage() {
                     </button>
                 </div>
             ) : (
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+                <motion.div 
+                  className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8"
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: { staggerChildren: 0.04 }
+                    }
+                  }}
+                >
                     {filteredTools.map((tool, index) => (
                       <Fragment key={tool.id}>
-                    <Link 
-                      to={`/tools/${tool.slug}`} 
-                      className="group p-6 md:p-8 bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all flex flex-col justify-between"
-                    >
-                        <div>
-                          <div className="flex items-center justify-between gap-2 mb-3">
-                            <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 border border-black bg-yellow-300 text-black inline-block">
-                              {getToolBadge(tool)}
-                            </span>
-                            <span className="text-xs font-black uppercase group-hover:translate-x-1 transition-transform">
-                              →
-                            </span>
+                        <motion.div
+                          variants={{
+                            hidden: { opacity: 0, y: 12 },
+                            visible: { opacity: 1, y: 0 }
+                          }}
+                          className="flex flex-col"
+                        >
+                          <Link 
+                            to={`/tools/${tool.slug}`} 
+                            className="group p-6 md:p-8 bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all flex flex-col justify-between h-full min-w-0 overflow-hidden"
+                          >
+                            <div className="min-w-0">
+                              <div className="flex items-center justify-between gap-2 mb-3">
+                                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 border border-black bg-yellow-300 text-black inline-block">
+                                  {getToolBadge(tool)}
+                                </span>
+                                <span className="text-xs font-black uppercase group-hover:translate-x-1 transition-transform">
+                                  →
+                                </span>
+                              </div>
+                              <h3 className="text-xl md:text-2xl font-black mb-2 uppercase leading-tight break-words text-[var(--g6)]">
+                                {tool.name}
+                              </h3>
+                              <p className="font-medium text-sm md:text-base text-[var(--muted)] leading-relaxed line-clamp-3">
+                                {tool.description}
+                              </p>
+                            </div>
+                            <div className="mt-6 pt-3 border-t-2 border-black flex items-center justify-between text-xs font-black uppercase">
+                              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-yellow-300 text-black border-2 border-black font-black text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] group-hover:bg-black group-hover:text-yellow-300 transition-colors">
+                                Launch Tool <ArrowRight className="w-3.5 h-3.5" />
+                              </span>
+                              <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
+                                Instant
+                              </span>
+                            </div>
+                          </Link>
+                        </motion.div>
+                        {/* Insert an ad after every 6 tools for in-feed monetization */}
+                        {(index + 1) % 6 === 0 && (
+                          <div key={`ad-${index}`} className="sm:col-span-2 md:col-span-1 min-h-[300px]">
+                            <AdSlot adSlot="9791142997" adFormat="rectangle" minHeight="300px" className="my-0 h-full" />
                           </div>
-                          <h3 className="text-xl md:text-2xl font-black mb-2 uppercase leading-tight">{tool.name}</h3>
-                          <p className="font-medium text-sm md:text-base text-[var(--muted)] leading-relaxed">{tool.description}</p>
-                        </div>
-                        <div className="mt-6 pt-3 border-t-2 border-black flex items-center justify-between text-xs font-black uppercase">
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-yellow-300 text-black border-2 border-black font-black text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] group-hover:bg-black group-hover:text-yellow-300 group-hover:shadow-none transition-all">
-                            Open Tool <span aria-hidden="true">→</span>
-                          </span>
-                          <span className="text-[11px] font-black text-black dark:text-white tracking-wide">100% Client-Side</span>
-                        </div>
-                    </Link>
-                    {/* Insert an ad after every 6 tools for in-feed monetization */}
-                    {(index + 1) % 6 === 0 && (
-                      <div key={`ad-${index}`} className="sm:col-span-2 md:col-span-1 min-h-[300px]">
-                        <AdSlot adSlot="9791142997" adFormat="rectangle" minHeight="300px" className="my-0 h-full" />
-                      </div>
-                    )}
-                  </Fragment>
-                ))}
-            </div>
+                        )}
+                      </Fragment>
+                    ))}
+                </motion.div>
             )}
         </div>
 
@@ -327,7 +380,7 @@ export default function HomePage() {
             </div>
             <div className="grid md:grid-cols-3 gap-6 md:gap-8">
               {BLOG_POSTS.slice(0, 3).map(post => (
-                <Link key={post.id} to={`/blog/${post.slug}`} className="block border-4 border-black bg-white hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_rgba(251,191,36,1)] transition-all flex flex-col h-full">
+                <Link key={post.id} to={`/blog/${post.slug}`} className="block border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_rgba(250,204,21,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all flex flex-col h-full">
                   <div className="p-4 sm:p-6 flex flex-col flex-grow">
                     <div className="text-xs font-black uppercase text-neutral-900 dark:text-neutral-100 mb-2">{post.category}</div>
                     <h3 className="text-xl sm:text-2xl font-black uppercase mb-3 leading-tight">{post.title}</h3>
@@ -341,13 +394,13 @@ export default function HomePage() {
               ))}
             </div>
             <div className="sm:hidden mt-6 text-center">
-              <Link to="/blog" className="inline-block px-8 py-3 bg-black text-white text-lg font-black uppercase tracking-widest hover:bg-yellow-400 hover:text-black transition-all">View All Articles</Link>
+              <Link to="/blog" className="inline-block px-8 py-3 bg-black text-white text-lg font-black uppercase tracking-widest hover:bg-yellow-400 hover:text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 transition-all">View All Articles</Link>
             </div>
           </div>
           
           <div className="border-t-4 border-black pt-8 md:pt-12 flex flex-col items-center text-center space-y-4 md:space-y-6">
             <h3 className="text-2xl md:text-3xl font-black uppercase italic leading-tight">Ready to optimize your workflow?</h3>
-            <Link to="/about" className="px-8 py-3 md:px-12 md:py-4 bg-black text-white text-lg md:text-xl font-black uppercase tracking-widest hover:bg-yellow-400 hover:text-black transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)]">Learn More About Us</Link>
+            <Link to="/about" className="px-8 py-3 md:px-12 md:py-4 bg-black text-white text-lg md:text-xl font-black uppercase tracking-widest hover:bg-yellow-400 hover:text-black border-4 border-black transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-1 active:translate-y-1">Learn More About Us</Link>
           </div>
         </section>
     </div>
