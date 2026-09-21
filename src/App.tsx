@@ -19,6 +19,7 @@ const TermsPage = lazy(() => import('./pages/TermsPage'));
 const DisclaimerPage = lazy(() => import('./pages/DisclaimerPage'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
+const XmlSitemapPage = lazy(() => import('./pages/XmlSitemapPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -133,6 +134,13 @@ export default function App() {
               <ErrorBoundary>
               <Suspense fallback={<PageSkeleton />}>
                 <SitemapPage />
+              </Suspense>
+              </ErrorBoundary>
+            } />
+            <Route path="sitemap.xml" element={
+              <ErrorBoundary>
+              <Suspense fallback={<PageSkeleton />}>
+                <XmlSitemapPage />
               </Suspense>
               </ErrorBoundary>
             } />

@@ -46,8 +46,9 @@ export default defineConfig(({mode}) => {
           ]
         },
         workbox: {
-          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
-          navigateFallback: 'index.html'
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,xml,txt}'],
+          navigateFallback: 'index.html',
+          navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/ads\.txt$/, /^\/llms\.txt$/]
         }
       }),
       {
