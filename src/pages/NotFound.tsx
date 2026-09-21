@@ -9,7 +9,6 @@ export default function NotFound() {
         <title>404 - Page Not Found | ToolKitPro</title>
         <meta name="description" content="The requested tool or page could not be found on ToolKitPro. Explore our collection of free online developer and utility tools." />
         <meta name="robots" content="noindex, follow" />
-        <link rel="canonical" href={`${SITE_URL}/404`} />
       </Helmet>
       
       <div className="w-24 h-24 bg-red-500 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center text-white text-5xl font-black italic">

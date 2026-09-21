@@ -17,6 +17,10 @@ const CONVERSION_LIST: ConversionOption[] = [
   { key: 'yd-m', label: 'Yards to Meters (yd → m)', rate: 0.9144 },
   { key: 'm-yd', label: 'Meters to Yards (m → yd)', rate: 1.09361 },
 
+  // Temperature
+  { key: 'c-f', label: 'Celsius to Fahrenheit (°C → °F)', rate: 1.8 }, // Calculation in handleConvert needs to handle offset for temp
+  { key: 'f-c', label: 'Fahrenheit to Celsius (°F → °C)', rate: 0.5556 },
+
   // Homeowner & Flooring/Roofing (Area)
   { key: 'sqft-sqm', label: 'Square Feet to Square Meters (sq ft → m²)', rate: 0.092903 },
   { key: 'sqm-sqft', label: 'Square Meters to Square Feet (m² → sq ft)', rate: 10.7639 },
@@ -36,7 +40,9 @@ const CONVERSION_LIST: ConversionOption[] = [
 
   // Volume & Liquids
   { key: 'gal-l', label: 'Gallons to Liters (US gal → L)', rate: 3.78541 },
-  { key: 'l-gal', label: 'Liters to Gallons (L → US gal)', rate: 0.264172 }
+  { key: 'l-gal', label: 'Liters to Gallons (L → US gal)', rate: 0.264172 },
+  { key: 'l-ml', label: 'Liters to Milliliters (L → ml)', rate: 1000 },
+  { key: 'ml-l', label: 'Milliliters to Liters (ml → L)', rate: 0.001 }
 ];
 
 export default function UnitConverter() {
@@ -49,7 +55,14 @@ export default function UnitConverter() {
     if (isNaN(n)) return;
     const option = CONVERSION_LIST.find(o => o.key === type);
     if (!option) return;
-    setResult(n * option.rate);
+    
+    if (type === 'c-f') {
+        setResult((n * 1.8) + 32);
+    } else if (type === 'f-c') {
+        setResult((n - 32) * 0.5556);
+    } else {
+        setResult(n * option.rate);
+    }
   };
 
   return (

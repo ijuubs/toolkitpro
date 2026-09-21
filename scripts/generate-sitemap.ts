@@ -23,6 +23,16 @@ function generateSitemap() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
   const sitemapFooter = `\n</urlset>\n`;
 
+const categoryRoutes = [
+    { path: '/calculators', priority: '0.8', changefreq: 'weekly' },
+    { path: '/image-tools', priority: '0.8', changefreq: 'weekly' },
+    { path: '/text-tools', priority: '0.8', changefreq: 'weekly' },
+    { path: '/developer-tools', priority: '0.8', changefreq: 'weekly' },
+    { path: '/converters', priority: '0.8', changefreq: 'weekly' },
+    { path: '/fiji-tools', priority: '0.8', changefreq: 'weekly' },
+    { path: '/color-tools', priority: '0.8', changefreq: 'weekly' },
+  ];
+  
   const staticRoutes = [
     { path: '/', priority: '1.0', changefreq: 'daily' },
     { path: '/blog', priority: '0.9', changefreq: 'weekly' },
@@ -34,6 +44,7 @@ function generateSitemap() {
     { path: '/privacy', priority: '0.3', changefreq: 'monthly' },
     { path: '/terms', priority: '0.3', changefreq: 'monthly' },
     { path: '/disclaimer', priority: '0.3', changefreq: 'monthly' },
+    ...categoryRoutes,
   ];
 
   const urls: Array<{ loc: string; priority: string; changefreq: string; lastmod: string }> = [];

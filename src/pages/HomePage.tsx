@@ -17,61 +17,25 @@ import {
   Search, 
   Zap, 
   Lock,
-  ArrowRight
+  ArrowRight,
+  Palette
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-interface PersonaCategory {
-  id: string;
-  label: string;
-  shortLabel: string;
-  badge: string;
-  icon: ComponentType<{ className?: string }>;
-}
-
-const CATEGORIES: PersonaCategory[] = [
-  { id: 'all', label: 'All Tools', shortLabel: 'All', badge: 'All Utilities', icon: LayoutGrid },
-  { id: 'developers', label: 'Developers & Tech', shortLabel: 'Developers', badge: 'Developer', icon: Code2 },
-  { id: 'homeowners-construction', label: 'Home & Construction', shortLabel: 'Construction & Home', badge: 'Construction', icon: HardHat },
-  { id: 'finance-business', label: 'Finance & Business', shortLabel: 'Finance', badge: 'Finance', icon: TrendingUp },
-  { id: 'health-lifestyle', label: 'Health & Lifestyle', shortLabel: 'Health', badge: 'Health', icon: HeartPulse },
-  { id: 'regional-fiji', label: 'Fiji Utilities', shortLabel: 'Fiji Utilities', badge: 'Fiji Utility', icon: Compass }
-];
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState('all');
 
-  const isToolInPersona = (tool: typeof TOOLS[0], categoryId: string) => {
-    if (categoryId === 'all') return true;
-    if (categoryId === 'developers') {
-      return ['json-formatter', 'url-encoder', 'qr-code-generator', 'password-generator', 'color-picker', 'word-counter', 'pdf-compressor', 'image-resizer', 'lorem-ipsum'].includes(tool.id);
-    }
-    if (categoryId === 'homeowners-construction') {
-      return ['unit-converter', 'loan-calculator', 'percentage-calculator', 'fiji-mortgage-calculator', 'fiji-electricity-bill-calculator', 'fiji-vehicle-cost-calculator'].includes(tool.id);
-    }
-    if (categoryId === 'finance-business') {
-      return ['compound-interest-calculator', 'roi-calculator', 'sip-calculator', 'loan-calculator', 'percentage-calculator', 'fiji-salary-calculator', 'fiji-loan-repayment-calculator', 'fiji-duty-import-calculator'].includes(tool.id);
-    }
-    if (categoryId === 'health-lifestyle') {
-      return ['bmi-calculator', 'tdee-calculator', 'age-calculator', 'word-counter', 'password-generator', 'fiji-grocery-budget-calculator'].includes(tool.id);
-    }
-    if (categoryId === 'regional-fiji') {
-      return tool.category === 'Fiji Tools' || tool.id.startsWith('fiji-');
-    }
-    return true;
-  };
 
   const filteredTools = TOOLS.filter(tool => {
-    const matchesCategory = isToolInPersona(tool, activeCategory);
-    const matchesSearch = !searchQuery.trim() || (
+    return !searchQuery.trim() || (
       tool.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
       tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tool.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tool.aliases?.some(alias => alias.replace(/-/g, ' ').includes(searchQuery.toLowerCase()))
     );
-    return matchesCategory && matchesSearch;
   });
+
 
   const getToolBadge = (tool: typeof TOOLS[0]) => {
     if (['json-formatter', 'url-encoder', 'qr-code-generator', 'password-generator', 'color-picker', 'lorem-ipsum'].includes(tool.id)) {
@@ -135,17 +99,17 @@ export default function HomePage() {
               <span>100% Client-Side Privacy • Zero Server Uploads</span>
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter uppercase leading-[0.95] text-[var(--g6)]">
-              Fast, Private Utilities & Everyday Calculators
+              Free Online Utilities & Everyday Calculators
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-[var(--muted)] font-bold max-w-3xl leading-relaxed">
-              Process code, documents, text, and financial calculations directly inside your browser. No sign-ups, no tracking cookies, and zero cloud uploads — your data stays safe in local memory.
+              ToolkitPro provides professional-grade online utility tools for developers, businesses, and everyday productivity. Process data instantly and securely in your browser—no sign-ups required.
             </p>
 
             {/* Interactive Live Mini-Tool Sandbox */}
             <HeroMiniTool />
         </div>
 
-        {/* SEARCH BAR & CATEGORIES */}
+        {/* SEARCH BAR */}
         <div className="space-y-6">
           <div className="bg-white border-4 border-black p-4 flex flex-col sm:flex-row gap-3 sm:gap-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
               <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -165,65 +129,42 @@ export default function HomePage() {
                 {searchQuery ? 'Clear' : 'Search'}
               </button>
           </div>
-
-          {/* CATEGORY & PERSONA TABS */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <p className="text-xs sm:text-sm font-black uppercase tracking-wider text-[var(--muted)]">
-                Filter By Category:
-              </p>
-              <span className="text-xs font-bold uppercase text-[var(--muted)]">
-                Showing {filteredTools.length} of {TOOLS.length} tools
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-2 sm:gap-3">
-              {CATEGORIES.map(cat => {
-                const count = TOOLS.filter(t => isToolInPersona(t, cat.id)).length;
-                const isActive = activeCategory === cat.id;
-                const IconComponent = cat.icon;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setActiveCategory(cat.id)}
-                    className={`px-3 py-2 sm:px-4 sm:py-2.5 font-black uppercase text-xs sm:text-sm border-2 sm:border-4 border-black transition-all flex items-center gap-2 ${
-                      isActive 
-                        ? 'bg-yellow-400 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -translate-x-0.5 -translate-y-0.5' 
-                        : 'bg-white text-black hover:bg-yellow-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
-                    }`}
-                  >
-                    <IconComponent className="w-4 h-4 stroke-[2.5]" />
-                    <span>{cat.label}</span>
-                    <span className={`text-[10px] sm:text-xs px-1.5 py-0.5 border border-black font-black ${isActive ? 'bg-black text-white' : 'bg-yellow-200 text-black'}`}>
-                      {count}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
         </div>
+
+        {/* CATEGORY SECTION */}
+        <section className="space-y-6">
+            <h2 className="text-2xl font-black uppercase tracking-tighter border-b-4 border-black pb-2">Browse by Category</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
+                {[
+                    { name: 'Calculators', slug: 'calculators', icon: TrendingUp },
+                    { name: 'Image Tools', slug: 'image-tools', icon: LayoutGrid },
+                    { name: 'Text Tools', slug: 'text-tools', icon: Code2 },
+                    { name: 'Developer Tools', slug: 'developer-tools', icon: Code2 },
+                    { name: 'Converters', slug: 'converters', icon: Compass },
+                    { name: 'Fiji Tools', slug: 'fiji-tools', icon: HardHat },
+                    { name: 'Color Tools', slug: 'color-tools', icon: Palette },
+                ].map(cat => (
+                    <Link key={cat.slug} to={`/${cat.slug}`} className="flex flex-col items-center justify-center p-4 sm:p-5 bg-white border-4 border-black hover:bg-yellow-100 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
+                        <cat.icon className="w-8 h-8 sm:w-10 sm:h-10 mb-2 sm:mb-3" />
+                        <span className="font-black uppercase text-xs sm:text-sm text-center leading-tight">{cat.name}</span>
+                    </Link>
+                ))}
+            </div>
+        </section>
 
         {/* ALL TOOLS SECTION */}
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b-4 border-black pb-2 gap-2">
               <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter">
-                {CATEGORIES.find(c => c.id === activeCategory)?.badge || 'All Tools'} Directory
+                Tool Directory
               </h2>
-              {activeCategory !== 'all' && (
-                <button 
-                  onClick={() => setActiveCategory('all')} 
-                  className="text-xs font-black uppercase underline hover:bg-yellow-300 hover:text-black px-1.5 py-0.5 border border-black transition-colors"
-                >
-                  Reset Category Filter
-                </button>
-              )}
             </div>
             {filteredTools.length === 0 ? (
                 <div className="text-center py-12 border-4 border-black border-dashed bg-white p-8">
                     <p className="text-xl sm:text-2xl font-black uppercase mb-3">No tools found matching your criteria</p>
                     <p className="text-sm font-medium text-[var(--muted)] mb-6">Try searching for generic terms like "calculator", "converter", or select "All Tools".</p>
                     <button 
-                      onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}
+                      onClick={() => { setSearchQuery(''); }}
                       className="px-6 py-3 bg-black text-white font-black uppercase text-sm border-2 border-black hover:bg-yellow-400 hover:text-black transition-all"
                     >
                       Show All Tools

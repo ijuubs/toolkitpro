@@ -86,6 +86,10 @@ export default function AnalyticsPage() {
         <meta property="og:title" content="Web Analytics Dashboard | ToolKitPro" />
         <meta property="og:description" content="Live web analytics for ToolKitPro: Track page views, unique visitors, tool usage frequency, and conversion rates for downloads." />
         <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Web Analytics Dashboard | ToolKitPro" />
+        <meta name="twitter:description" content="Live web analytics for ToolKitPro: Track page views, unique visitors, tool usage frequency, and conversion rates for downloads." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

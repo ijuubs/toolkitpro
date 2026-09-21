@@ -31,6 +31,10 @@ export default function JsonFormatter() {
   };
 
   const formatJson = (minify: boolean, sortKeys = false) => {
+    if (json.length > 5 * 1024 * 1024) { // 5MB limit
+        setError('JSON too large (max 5MB) for formatting.');
+        return;
+    }
     try {
       setError('');
       setValidSuccess(false);

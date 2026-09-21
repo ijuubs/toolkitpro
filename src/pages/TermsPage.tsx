@@ -8,6 +8,13 @@ export default function TermsPage() {
         <title>Terms & Conditions | ToolKitPro</title>
         <meta name="description" content="View the Terms and Conditions for using the ToolKitPro utility platform." />
         <link rel="canonical" href={`${SITE_URL}/terms`} />
+        <meta property="og:title" content="Terms & Conditions | ToolKitPro" />
+        <meta property="og:description" content="View the Terms and Conditions for using the ToolKitPro utility platform." />
+        <meta property="og:url" content={`${SITE_URL}/terms`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Terms & Conditions | ToolKitPro" />
+        <meta name="twitter:description" content="View the Terms and Conditions for using the ToolKitPro utility platform." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

@@ -19,6 +19,13 @@ export default function ContactPage() {
         <title>Contact Us | ToolKitPro</title>
         <meta name="description" content="Reach out to the ToolKitPro team for support, feature requests, or business inquiries." />
         <link rel="canonical" href={`${SITE_URL}/contact`} />
+        <meta property="og:title" content="Contact Us | ToolKitPro" />
+        <meta property="og:description" content="Reach out to the ToolKitPro team for support, feature requests, or business inquiries." />
+        <meta property="og:url" content={`${SITE_URL}/contact`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact Us | ToolKitPro" />
+        <meta name="twitter:description" content="Reach out to the ToolKitPro team for support, feature requests, or business inquiries." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

@@ -8,6 +8,13 @@ export default function AboutPage() {
         <title>About Us | ToolKitPro</title>
         <meta name="description" content="Learn more about ToolKitPro, your premier destination for high-performance, private, and secure online utility tools." />
         <link rel="canonical" href={`${SITE_URL}/about`} />
+        <meta property="og:title" content="About Us | ToolKitPro" />
+        <meta property="og:description" content="Learn more about ToolKitPro, your premier destination for high-performance, private, and secure online utility tools." />
+        <meta property="og:url" content={`${SITE_URL}/about`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Us | ToolKitPro" />
+        <meta name="twitter:description" content="Learn more about ToolKitPro, your premier destination for high-performance, private, and secure online utility tools." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

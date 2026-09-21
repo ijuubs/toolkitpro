@@ -8,6 +8,13 @@ export default function PrivacyPage() {
         <title>Privacy Policy | ToolKitPro</title>
         <meta name="description" content="Read our Privacy Policy to understand how ToolKitPro handles your data with transparency and security." />
         <link rel="canonical" href={`${SITE_URL}/privacy`} />
+        <meta property="og:title" content="Privacy Policy | ToolKitPro" />
+        <meta property="og:description" content="Read our Privacy Policy to understand how ToolKitPro handles your data with transparency and security." />
+        <meta property="og:url" content={`${SITE_URL}/privacy`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Privacy Policy | ToolKitPro" />
+        <meta name="twitter:description" content="Read our Privacy Policy to understand how ToolKitPro handles your data with transparency and security." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

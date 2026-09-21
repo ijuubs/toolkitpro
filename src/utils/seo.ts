@@ -1,6 +1,10 @@
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '../config/site';
 import { Tool, TOOLS } from '../data/toolsData';
 import { BlogPost, BLOG_POSTS } from '../data/blogData';
+import { getToolCategoryInfo, CategoryInfo } from './relatedTools';
+
+export { getToolCategoryInfo };
+export type { CategoryInfo };
 
 /**
  * Options for generic page SEO generation
@@ -120,8 +124,33 @@ export function generateToolSEO(tool: Tool, currentSlug?: string) {
 
   const canonicalUrl = generateCanonicalUrl(`/tools/${tool.slug}`);
   const currentUrl = currentSlug ? generateCanonicalUrl(`/tools/${currentSlug}`) : canonicalUrl;
+  const categoryInfo = getToolCategoryInfo(tool);
 
   const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: `${SITE_URL}/`
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: categoryInfo.name,
+          item: `${SITE_URL}/${categoryInfo.slug}`
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: displayTitle,
+          item: currentUrl
+        }
+      ]
+    },
     {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
@@ -207,6 +236,121 @@ export function generateBlogSEO(post: BlogPost) {
   };
 }
 
+export interface CategoryMeta {
+  name: string;
+  title: string;
+  description: string;
+  intro: string;
+  keyFeatures: string[];
+}
+
+export const CATEGORY_METAS: Record<string, CategoryMeta> = {
+  'calculators': {
+    name: 'Calculators',
+    title: `Free Online Calculators | Finance, Health & Math | ${SITE_NAME}`,
+    description: 'Calculate loans, compound interest, ROI, SIP, BMI, TDEE, percentages, and age. Fast, accurate, client-side online calculators with zero data collection.',
+    intro: 'Explore our complete suite of financial, health, and mathematical calculators. Every calculator uses verified mathematical formulas—such as standard compound interest frequencies, loan amortization schedules, WHO Body Mass Index classifications, and Mifflin-St Jeor metabolic equations. Compute everything instantly in your browser with zero latency and complete privacy.',
+    keyFeatures: ['Loan & Mortgage Amortization', 'Compound Interest & SIP Projections', 'WHO-Standard Health Metrics (BMI & TDEE)', 'Everyday Percentages & Chronological Math']
+  },
+  'developer-tools': {
+    name: 'Developer Tools',
+    title: `Developer Tools | Free Online Web, Code & Security Utilities | ${SITE_NAME}`,
+    description: 'Format JSON, inspect diffs, encode/decode Base64 and URLs, generate secure passwords and QR codes. 100% private, client-side browser developer tools.',
+    intro: 'Engineered specifically for software developers, system administrators, and security professionals. Parse and validate JSON payloads, calculate Myers diff differences between code snippets, encode UTF-8 Base64 strings, safely encode query parameters, and generate high-entropy passwords. Because all computation runs in your local browser sandbox, confidential API keys, tokens, and proprietary configurations never touch external servers.',
+    keyFeatures: ['100% Client-Side Privacy (Zero Server Logs)', 'RFC 8259 Compliant JSON Validation', 'Side-by-Side & Unified Diff Inspection', 'Cryptographically Secure Entropy Generation']
+  },
+  'text-tools': {
+    name: 'Text Tools',
+    title: `Text Tools | Word Counter, Diff Checker & Markdown Converter | ${SITE_NAME}`,
+    description: 'Analyze word and character counts, compare text differences side-by-side, convert Markdown to HTML, and generate placeholder text. 100% in-browser.',
+    intro: 'Streamline your copywriting, editing, and content formatting workflows. Accurately count words, characters, sentences, and paragraphs, inspect revision changes with character-level diffing, convert Markdown into sanitized HTML with live previews, and generate clean placeholder copy. No text is ever uploaded or stored.',
+    keyFeatures: ['Live Character & Word Metric Analysis', 'Inline & Side-by-Side Text Comparison', 'GitHub-Flavored Markdown Preview & HTML Export', 'Zero Server Transmission']
+  },
+  'converters': {
+    name: 'Converters',
+    title: `Online File & Unit Converters | PDF Compressor & Image Resizer | ${SITE_NAME}`,
+    description: 'Compress PDF documents, resize images, and convert metric/imperial measurements. Process files securely in your browser without uploading to remote servers.',
+    intro: 'Transform documents, digital media, and measurement units without sacrificing speed or security. Compress heavy PDF files locally using browser-side object stream optimization, resize visual graphics with Lanczos edge-resampling, and convert between metric and imperial dimensions seamlessly. Enjoy rapid local processing without waiting for cloud upload queues.',
+    keyFeatures: ['Private Client-Side PDF Re-compression', 'High-Fidelity Lanczos Image Resizing', 'Metric & Imperial Measurement Conversion', 'Instant Download with Zero Cloud Retention']
+  },
+  'color-tools': {
+    name: 'Color Tools',
+    title: `Color Tools | Online Color Picker, HEX & RGB Palette Tool | ${SITE_NAME}`,
+    description: 'Inspect colors, extract HEX, RGB, and HSL values, preview high-contrast palettes, and generate CSS color codes for web design and UI development.',
+    intro: 'A focused utility suite for digital designers, front-end engineers, and UI creators. Extract color codes across HEX, RGB, HSL, and CMYK formats, inspect contrast ratios for WCAG compliance, and generate copy-ready CSS color declarations. Everything updates in real time with intuitive visual sliders and hex inputs.',
+    keyFeatures: ['Real-Time HEX, RGB, HSL & CMYK Conversion', 'Instant CSS Snippet Generation', 'WCAG Contrast Verification', 'High-Contrast Neu-Brutalist Palette Testing']
+  },
+  'fiji-tools': {
+    name: 'Fiji Tools',
+    title: `Fiji Calculators & Utilities | VAT, FNPF, TSLS, Salary & Taxi Tools | ${SITE_NAME}`,
+    description: 'Comprehensive suite of official calculators for Fiji. Estimate 15% VAT, FNPF superannuation, TSLS student loans, PAYE salary tax, taxi fares, and electricity bills.',
+    intro: 'Built specifically for the people, businesses, and workers of the Republic of Fiji. Access localized calculators aligned with current statutory regulations: FRCS Value Added Tax (standard 12.5% and historical 15%), mandatory FNPF pension contributions, TSLS/TELS student loan and bond repayment policies, ERA overtime and annual leave rules, LTA taxi meter tariffs, and Energy Fiji Limited (EFL) residential electricity tariffs. Transparent, fast, and always localized in Fiji Dollars (FJD).',
+    keyFeatures: ['FRCS 12.5% & 15% VAT Breakdown', 'FNPF 8% Employee & 8%/10% Employer Pension Modeling', 'TSLS / TELS Student Debt & Bond Payback Schedules', 'LTA Regulated Taxi Meter Estimations']
+  },
+  'image-tools': {
+    name: 'Image Tools',
+    title: `Image Tools | Online Image Resizer & Color Utilities | ${SITE_NAME}`,
+    description: 'Resize photos for social media or web performance, optimize dimensions, and inspect color palettes locally in your browser with zero server uploads.',
+    intro: 'Optimize your digital visual assets for web speed, social media packaging, and mobile display. Adjust image pixel dimensions with aspect-ratio locking, leverage high-order resampling to maintain edge clarity, and inspect image colors. All graphic manipulation is powered by your local browser Canvas and Web Workers, keeping your private photos 100% on your device.',
+    keyFeatures: ['Custom Width & Height Rescaling', 'Standard Social Media Presets', 'Aspect Ratio Lock & Lanczos Filtering', 'Local Memory Processing (Zero Server Uploads)']
+  }
+};
+
+/**
+ * Helper to generate SEO metadata & structured data for a Category page
+ */
+export function generateCategorySEO(categoryName: string, path: string, tools: Tool[]) {
+  const cleanSlug = path.replace(/^\/+/, '').replace(/\/+$/, '');
+  const meta = CATEGORY_METAS[cleanSlug];
+
+  const titleTag = meta?.title || `${categoryName} | Free Online Utilities | ${SITE_NAME}`;
+  const metaDescription = meta?.description || generateMetaDescription(
+    `Explore our collection of free ${categoryName.toLowerCase()} utilities, calculators, and tools. Fast, secure, and client-side processing.`,
+    155
+  );
+  const canonicalUrl = generateCanonicalUrl(path);
+
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: `${SITE_URL}/`
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: categoryName,
+          item: canonicalUrl
+        }
+      ]
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      itemListElement: tools.map((tool, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: tool.name,
+        url: `${SITE_URL}/tools/${tool.slug}`
+      }))
+    }
+  ];
+
+  return {
+    titleTag,
+    metaDescription,
+    canonicalUrl,
+    structuredData,
+    intro: meta?.intro || '',
+    keyFeatures: meta?.keyFeatures || []
+  };
+}
+
 /**
  * Helper to generate SEO metadata for static or utility pages
  */
@@ -254,12 +398,33 @@ export function generateXmlSitemap(customBaseUrl?: string): string {
     { path: '/disclaimer', priority: '0.3', changefreq: 'monthly' },
   ];
 
+  const categoryRoutes = [
+    { path: '/calculators', priority: '0.8', changefreq: 'weekly' },
+    { path: '/image-tools', priority: '0.8', changefreq: 'weekly' },
+    { path: '/text-tools', priority: '0.8', changefreq: 'weekly' },
+    { path: '/developer-tools', priority: '0.8', changefreq: 'weekly' },
+    { path: '/converters', priority: '0.8', changefreq: 'weekly' },
+    { path: '/fiji-tools', priority: '0.8', changefreq: 'weekly' },
+    { path: '/color-tools', priority: '0.8', changefreq: 'weekly' },
+  ];
+
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
   // Static routes
   staticRoutes.forEach(route => {
     const loc = route.path === '/' ? `${baseUrl}/` : `${baseUrl}${route.path}`;
+    xml += `  <url>\n`;
+    xml += `    <loc>${loc}</loc>\n`;
+    xml += `    <lastmod>${today}</lastmod>\n`;
+    xml += `    <changefreq>${route.changefreq}</changefreq>\n`;
+    xml += `    <priority>${route.priority}</priority>\n`;
+    xml += `  </url>\n`;
+  });
+
+  // Category routes
+  categoryRoutes.forEach(route => {
+    const loc = `${baseUrl}${route.path}`;
     xml += `  <url>\n`;
     xml += `    <loc>${loc}</loc>\n`;
     xml += `    <lastmod>${today}</lastmod>\n`;

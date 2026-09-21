@@ -14,6 +14,328 @@ export interface Tool {
 
 export const TOOLS: Tool[] = [
   {
+    id: 'diff-checker',
+    slug: 'diff-checker',
+    name: 'Diff Checker',
+    titleTag: 'Diff Checker | Fast Online Text & Code Comparison Tool',
+    description: 'Compare two text files, code snippets, or documents to instantly find additions, removals, and changes. Features side-by-side and unified diff views with character, word, and line modes.',
+    category: 'Text Tools',
+    usp: 'Instant client-side diffing, side-by-side & unified views, character/word/line precision, 100% private in-browser processing.',
+    aliases: ['text-diff', 'text-compare', 'code-diff', 'online-diff-tool', 'file-difference-checker'],
+    metaDescription: 'Free online diff checker. Compare two versions of text or code side by side or inline. Clearly highlights additions, removals, and unchanged text with zero server uploads.',
+    howTo: `### How to Compare Text and Code with the Diff Checker
+
+Our **Diff Checker** is an intuitive, high-performance browser-based text comparison utility designed for developers, copywriters, legal professionals, and students. It highlights exact differences between two versions of text without transmitting sensitive files to external servers.
+
+#### 1. Inputting Your Texts
+- **Version A (Original):** Paste or type your baseline text, draft, or original source code into the left text area.
+- **Version B (Modified):** Paste or type the revised or updated content into the right text area.
+- Each text area provides live character, word, and line counters.
+- Use **"Load Sample"** to experiment with a pre-configured code refactoring example.
+- Use **"Swap A ↔ B"** to reverse the baseline and revision perspectives instantly.
+
+#### 2. Selecting Your Diff Comparison Mode
+- **Line-by-Line (Default):** Compares text line by line. Ideal for source code, configuration files (JSON, YAML), scripts, and structured documents.
+- **Words:** Compares word-by-word with inline highlighting. Perfect for essays, legal agreements, articles, and copy revisions.
+- **Characters:** Evaluates raw character-by-character discrepancies. Essential for spotting typos, cryptographic hashes, UUIDs, or short strings.
+
+#### 3. Customizing Diff Filters
+- **Ignore Whitespace:** Disregards trailing line spaces and indentation discrepancies so you can focus strictly on substantive content changes.
+- **Ignore Case:** Treats uppercase and lowercase letters as identical, preventing noisy diffs when capitalization has changed.
+
+#### 4. Exploring the Visual Views
+- **Split View (Side-by-Side):** Places Version A and Version B in synchronized columns with corresponding line numbers. Removed text is highlighted in high-contrast red on the left, while added text is highlighted in green on the right.
+- **Unified View (Inline):** Displays a consolidated, sequential Git-style patch format where removals are flagged with \`-\` and additions with \`+\`.
+
+#### 5. Exporting Your Differences
+Click **"Copy Diff"** to copy the formatted comparison patch directly to your clipboard for commit logs, documentation, or code reviews.
+
+#### 6. Related Text & Developer Tools
+Explore our full suite of productivity and developer utilities:
+- [Word Counter](/tools/word-counter) — Analyze word counts, character counts, reading time, and keyword densities.
+- [Markdown to HTML Converter](/tools/markdown-to-html) — Real-time Markdown rendering and raw HTML generation.
+- [JSON Formatter](/tools/json-formatter) — Validate, format, and inspect JSON payloads.
+- [Base64 Encoder / Decoder](/tools/base64-encoder-decoder) — Encode and decode strings locally.`,
+    faqs: [
+      {
+        question: 'What is a diff checker and how does it work?',
+        answer: 'A diff checker is a comparison tool that calculates the Longest Common Subsequence (LCS) between two blocks of text. It systematically pinpoints which lines, words, or characters were added, deleted, or left untouched between an original version and a modified version.'
+      },
+      {
+        question: 'Is my text or source code private when using this tool?',
+        answer: 'Yes, 100%. The Diff Checker runs entirely client-side in your web browser using JavaScript. No text, source code, or documents are transmitted over the network or saved on our servers.'
+      },
+      {
+        question: 'What is the difference between Split (Side-by-Side) and Unified diff views?',
+        answer: 'Split view presents the original (Version A) and modified (Version B) texts in two parallel columns, making it easy to review line-by-line changes side by side. Unified view combines changes into a single sequential feed with "-" markers for deletions and "+" markers for additions, matching standard Git and terminal patches.'
+      },
+      {
+        question: 'When should I use Word-level or Character-level diff mode instead of Line mode?',
+        answer: 'Use Line mode for programming code, scripts, or tabular text where structure matters. Use Word mode when proofreading essays, contracts, or blog drafts to see specific rewritten phrases. Use Character mode to detect individual typographical errors, missing punctuation, or modified hash values.'
+      },
+      {
+        question: 'Can I ignore whitespace or capitalization changes?',
+        answer: 'Yes. Simply check the "Ignore Whitespace" or "Ignore Case" options in the toolbar before or after comparing. The Diff Checker will dynamically recompute the comparison without flagging cosmetic spacing or case alterations.'
+      }
+    ]
+  },
+  {
+    id: 'markdown-to-html',
+    slug: 'markdown-to-html',
+    name: 'Markdown to HTML Converter',
+    titleTag: 'Markdown to HTML Converter | Free Live Editor',
+    description: 'Instantly convert Markdown to pure HTML with a live preview. Secure, fast, and runs entirely in your browser without data uploads.',
+    category: 'Text Tools',
+    usp: 'Live preview, raw HTML output, robust sanitization, 100% local processing.',
+    aliases: ['md-to-html', 'markdown-editor', 'markdown-preview', 'md2html'],
+    metaDescription: 'Free online Markdown to HTML converter. Type Markdown and instantly see the live preview and raw HTML. Features word count and local processing.',
+    howTo: `### Converting Markdown to HTML
+
+Markdown is a lightweight markup language used to create formatted text using a plain-text editor. It is incredibly popular among developers, writers, and content creators. Our **Markdown to HTML Converter** allows you to instantly translate your Markdown into clean, safe HTML.
+
+#### 1. Entering Markdown
+Use the **Markdown Input** area to type or paste your Markdown. The editor supports standard Markdown syntax including:
+- **Headings:** \`# Heading 1\`, \`## Heading 2\`
+- **Formatting:** \`**Bold**\`, \`*Italic*\`
+- **Lists:** Unordered (\`- item\`) and Ordered (\`1. item\`)
+- **Links & Images:** \`[Link Text](url)\` and \`![Alt Text](image_url)\`
+- **Code:** Inline \`code\` and fenced block code (\`\`\`javascript)
+- **Tables & Blockquotes:** Standard GitHub-flavored markdown tables and \`> Quotes\`
+
+#### 2. Live HTML Preview
+As you type in the input area, the **Live Preview** section instantly updates to show exactly what your rendered Markdown will look like on a webpage. 
+
+#### 3. Getting the Raw HTML
+Simultaneously, the **Raw HTML Output** panel generates the exact HTML tags corresponding to your text.
+- Click **Copy HTML** to copy the generated code to your clipboard.
+- Click **Download HTML** to save the snippet as an \`.html\` file to your computer.
+
+#### 4. Safe and Private
+All conversions and HTML sanitizations happen **locally in your browser**. We do not upload your text to any server, meaning your sensitive notes and documents stay strictly on your device.`,
+    faqs: [
+      { question: 'What is Markdown?', answer: 'Markdown is a simple text formatting syntax that allows you to easily format text (like making it bold, italic, or creating lists) without needing complex HTML tags.' },
+      { question: 'How do I convert Markdown to HTML?', answer: 'Simply paste your Markdown text into the input editor. The tool will instantly generate both a visual live preview and the underlying raw HTML source code.' },
+      { question: 'Can I preview Markdown before converting?', answer: 'Yes! The Live Preview tab/panel shows exactly how your Markdown will look as rendered text, side-by-side with the generated HTML code.' },
+      { question: 'Can the converter handle code blocks and tables?', answer: 'Yes, this tool supports GitHub-Flavored Markdown (GFM), meaning tables, fenced code blocks, strikethrough, and other extended syntax will work flawlessly.' },
+      { question: 'Is my Markdown uploaded?', answer: 'No. All processing and HTML rendering is done client-side in your web browser. No data is sent over the internet or stored on our servers.' }
+    ]
+  },
+  {
+    id: 'base64-encoder-decoder',
+    slug: 'base64-encoder-decoder',
+    name: 'Base64 Encoder / Decoder',
+    titleTag: 'Base64 Encoder & Decoder | Free Online Text Tool',
+    description: 'Fast, secure browser-based Base64 encoder and decoder. Convert text to Base64 or decode Base64 back to UTF-8 string text.',
+    category: 'Web Tools',
+    usp: 'Supports UTF-8 encoding. 100% local browser processing—no data sent to servers.',
+    aliases: ['base64-encode', 'base64-decode', 'text-to-base64', 'base64-to-text'],
+    metaDescription: 'Free online tool to encode text to Base64 or decode Base64 to text. Features UTF-8 support, instant copy, and secure local processing directly in your browser.',
+    howTo: `### Working with Base64 Encoding
+
+Base64 is a universally accepted binary-to-text encoding scheme. It translates arbitrary data (or text) into a standard set of 64 characters (A-Z, a-z, 0-9, +, /). It is commonly used on the internet to ensure data remains intact during transport across protocols that handle text (like HTTP, HTML, or email).
+
+#### 1. How to Encode Text to Base64
+Encoding converts your readable text into a Base64 string.
+- Select the **"Encode"** mode.
+- Paste your standard text (including emojis or international UTF-8 characters) into the **Input** field.
+- The tool instantly calculates the Base64 representation in the **Output** field.
+- Use the **Copy** button to grab the encoded result.
+
+#### 2. How to Decode Base64 to Text
+Decoding reverses the process, turning a valid Base64 string back into readable text.
+- Select the **"Decode"** mode.
+- Paste your valid Base64 string into the **Input** field.
+- The tool parses the string and restores the original text in the **Output** field. If the string is invalid, an error message will guide you.
+
+#### 3. Handling Special Characters & UTF-8
+Unlike basic encoders, this tool correctly handles UTF-8 strings. This means emojis, accented letters, and non-Latin alphabets encode and decode flawlessly using standard web APIs (\`encodeURIComponent\` and \`decodeURIComponent\` paired with \`btoa\`/\`atob\`).
+
+#### 4. Your Privacy is Guaranteed
+This tool operates completely **client-side** in your browser. The data you enter in the text boxes is never transmitted to any external server.`,
+    faqs: [
+        { question: 'What is Base64?', answer: 'Base64 is an encoding algorithm that translates binary data or text into a standard 64-character ASCII string format. It is frequently used to embed image data in CSS/HTML or safely transmit API keys and tokens.' },
+        { question: 'How do I encode text?', answer: 'Simply toggle the tool to "Encode", paste your normal text into the input box, and the tool will automatically generate the Base64 version in the output box.' },
+        { question: 'How do I decode Base64?', answer: 'Toggle the tool to "Decode" and paste your Base64 string into the input area. The original readable text will instantly appear in the output area.' },
+        { question: 'Is Base64 encryption?', answer: 'No. Base64 is an encoding scheme, not an encryption method. It provides absolutely no security or cryptographic protection. Anyone with a Base64 decoder can easily read the original text.' },
+        { question: 'Is my data uploaded?', answer: 'No. All encoding and decoding happen locally inside your web browser. We do not store, upload, or transmit any data entered into this tool.' }
+    ]
+  },
+  {
+    id: 'fiji-tsls-calculator',
+    slug: 'fiji-tsls-calculator',
+    name: 'Fiji TSLS Loan Repayment Calculator',
+    titleTag: 'Fiji TSLS Loan Calculator | Student Loan & Bond Repayment Estimator',
+    description: 'Calculate your Fiji TSLS student loan repayment, bond service period (1.5x/2.5x), travel clearance buyout, and 9-tier statutory penalties under current 2026 TSLS legislation.',
+    category: 'Fiji Tools',
+    usp: 'Accurately models the 2023 TELS debt conversion to service bonds, the official 9-tier penalty system (10% to 50%) from the TSLS Handbook, and the 2026 Budget Amendment Act.',
+    aliases: ['tsls-calculator-fiji', 'tels-repayment-calculator', 'fiji-student-loan-calculator', 'tsls-bond-calculator', 'fiji-tels-calculator'],
+    metaDescription: 'Free online Fiji TSLS and TELS student loan repayment calculator. Calculate domestic bond service duration, repayment in lieu of bond for migration, 9-tier statutory penalties, and monthly installments.',
+    howTo: `### Complete Guide to Fiji TSLS Student Loans, Service Bonds & Buyout Rules
+
+Understanding your Tertiary Scholarships and Loans Service (TSLS) obligations in Fiji requires navigating recent historic legislative changes. Following major reforms by the Parliament of Fiji up through the *Tertiary Scholarships and Loans Service (Budget Amendment) Act 2026*, student funding management has transitioned from conventional loan repayments to employment-based service bonds.
+
+#### 1. The 2023 TELS Debt Conversion & Current Rules
+Under the **Tertiary Scholarships and Loans Service (Budget Amendment) Act 2023** (effective July 31, 2023) and reaffirmed in subsequent budget legislation:
+- **Debt Conversion to Service Bonds:** All outstanding student debts under the Tertiary Education Loans Scheme (TELS) for domestic students were converted into **Service Bond Agreements**.
+- **Cessation of Cash Salary Deductions:** For graduates residing and working in Fiji, **monthly salary deductions were discontinued** (employers were instructed by FRCS and TSLS to stop taking loan deductions from paychecks).
+- **Service Obligation:** Instead of paying cash, graduates fulfill their obligation through paid employment in Fiji (in either the private or public sector).
+
+#### 2. Bond Service Duration Formulas
+The official statutory bond duration depends on where your studies were undertaken:
+- **Local Tertiary Programs (e.g. USP, FNU, UniFiji):** Bond Service Period = **1.5 × Study Duration**. For instance, completing a 3-year bachelor degree requires **4.5 years (54 months)** of paid employment in Fiji.
+- **Overseas Scholarships:** Bond Service Period = **2.5 × Study Duration**. A 4-year overseas undergraduate award requires **10 years (120 months)** of service in Fiji.
+
+Graduates are legally required to submit their employment records (e.g., FNPF contribution histories and employment contracts) to TSLS within six months of commencing employment.
+
+#### 3. Bond Buyout & "Repayment in Lieu of Bond Service"
+If a bonded graduate decides to migrate, take up permanent overseas employment, or obtain travel release prior to finishing their required service period, they must clear their bond financially:
+1. **Unserved Proportion:** Calculated as \`Remaining Unserved Months / Total Required Bond Months\`.
+2. **Base Unserved Liability:** Calculated as \`Total Award Amount × Unserved Proportion\`.
+3. **The Official 9-Tier Penalty System (TSLS Handbook 2026–2027):** Under the *Tertiary Scholarships and Loans Service (Budget Amendment) Act 2026* and the administrative rules of the TSLS Handbook, the statutory penalty is structured into nine progressive tiers based on the percentage of unserved bond remaining:
+   - **Category 1 (1% – 11% remaining):** 10% penalty
+   - **Category 2 (12% – 22% remaining):** 15% penalty
+   - **Category 3 (23% – 33% remaining):** 20% penalty
+   - **Category 4 (34% – 44% remaining):** 25% penalty
+   - **Category 5 (45% – 55% remaining):** 30% penalty
+   - **Category 6 (56% – 66% remaining):** 35% penalty
+   - **Category 7 (67% – 77% remaining):** 40% penalty
+   - **Category 8 (78% – 88% remaining):** 45% penalty
+   - **Category 9 (89% – 100% remaining or study not completed):** 50% penalty
+4. **Temporary Travel Release:** If travelling temporarily for vacations, business, or medical care, no cash buyout or penalty is assessed provided approved guarantors are registered with TSLS.
+5. **Repayment Schedule:** For migration clearance, graduates can pay a single lump-sum settlement or agree upon an installment plan (e.g., 12, 24, 36, or 60 months) through the TSLS Travel & Bond Clearance Portal.
+
+#### 4. Practical Examples
+
+##### Example 1: Local Graduate Working in Suva
+- **Program:** 3-Year Bachelor of Commerce at FNU.
+- **Total Award Amount:** FJD $24,000 (tuition + allowances).
+- **Required Bond Service:** 3 years × 1.5 = 4.5 years (54 months).
+- **Monthly Cash Repayment:** **FJD $0.00 / month**. As long as you work in Fiji, your student loan is systematically fulfilled month by month.
+
+##### Example 2: Emigrating After 24 Months of Service
+- **Required Service:** 54 months.
+- **Months Served in Fiji:** 24 months (verified via FNPF).
+- **Unserved Months Remaining:** 30 months (55.6% unserved).
+- **Base Unserved Balance:** $24,000 × (30 / 54) = **FJD $13,333.33**.
+- **Applicable Statutory Penalty Tier:** Category 6 (56%–66% remaining) = **35% penalty** ($4,666.67).
+- **Estimated Total Clearance Obligation:** $13,333.33 + $4,666.67 = **FJD $18,000.00** (or ~$750.00/month on a 24-month clearance plan).
+
+#### 5. Official Source Transparency & Portals
+To verify your individual records, apply for temporary travel release, or process a buyout, consult official government channels:
+- **TSLS Official Website:** [www.tsls.com.fj](https://www.tsls.com.fj) &bull; Travel and Bond Clearance Portal
+- **Parliament of Fiji:** *Tertiary Scholarships and Loans Service (Budget Amendment) Act 2026 (Act No. 25 of 2026)* and prior Acts of 2023, 2024, and 2025
+- **TSLS Scholarship Policies Handbook (2026–2027 Financial Year)**
+- **Fiji Revenue and Customs Service (FRCS):** [www.frcs.org.fj](https://www.frcs.org.fj)
+
+#### 6. Related Fiji Financial Tools
+Plan your broader finances in Fiji with our integrated utility suite:
+- [Fiji Salary Calculator](/tools/fiji-salary-calculator) — Calculate your take-home pay, PAYE income tax, and standard deductions.
+- [Fiji FNPF Calculator](/tools/fiji-fnpf-calculator) — Project your Fiji National Provident Fund retirement balance.
+- [Fiji VAT Calculator](/tools/fiji-vat-calculator) — Calculate current 12.5% and historical 15% VAT on transactions.
+- [Fiji Loan Repayment Calculator](/tools/fiji-loan-repayment-calculator) — Calculate commercial personal loan and vehicle repayments across Fiji banks.`,
+    faqs: [
+      { 
+        question: 'Do I have to make monthly salary repayments for my TELS loan if I work in Fiji?', 
+        answer: 'No. Following the Tertiary Scholarships and Loans Service (Budget Amendment) Act 2023 and subsequent legislation, TELS student loan debts for domestic graduates were converted into service bonds. Employers in Fiji no longer deduct TELS repayments from your paycheck. You fulfill your obligation through verified employment in Fiji.' 
+      },
+      { 
+        question: 'How is the TSLS bond service period calculated?', 
+        answer: 'For local tertiary programs at institutions in Fiji (e.g., USP, FNU, UniFiji), the bond period is 1.5 times the duration of your study (e.g., 3 years of study = 4.5 years of service). For overseas scholarships, the bond multiplier is 2.5 times the study duration (e.g., 4 years of study = 10 years of service).' 
+      },
+      { 
+        question: 'What is "Repayment in Lieu of Bond Service"?', 
+        answer: 'Repayment in lieu of bond service is a buyout mechanism provided through the TSLS Travel & Bond Clearance Portal. If you wish to migrate, work overseas, or be released from your bond early, you must repay the pro-rated financial value of your remaining unserved service period plus any applicable statutory penalty.' 
+      },
+      { 
+        question: 'How does the official 9-tier TSLS penalty system work?', 
+        answer: 'Under the TSLS Handbook and 2026 legislation, penalties on unserved bond buyouts are structured into nine progressive tiers based on the percentage of unserved service remaining: ranging from 10% (for 1%–11% remaining) up to 50% (for 89%–100% remaining or study non-completion). The more time you have served in Fiji, the lower the statutory penalty.' 
+      },
+      { 
+        question: 'Can I travel overseas for holidays or medical treatment while bonded?', 
+        answer: 'Yes. Bonded graduates can apply for temporary travel release on the TSLS Portal for vacation, business trips, or medical reasons without having to buy out their bond. You must provide approved guarantors who agree to assume liability if you do not return.' 
+      },
+      { 
+        question: 'How does TSLS verify that I am working in Fiji?', 
+        answer: 'TSLS collaborates with the Fiji National Provident Fund (FNPF) through an inter-agency Memorandum of Understanding (MoU) to verify monthly employment contributions, alongside requiring graduates to submit employment confirmation within 6 months of securing a job.' 
+      }
+    ]
+  },
+  {
+    id: 'fiji-fnpf-calculator',
+    slug: 'fiji-fnpf-calculator',
+    name: 'Fiji FNPF Retirement Calculator',
+    titleTag: 'Fiji FNPF Retirement Calculator | Projection Estimator',
+    description: 'Calculate your projected Fiji National Provident Fund (FNPF) balance at retirement. Estimate employer and employee contributions over time.',
+    category: 'Fiji Tools',
+    usp: 'Supports the new temporary 8% + 8% contribution structures effective August 2026, alongside historical 10% + 8% rates.',
+    aliases: ['fnpf-calculator-fiji', 'fiji-pension-calculator', 'fnpf-balance-estimator'],
+    metaDescription: 'Estimate your future Fiji National Provident Fund (FNPF) retirement balance. Calculate compound interest, salary growth, and combined employer/employee contributions.',
+    howTo: `### Planning Your FNPF Retirement Savings
+
+The Fiji National Provident Fund (FNPF) is the primary superannuation fund for all formally employed citizens in Fiji. Planning your long-term retirement requires projecting your contributions and compound interest over your working life. Our FNPF Retirement Calculator provides a powerful estimate of your financial future.
+
+#### 1. FNPF Contribution Rates
+Contribution rates in Fiji have undergone several statutory adjustments to balance economic growth and retirement security:
+- **Current Standard (Pre-August 2026):** The rate is typically 18% in total—comprising 10% from the Employer and 8% from the Employee.
+- **Temporary Relief Rate (August 1, 2026 - July 31, 2027):** For a 12-month period starting August 2026, the Employer contribution rate is temporarily reduced to 8%, while the Employee rate remains at 8% (Total 16%).
+
+*Note: Our calculator allows you to adjust both rates manually, accommodating historical, current, and future statutory changes.*
+
+#### 2. How Interest is Credited
+FNPF historically declares a crediting interest rate at the end of its financial year (typically around 5% to 7%). This interest is applied to your balance. The power of FNPF lies in **compound interest**—earning interest on your past interest over decades.
+
+#### 3. How to Use This Calculator
+1. **Current Details:** Enter your current age, your target retirement age (typically 55 in Fiji for full withdrawal), and your current FNPF account balance.
+2. **Salary & Growth:** Input your current gross monthly salary. You can also estimate a conservative annual salary growth percentage (e.g., 2% to 4%) to account for inflation and career progression.
+3. **Contribution Rates:** Set the Employer and Employee contribution rates based on current FNPF legislation.
+4. **Estimated Return:** Input a projected annual interest crediting rate based on historical FNPF performance (e.g., 6%).
+5. **Calculate:** The tool will project your final balance, separating your own contributions from employer contributions and the total interest earned.
+
+#### 4. Important Disclaimer
+This tool provides a mathematical projection for educational and planning purposes only. It assumes continuous employment, consistent salary growth, and steady interest rates. It is **not** financial advice, nor is it a guarantee of your actual FNPF payout. Always consult official FNPF statements or a registered financial advisor in Fiji for verified account details.`,
+    faqs: [
+        { question: 'What is the standard retirement age for FNPF withdrawal?', answer: 'In Fiji, members are typically eligible to withdraw their full FNPF savings upon reaching the statutory retirement age of 55.' },
+        { question: 'What happens to my FNPF if my salary grows over time?', answer: 'As your gross salary increases, your 8% contribution dynamically increases as well. Our calculator accounts for this using the "Expected Annual Salary Growth" field.' },
+        { question: 'Does the employer contribution come out of my salary?', answer: 'No. The employee contribution (e.g., 8%) is deducted from your gross pay, while the employer contribution (e.g., 8% or 10%) is an additional expense paid entirely by your employer.' }
+    ]
+  },
+  {
+    id: 'fiji-vat-calculator',
+    slug: 'fiji-vat-calculator',
+    name: 'Fiji VAT Calculator',
+    titleTag: 'Fiji VAT Calculator (15% & 12.5%) - Free Online Tool',
+    description: 'Calculate Fiji Value Added Tax (VAT). Easily add or remove VAT from prices using the current 12.5% rate or historical 15% rate.',
+    category: 'Fiji Tools',
+    usp: 'Includes the latest FRCS 12.5% rate effective August 2025, alongside historical 15% and zero-rated calculations.',
+    aliases: ['fiji-tax-calculator', 'calculate-vat-fiji', 'fiji-12.5-vat'],
+    metaDescription: 'Calculate Fiji Value Added Tax (VAT) instantly. Add or remove VAT from any amount using the current 12.5% FRCS rate, historical 15% rate, or zero-rated items.',
+    howTo: `### Complete Guide to Calculating Fiji VAT (Value Added Tax)
+
+Understanding Value Added Tax (VAT) in Fiji is essential for businesses, accountants, and consumers. Our calculator helps you quickly add or extract VAT from any transaction amount.
+
+#### 1. Current Fiji VAT Rates
+Following the 2025/2026 Fiji National Budget, the standard VAT rate was reduced. The Fiji Revenue and Customs Service (FRCS) enforces the following structures:
+- **12.5% Standard Rate:** Effective from August 1, 2025, this is the current standard VAT rate applied to most goods and services.
+- **15% Historical Rate:** The rate applicable prior to August 1, 2025.
+- **0% Zero-Rated Items:** Essential items such as basic food items, prescription medication, and export goods remain zero-rated.
+
+#### 2. How to Use the Calculator
+1. **Enter the Price:** Input the monetary amount in FJD.
+2. **Select the Rate:** Choose the current 12.5% rate, the historical 15% rate, or the zero-rate.
+3. **Choose the Calculation Mode:**
+   - **Add VAT:** Use this if your price is VAT-Exclusive and you want to find out the final price including VAT.
+   - **Remove VAT:** Use this if your price already includes VAT and you want to extract the base price and the exact tax amount.
+4. **Copy Results:** Instantly copy the breakdown for your invoices, receipts, or accounting software.
+
+#### 3. Why this Tool is Essential
+Calculating VAT-inclusive pricing manually can be prone to rounding errors. Extracting VAT from a total price requires division (Price ÷ 1.125), which is tedious. This client-side tool provides instant, privacy-first, mathematically accurate calculations for all Fiji tax scenarios.`,
+    faqs: [
+        { question: 'What is the current VAT rate in Fiji?', answer: 'As of August 1, 2025, the standard VAT rate in Fiji is 12.5%, reduced from the previous 15% rate.' },
+        { question: 'How do I extract VAT from a total price?', answer: 'To extract a 12.5% VAT from an inclusive total, divide the total amount by 1.125. The result is your exclusive price.' },
+        { question: 'Are all goods in Fiji subject to 12.5% VAT?', answer: 'No. Certain essential items, such as basic food supplies and prescription medications, are zero-rated (0% VAT).' }
+    ]
+  },
+  {
     id: 'loan-calculator',
     slug: 'loan-calculator',
     name: 'Loan Calculator',

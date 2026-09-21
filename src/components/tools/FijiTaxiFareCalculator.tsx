@@ -11,13 +11,14 @@ export default function FijiTaxiFareCalculator() {
     const w = parseFloat(waitingTime) || 0;
 
     // LTA regulated fare structure:
-    // Base flag drop:
-    // - Daytime (6am - 10pm): $2.00 FJD
-    // - Nighttime (10pm - 6am): $3.00 FJD
+    // Temporary adjustment effective July 1, 2026 - Sept 30, 2026 (Verified FCCC)
+    // - Daytime: $2.00 FJD
+    // - Nighttime: $3.00 FJD
+    // NOTE: Rates scheduled to revert on October 1, 2026.
     const flagDrop = isNightTime ? 3.00 : 2.00;
 
-    // Regulated rate per Kilometer: $1.20 FJD
-    const ratePerKm = 1.20;
+    // Regulated rate per Kilometer: $1.40 FJD (14 cents per 100 meters)
+    const ratePerKm = 1.40;
 
     // Regulated waiting time charge: $0.20 per minute
     const ratePerMinWait = 0.20;

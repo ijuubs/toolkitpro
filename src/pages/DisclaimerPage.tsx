@@ -8,6 +8,13 @@ export default function DisclaimerPage() {
         <title>Disclaimer | ToolKitPro</title>
         <meta name="description" content="Important disclaimer regarding the use of utility tools and calculators on ToolKitPro." />
         <link rel="canonical" href={`${SITE_URL}/disclaimer`} />
+        <meta property="og:title" content="Disclaimer | ToolKitPro" />
+        <meta property="og:description" content="Important disclaimer regarding the use of utility tools and calculators on ToolKitPro." />
+        <meta property="og:url" content={`${SITE_URL}/disclaimer`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Disclaimer | ToolKitPro" />
+        <meta name="twitter:description" content="Important disclaimer regarding the use of utility tools and calculators on ToolKitPro." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

@@ -12,6 +12,18 @@ export default function ImageResizer() {
 
   const handleResize = async () => {
     if (!file) return;
+
+    // Basic validation
+    if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file.');
+        return;
+    }
+
+    if (file.size > 50 * 1024 * 1024) { // 50MB limit
+        alert('File too large (max 50MB).');
+        return;
+    }
+
     setIsResizing(true);
     setResult(null);
 

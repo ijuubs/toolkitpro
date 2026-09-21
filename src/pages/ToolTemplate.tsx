@@ -7,7 +7,8 @@ import AdSlot from '../components/AdSlot';
 import ErrorBoundary from '../components/ErrorBoundary';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ReactMarkdown from 'react-markdown';
-import { generateToolSEO } from '../utils/seo';
+import { generateToolSEO, getToolCategoryInfo } from '../utils/seo';
+import { getRelatedTools } from '../utils/relatedTools';
 import { ToolSkeleton } from '../components/SkeletonLoader';
 
 // Lazy load tools
@@ -19,6 +20,8 @@ const QrCodeGenerator = lazy(() => import('../components/tools/QrCodeGenerator')
 const PasswordGenerator = lazy(() => import('../components/tools/PasswordGenerator'));
 const BmiCalculator = lazy(() => import('../components/tools/BmiCalculator'));
 const UrlEncoder = lazy(() => import('../components/tools/UrlEncoder'));
+const Base64EncoderDecoder = lazy(() => import('../components/tools/Base64EncoderDecoder'));
+const MarkdownToHtml = lazy(() => import('../components/tools/MarkdownToHtml'));
 const LoremIpsum = lazy(() => import('../components/tools/LoremIpsum'));
 const ColorPicker = lazy(() => import('../components/tools/ColorPicker'));
 const UnitConverter = lazy(() => import('../components/tools/UnitConverter'));
@@ -41,6 +44,10 @@ const FijiVehicleCostCalculator = lazy(() => import('../components/tools/FijiVeh
 const FijiElectricityBillCalculator = lazy(() => import('../components/tools/FijiElectricityBillCalculator'));
 const FijiGroceryBudgetCalculator = lazy(() => import('../components/tools/FijiGroceryBudgetCalculator'));
 const FijiTaxiFareCalculator = lazy(() => import('../components/tools/FijiTaxiFareCalculator'));
+const FijiVatCalculator = lazy(() => import('../components/tools/FijiVatCalculator'));
+const FijiFnpfCalculator = lazy(() => import('../components/tools/FijiFnpfCalculator'));
+const FijiTslsCalculator = lazy(() => import('../components/tools/FijiTslsCalculator'));
+const DiffChecker = lazy(() => import('../components/tools/DiffChecker'));
 
 export default function ToolTemplate() {
   const { slug } = useParams<{ slug: string }>();
@@ -51,6 +58,10 @@ export default function ToolTemplate() {
   if (!tool) {
     return (
       <div className="max-w-4xl mx-auto py-20 text-center space-y-6">
+        <Helmet>
+          <title>404 - Tool Not Found | ToolKitPro</title>
+          <meta name="robots" content="noindex, follow" />
+        </Helmet>
         <h1 className="text-6xl font-black uppercase">404</h1>
         <p className="text-2xl font-bold">Tool Not Found</p>
         <Link to="/" className="inline-block bg-yellow-400 border-4 border-black px-6 py-3 font-black uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
@@ -86,6 +97,8 @@ export default function ToolTemplate() {
         case 'password-generator': return <PasswordGenerator />;
         case 'bmi-calculator': return <BmiCalculator />;
         case 'url-encoder': return <UrlEncoder />;
+        case 'base64-encoder-decoder': return <Base64EncoderDecoder />;
+        case 'markdown-to-html': return <MarkdownToHtml />;
         case 'lorem-ipsum': return <LoremIpsum />;
         case 'color-picker': return <ColorPicker />;
         case 'unit-converter': return <UnitConverter />;
@@ -108,14 +121,14 @@ export default function ToolTemplate() {
         case 'fiji-electricity-bill-calculator': return <FijiElectricityBillCalculator />;
         case 'fiji-grocery-budget-calculator': return <FijiGroceryBudgetCalculator />;
         case 'fiji-taxi-fare-calculator': return <FijiTaxiFareCalculator />;
+        case 'fiji-vat-calculator': return <FijiVatCalculator />;
+        case 'fiji-fnpf-calculator': return <FijiFnpfCalculator />;
+        case 'fiji-tsls-calculator': return <FijiTslsCalculator />;
+        case 'diff-checker': return <DiffChecker />;
         
         default: return <p className="text-center text-[var(--muted)]">Tool interface for {tool.name} coming soon.</p>;
     }
   };
-
-  const relatedTools = TOOLS
-    .filter(t => t.id !== tool.id && (t.category === tool.category))
-    .slice(0, 4);
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
@@ -137,21 +150,6 @@ export default function ToolTemplate() {
               ))}
             </ul>
           </div>
-
-          {relatedTools.length > 0 && (
-            <div className="bg-black text-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(251,191,36,1)] sm:shadow-[8px_8px_0px_0px_rgba(251,191,36,1)]">
-              <h3 className="font-black uppercase text-lg mb-4 text-yellow-400 font-bold">Related</h3>
-              <ul className="space-y-3">
-                {relatedTools.map((t) => (
-                  <li key={t.id}>
-                    <Link to={`/tools/${t.slug}`} className="block text-sm font-bold hover:text-yellow-400 transition-colors">
-                      → {t.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
           
           <div className="hidden lg:block border-4 border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               <AdSlot adSlot="9791142997" adFormat="vertical" minHeight="600px" />
@@ -168,7 +166,7 @@ export default function ToolTemplate() {
           <link rel="canonical" href={canonicalUrl} />
           <meta property="og:title" content={titleTag} />
           <meta property="og:description" content={metaDescription} />
-          <meta property="og:url" content={currentUrl} />
+          <meta property="og:url" content={canonicalUrl} />
           <meta property="og:type" content="website" />
           
           <meta name="twitter:card" content="summary_large_image" />
@@ -184,64 +182,140 @@ export default function ToolTemplate() {
           {displayTitle}
         </h1>
 
-        <Breadcrumbs items={[{ label: 'Tools', path: '/' }, { label: tool.name }]} />
+        {(() => {
+          const categoryInfo = getToolCategoryInfo(tool);
+          const relatedTools = getRelatedTools(tool, 4);
+          return (
+            <>
+              <Breadcrumbs items={[
+                { label: 'Home', path: '/' }, 
+                { label: categoryInfo.name, path: `/${categoryInfo.slug}` }, 
+                { label: tool.name }
+              ]} />
 
-        <div className="bg-[var(--surface)] border-4 border-black p-4 sm:p-8 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] min-h-[400px]">
-          <ErrorBoundary>
-            <Suspense fallback={<ToolSkeleton />}>
-                {renderTool()}
-            </Suspense>
-          </ErrorBoundary>
-        </div>
+              <div className="bg-[var(--surface)] border-4 border-black p-4 sm:p-8 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] min-h-[400px]">
+                <ErrorBoundary>
+                  <Suspense fallback={<ToolSkeleton />}>
+                      {renderTool()}
+                  </Suspense>
+                </ErrorBoundary>
+              </div>
 
-        {tool.usp && (
-            <div className="bg-black text-white p-4 sm:p-6 border-4 border-black shadow-[6px_6px_0px_0px_rgba(251,191,36,1)] sm:shadow-[8px_8px_0px_0px_rgba(251,191,36,1)] flex items-start gap-3 sm:gap-4">
-                <div className="bg-yellow-400 text-black px-2 py-1 rounded-sm font-black text-xs uppercase shrink-0">USP</div>
-                <p className="font-bold text-base sm:text-lg leading-tight uppercase italic">{tool.usp}</p>
-            </div>
-        )}
-
-        <section className="max-w-none mt-10 md:mt-12">
-          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[var(--g6)] border-b-4 border-black pb-2 leading-tight">
-            How to use {displayTitle}
-          </h2>
-          <div className="text-[var(--muted)] leading-relaxed mt-4 sm:mt-6 text-sm sm:text-base markdown-body">
-            <ReactMarkdown
-              components={{
-                h1: ({ children }) => <h3 className="text-2xl font-black uppercase tracking-tight text-[var(--g6)] mt-8 mb-3 border-b-2 border-black pb-1">{children}</h3>,
-                h2: ({ children }) => <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[var(--g6)] mt-8 mb-3 border-b-2 border-black pb-1">{children}</h3>,
-                h3: ({ children }) => <h4 className="text-lg sm:text-xl font-black uppercase tracking-tight text-[var(--g6)] mt-6 mb-2">{children}</h4>,
-                h4: ({ children }) => <h5 className="text-base sm:text-lg font-bold uppercase tracking-tight text-[var(--g6)] mt-4 mb-2">{children}</h5>,
-                p: ({ children }) => <p className="mb-4 text-[var(--muted)] leading-relaxed font-medium text-sm sm:text-base">{children}</p>,
-                ul: ({ children }) => <ul className="list-disc list-outside ml-6 space-y-1.5 mb-4 text-[var(--muted)] font-medium">{children}</ul>,
-                ol: ({ children }) => <ol className="list-decimal list-outside ml-6 space-y-1.5 mb-4 text-[var(--muted)] font-medium">{children}</ol>,
-                li: ({ children }) => <li className="leading-relaxed pl-1">{children}</li>,
-                strong: ({ children }) => <strong className="font-black text-[var(--g6)]">{children}</strong>,
-                code: ({ children }) => <code className="px-1.5 py-0.5 bg-yellow-200 border border-black font-mono text-xs font-bold text-black">{children}</code>,
-                blockquote: ({ children }) => <blockquote className="border-l-4 border-black bg-yellow-100 p-3 my-4 italic font-bold">{children}</blockquote>
-              }}
-            >
-              {tool.howTo}
-            </ReactMarkdown>
-          </div>
-          
-          <div className="my-8 sm:my-12 p-6 sm:p-10 bg-yellow-400 border-4 sm:border-8 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] sm:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]">
-            <h3 className="text-xl sm:text-2xl font-black uppercase mb-3 sm:mb-4 leading-tight">Pro Tip</h3>
-            <p className="font-bold text-base sm:text-lg">Use keyboard shortcuts (Cmd/Ctrl + V) to instantly paste data into our tools for faster workflow.</p>
-          </div>
-
-          <AdSlot adSlot="9791142997" adFormat="auto" minHeight="250px" className="my-8 sm:my-12" />
-
-          <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[var(--g6)] mt-12 sm:mt-16 border-b-4 border-black pb-2 leading-tight">Frequently Asked Questions</h3>
-          <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
-            {tool.faqs.map((faq, i) => (
-                <div key={i} className="p-4 sm:p-6 border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                    <h4 className="font-black uppercase mb-2 text-base sm:text-lg leading-tight">{faq.question}</h4>
-                    <p className="text-[var(--muted)] font-medium text-sm sm:text-base">{faq.answer}</p>
+              {tool.usp && (
+                  <div className="bg-black text-white p-4 sm:p-6 border-4 border-black shadow-[6px_6px_0px_0px_rgba(251,191,36,1)] sm:shadow-[8px_8px_0px_0px_rgba(251,191,36,1)] flex items-start gap-3 sm:gap-4">
+                      <div className="bg-yellow-400 text-black px-2 py-1 rounded-sm font-black text-xs uppercase shrink-0">USP</div>
+                      <p className="font-bold text-base sm:text-lg leading-tight uppercase italic">{tool.usp}</p>
+                  </div>
+              )}
+              
+              {/* Related Tools - Curated, Deterministic Internal Linking */}
+              <section className="mt-8 sm:mt-10">
+                <div className="flex items-center justify-between border-b-4 border-black pb-2 mb-4">
+                  <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[var(--g6)]">
+                    Related Tools
+                  </h2>
+                  <Link 
+                    to={`/${categoryInfo.slug}`}
+                    className="text-xs sm:text-sm font-black uppercase tracking-wider underline hover:bg-yellow-300 px-2 py-0.5 transition-colors"
+                  >
+                    All {categoryInfo.name} →
+                  </Link>
                 </div>
-            ))}
-          </div>
-        </section>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {relatedTools.map(t => (
+                    <Link 
+                      key={t.id} 
+                      to={`/tools/${t.slug}`} 
+                      className="group p-4 border-3 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-yellow-50 transition-all flex flex-col justify-between"
+                    >
+                      <div>
+                        <span className="inline-block bg-black text-white text-[10px] font-black uppercase px-1.5 py-0.5 mb-2">
+                          {t.category}
+                        </span>
+                        <h3 className="font-black uppercase text-sm sm:text-base leading-snug group-hover:text-yellow-600 transition-colors">
+                          {t.name}
+                        </h3>
+                        <p className="text-xs text-[var(--muted)] font-medium line-clamp-2 mt-1">
+                          {t.description}
+                        </p>
+                      </div>
+                      <div className="mt-3 pt-2 border-t border-black/20 flex items-center justify-between text-xs font-black uppercase text-black">
+                        <span>Open Tool</span>
+                        <span className="group-hover:translate-x-1 transition-transform">→</span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+
+              <section className="max-w-none mt-10 md:mt-12">
+                <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[var(--g6)] border-b-4 border-black pb-2 leading-tight">
+                  How to use {displayTitle}
+                </h2>
+                <div className="text-[var(--muted)] leading-relaxed mt-4 sm:mt-6 text-sm sm:text-base markdown-body">
+                  <ReactMarkdown
+                    components={{
+                      h1: ({ children }) => <h3 className="text-2xl font-black uppercase tracking-tight text-[var(--g6)] mt-8 mb-3 border-b-2 border-black pb-1">{children}</h3>,
+                      h2: ({ children }) => <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[var(--g6)] mt-8 mb-3 border-b-2 border-black pb-1">{children}</h3>,
+                      h3: ({ children }) => <h4 className="text-lg sm:text-xl font-black uppercase tracking-tight text-[var(--g6)] mt-6 mb-2">{children}</h4>,
+                      h4: ({ children }) => <h5 className="text-base sm:text-lg font-bold uppercase tracking-tight text-[var(--g6)] mt-4 mb-2">{children}</h5>,
+                      p: ({ children }) => <p className="mb-4 text-[var(--muted)] leading-relaxed font-medium text-sm sm:text-base">{children}</p>,
+                      ul: ({ children }) => <ul className="list-disc list-outside ml-6 space-y-1.5 mb-4 text-[var(--muted)] font-medium">{children}</ul>,
+                      ol: ({ children }) => <ol className="list-decimal list-outside ml-6 space-y-1.5 mb-4 text-[var(--muted)] font-medium">{children}</ol>,
+                      li: ({ children }) => <li className="leading-relaxed pl-1">{children}</li>,
+                      strong: ({ children }) => <strong className="font-black text-[var(--g6)]">{children}</strong>,
+                      code: ({ children }) => <code className="px-1.5 py-0.5 bg-yellow-200 border border-black font-mono text-xs font-bold text-black">{children}</code>,
+                      blockquote: ({ children }) => <blockquote className="border-l-4 border-black bg-yellow-100 p-3 my-4 italic font-bold">{children}</blockquote>,
+                      a: ({ href, children }) => {
+                        const isInternal = href && (href.startsWith('/') || href.includes('toolkitpro'));
+                        if (isInternal) {
+                          const targetPath = href.replace(/^https?:\/\/[^/]+/, '');
+                          return (
+                            <Link 
+                              to={targetPath} 
+                              className="font-black underline text-black hover:bg-yellow-300 px-1 py-0.5 border-b-2 border-black transition-colors inline-block"
+                            >
+                              {children}
+                            </Link>
+                          );
+                        }
+                        return (
+                          <a 
+                            href={href} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="font-black underline text-black hover:bg-yellow-300 px-1 py-0.5 transition-colors"
+                          >
+                            {children}
+                          </a>
+                        );
+                      }
+                    }}
+                  >
+                    {tool.howTo}
+                  </ReactMarkdown>
+                </div>
+                
+                <div className="my-8 sm:my-12 p-6 sm:p-10 bg-yellow-400 border-4 sm:border-8 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] sm:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]">
+                  <h3 className="text-xl sm:text-2xl font-black uppercase mb-3 sm:mb-4 leading-tight">Pro Tip</h3>
+                  <p className="font-bold text-base sm:text-lg">Use keyboard shortcuts (Cmd/Ctrl + V) to instantly paste data into our tools for faster workflow.</p>
+                </div>
+
+                <AdSlot adSlot="9791142997" adFormat="auto" minHeight="250px" className="my-8 sm:my-12" />
+
+                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[var(--g6)] mt-12 sm:mt-16 border-b-4 border-black pb-2 leading-tight">Frequently Asked Questions</h3>
+                <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+                  {tool.faqs.map((faq, i) => (
+                      <div key={i} className="p-4 sm:p-6 border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                          <h4 className="font-black uppercase mb-2 text-base sm:text-lg leading-tight">{faq.question}</h4>
+                          <p className="text-[var(--muted)] font-medium text-sm sm:text-base">{faq.answer}</p>
+                      </div>
+                  ))}
+                </div>
+              </section>
+            </>
+          );
+        })()}
       </div>
     </div>
   );

@@ -35,6 +35,13 @@ export default function FAQPage() {
         <title>FAQ | ToolKitPro</title>
         <meta name="description" content="Frequently Asked Questions about ToolKitPro's privacy, tools, and mission." />
         <link rel="canonical" href={`${SITE_URL}/faq`} />
+        <meta property="og:title" content="FAQ | ToolKitPro" />
+        <meta property="og:description" content="Frequently Asked Questions about ToolKitPro's privacy, tools, and mission." />
+        <meta property="og:url" content={`${SITE_URL}/faq`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="FAQ | ToolKitPro" />
+        <meta name="twitter:description" content="Frequently Asked Questions about ToolKitPro's privacy, tools, and mission." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

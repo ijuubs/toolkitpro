@@ -7,18 +7,18 @@ export default function PdfCompressor() {
   const [file, setFile] = useState<File | null>(null);
   const [isCompressing, setIsCompressing] = useState(false);
   const [result, setResult] = useState<{ name: string; size: number; url: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const compressPdf = async () => {
     if (!file) return;
     setIsCompressing(true);
     setResult(null);
+    setError(null);
 
     try {
       const arrayBuffer = await file.arrayBuffer();
       const pdfDoc = await PDFDocument.load(arrayBuffer);
       
-      // Basic optimization: re-save with object streams enabled
-      // This is a common way to shrink PDF size client-side without lossy image re-compression
       const pdfBytes = await pdfDoc.save({ useObjectStreams: true });
       
       const blob = new Blob([pdfBytes], { type: 'application/pdf' });
@@ -37,7 +37,7 @@ export default function PdfCompressor() {
       });
     } catch (error) {
       console.error('Compression failed:', error);
-      alert('Error compressing PDF. Some PDFs may be encrypted or corrupted.');
+      setError('Error compressing PDF. Some PDFs may be encrypted or corrupted.');
     } finally {
       setIsCompressing(false);
     }
@@ -65,13 +65,19 @@ export default function PdfCompressor() {
         </label>
       </div>
 
-      {file && !result && (
+      {error && (
+        <div className="p-4 bg-red-100 border-4 border-black text-red-800 font-bold uppercase text-center">
+          {error}
+        </div>
+      )}
+
+      {file && !result && !error && (
         <button 
           disabled={isCompressing}
           className="w-full bg-black text-white p-4 font-black uppercase text-xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(251,191,36,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] disabled:opacity-50 transition-all"
           onClick={compressPdf}
         >
-          {isCompressing ? 'Compressing...' : 'Compress PDF Locally'}
+          {isCompressing ? 'Compressing PDF (this may take a moment)...' : 'Compress PDF Locally'}
         </button>
       )}
 

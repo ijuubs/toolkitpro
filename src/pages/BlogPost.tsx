@@ -12,6 +12,10 @@ export default function BlogPost() {
   if (!post) {
     return (
       <div className="text-center py-24">
+        <Helmet>
+          <title>Post Not Found | ToolKitPro</title>
+          <meta name="robots" content="noindex, follow" />
+        </Helmet>
         <h1 className="text-4xl font-black mb-4 uppercase">Post Not Found</h1>
         <Link to="/blog" className="underline font-bold uppercase">Back to Blog</Link>
       </div>

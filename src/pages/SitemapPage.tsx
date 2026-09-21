@@ -19,9 +19,10 @@ export default function SitemapPage() {
 
   // Calculate indexed totals
   const totalStatic = 10;
+  const totalCategories = 7;
   const totalTools = TOOLS.length;
   const totalBlogPosts = BLOG_POSTS.length;
-  const totalUrls = totalStatic + totalTools + totalBlogPosts;
+  const totalUrls = totalStatic + totalCategories + totalTools + totalBlogPosts;
 
   const handleCopyXml = async () => {
     try {
@@ -80,6 +81,9 @@ export default function SitemapPage() {
         <meta property="og:description" content={`Explore all ${totalUrls} verified canonical URLs on ${SITE_NAME}.`} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Sitemap & XML Index | ${SITE_NAME}`} />
+        <meta name="twitter:description" content={`Explore all ${totalUrls} verified canonical URLs on ${SITE_NAME}.`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -237,6 +241,37 @@ export default function SitemapPage() {
                     className="flex items-center justify-between hover:bg-yellow-400 hover:text-black px-2 py-1 transition-colors border border-transparent hover:border-black"
                   >
                     <span>{page.label}</span>
+                    <CheckCircle2 size={12} className="text-yellow-500 shrink-0" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Category Hubs */}
+          <section className="bg-white dark:bg-[#181922] border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-4">
+            <div className="flex items-center justify-between border-b-2 border-black pb-2">
+              <h3 className="text-xl font-black uppercase">Category Hubs</h3>
+              <span className="text-xs font-black bg-neutral-200 dark:bg-neutral-700 px-2 py-0.5 border border-black">
+                {totalCategories}
+              </span>
+            </div>
+            <ul className="space-y-2.5 font-bold uppercase text-sm">
+              {[
+                { to: '/calculators', label: 'Calculators' },
+                { to: '/image-tools', label: 'Image Tools' },
+                { to: '/text-tools', label: 'Text Tools' },
+                { to: '/developer-tools', label: 'Developer Tools' },
+                { to: '/converters', label: 'Converters' },
+                { to: '/fiji-tools', label: 'Fiji Tools' },
+                { to: '/color-tools', label: 'Color Tools' },
+              ].map(cat => (
+                <li key={cat.to}>
+                  <Link 
+                    to={cat.to} 
+                    className="flex items-center justify-between hover:bg-yellow-400 hover:text-black px-2 py-1 transition-colors border border-transparent hover:border-black"
+                  >
+                    <span>{cat.label}</span>
                     <CheckCircle2 size={12} className="text-yellow-500 shrink-0" />
                   </Link>
                 </li>

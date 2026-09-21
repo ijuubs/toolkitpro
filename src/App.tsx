@@ -10,6 +10,7 @@ import { initAnalytics, trackPageView } from './utils/analytics';
 // Lazy load components
 const HomePage = lazy(() => import('./pages/HomePage'));
 const ToolTemplate = lazy(() => import('./pages/ToolTemplate'));
+const CategoryPage = lazy(() => import('./pages/CategoryPage'));
 const AnalyticsPage = lazy(() => import('./pages/AnalyticsPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
@@ -79,6 +80,13 @@ export default function App() {
               </Suspense>
               </ErrorBoundary>
             } />
+            <Route path="calculators" element={<ErrorBoundary><Suspense fallback={<PageSkeleton />}><CategoryPage /></Suspense></ErrorBoundary>} />
+            <Route path="image-tools" element={<ErrorBoundary><Suspense fallback={<PageSkeleton />}><CategoryPage /></Suspense></ErrorBoundary>} />
+            <Route path="text-tools" element={<ErrorBoundary><Suspense fallback={<PageSkeleton />}><CategoryPage /></Suspense></ErrorBoundary>} />
+            <Route path="developer-tools" element={<ErrorBoundary><Suspense fallback={<PageSkeleton />}><CategoryPage /></Suspense></ErrorBoundary>} />
+            <Route path="converters" element={<ErrorBoundary><Suspense fallback={<PageSkeleton />}><CategoryPage /></Suspense></ErrorBoundary>} />
+            <Route path="fiji-tools" element={<ErrorBoundary><Suspense fallback={<PageSkeleton />}><CategoryPage /></Suspense></ErrorBoundary>} />
+            <Route path="color-tools" element={<ErrorBoundary><Suspense fallback={<PageSkeleton />}><CategoryPage /></Suspense></ErrorBoundary>} />
             <Route path="about" element={
               <ErrorBoundary>
               <Suspense fallback={<PageSkeleton />}>

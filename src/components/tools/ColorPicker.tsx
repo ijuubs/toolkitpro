@@ -63,6 +63,7 @@ function getContrast(lum1: number, lum2: number): number {
 
 export default function ColorPicker() {
   const [color, setColor] = useState('#FACC15');
+  const [alpha, setAlpha] = useState(1);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   const hex = color.toUpperCase();
@@ -70,6 +71,7 @@ export default function ColorPicker() {
   const [h, s, l] = rgbToHsl(r, g, b);
 
   const rgbString = `rgb(${r}, ${g}, ${b})`;
+  const rgbaString = `rgba(${r}, ${g}, ${b}, ${alpha})`;
   const hslString = `hsl(${h}, ${s}%, ${l}%)`;
   const lum = getLuminance(r, g, b);
   const contrastBlack = getContrast(lum, 0); // 0 = black
@@ -125,6 +127,7 @@ export default function ColorPicker() {
           {[
             { label: 'HEX', val: hex, key: 'hex' },
             { label: 'RGB', val: rgbString, key: 'rgb' },
+            { label: 'RGBA', val: rgbaString, key: 'rgba' },
             { label: 'HSL', val: hslString, key: 'hsl' },
           ].map((item) => (
             <div key={item.key} className="p-3 border-2 border-black bg-white flex items-center justify-between shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
@@ -151,6 +154,12 @@ export default function ColorPicker() {
               </button>
             </div>
           ))}
+
+          {/* Alpha Slider */}
+          <div className="p-3 border-2 border-black bg-white">
+              <label className="text-[10px] font-black uppercase text-neutral-500 block mb-2">Alpha: {alpha.toFixed(2)}</label>
+              <input type="range" min="0" max="1" step="0.01" value={alpha} onChange={(e) => setAlpha(parseFloat(e.target.value))} className="w-full h-2 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-black" />
+          </div>
 
           {/* WCAG Contrast Assessment */}
           <div className="p-3 border-2 border-black bg-neutral-50 dark:bg-[#181922] grid grid-cols-2 gap-3 text-xs">

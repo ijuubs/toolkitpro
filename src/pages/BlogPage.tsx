@@ -22,6 +22,10 @@ export default function BlogPage() {
         <meta property="og:title" content="Blog | ToolKitPro Insights" />
         <meta property="og:description" content="Stay updated with the latest in health metrics, web development utilities, and data security from the ToolKitPro editorial team." />
         <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Blog | ToolKitPro Insights" />
+        <meta name="twitter:description" content="Stay updated with the latest in health metrics, web development utilities, and data security from the ToolKitPro editorial team." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
