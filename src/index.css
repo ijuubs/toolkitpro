@@ -8,10 +8,16 @@
   --font-display: var(--font-display);
 }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   background-color: var(--g0);
   color: var(--ink);
   transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Light mode defaults (WCAG AAA Compliant) */

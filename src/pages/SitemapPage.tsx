@@ -69,7 +69,7 @@ export default function SitemapPage() {
   }, [searchQuery]);
 
   return (
-    <div className="max-w-5xl mx-auto py-10 px-4 space-y-12">
+    <div className="max-w-5xl mx-auto space-y-8 sm:space-y-12">
       <Helmet>
         <title>Sitemap & XML Index | {SITE_NAME}</title>
         <meta 
@@ -96,35 +96,35 @@ export default function SitemapPage() {
       </Helmet>
 
       {/* Header Banner */}
-      <div className="border-b-8 border-black pb-6 space-y-3">
-        <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="border-b-4 sm:border-b-8 border-black pb-4 sm:pb-6 space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="bg-yellow-400 text-black text-xs font-black uppercase px-3 py-1 border-2 border-black tracking-wider">
             SEO Index & Site Directory
           </span>
-          <div className="flex items-center gap-2 text-xs font-black uppercase bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 px-3 py-1 border-2 border-black">
-            <Globe size={14} className="text-yellow-500" />
-            Canonical Host: <span className="font-mono text-black dark:text-yellow-400">{SITE_URL}</span>
+          <div className="flex items-center gap-2 text-xs font-black uppercase bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 px-3 py-1 border-2 border-black max-w-full overflow-hidden">
+            <Globe size={14} className="text-yellow-500 shrink-0" />
+            <span className="truncate">Canonical Host: <span className="font-mono text-black dark:text-yellow-400">{SITE_URL}</span></span>
           </div>
         </div>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight">
           Website Sitemap
         </h1>
-        <p className="font-medium text-base sm:text-lg text-neutral-700 dark:text-neutral-300">
+        <p className="font-medium text-sm sm:text-base md:text-lg text-neutral-700 dark:text-neutral-300">
           Complete indexed directory of all {totalUrls} published pages, tools, and technical articles.
         </p>
       </div>
 
       {/* XML Search Engine Card */}
-      <div className="bg-white dark:bg-[#181922] border-4 border-black p-6 sm:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-4 border-black/10 dark:border-white/10 pb-5">
+      <div className="bg-white dark:bg-[#181922] border-4 border-black p-4 sm:p-6 md:p-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-4 border-black/10 dark:border-white/10 pb-4 sm:pb-5">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <FileCode className="text-yellow-500 shrink-0" size={24} />
-              <h2 className="text-2xl font-black uppercase tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight">
                 Search Engine XML Sitemap
               </h2>
             </div>
-            <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+            <p className="text-xs sm:text-sm font-medium text-neutral-600 dark:text-neutral-400">
               Valid XML sitemap formatted to strict sitemaps.org standards for Google Search Console & Bing Webmaster.
             </p>
           </div>
@@ -134,48 +134,48 @@ export default function SitemapPage() {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-4">
-          <div className="p-4 bg-neutral-50 dark:bg-neutral-900 border-2 border-black space-y-1">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div className="p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900 border-2 border-black space-y-1">
             <span className="text-xs font-bold uppercase text-neutral-500">Core Routes</span>
-            <p className="text-2xl font-black">{totalStatic}</p>
+            <p className="text-xl sm:text-2xl font-black">{totalStatic}</p>
           </div>
-          <div className="p-4 bg-neutral-50 dark:bg-neutral-900 border-2 border-black space-y-1">
+          <div className="p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900 border-2 border-black space-y-1">
             <span className="text-xs font-bold uppercase text-neutral-500">Browser Utilities</span>
-            <p className="text-2xl font-black">{totalTools}</p>
+            <p className="text-xl sm:text-2xl font-black">{totalTools}</p>
           </div>
-          <div className="p-4 bg-neutral-50 dark:bg-neutral-900 border-2 border-black space-y-1">
+          <div className="p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900 border-2 border-black space-y-1">
             <span className="text-xs font-bold uppercase text-neutral-500">Articles & Guides</span>
-            <p className="text-2xl font-black">{totalBlogPosts}</p>
+            <p className="text-xl sm:text-2xl font-black">{totalBlogPosts}</p>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 pt-2">
+        <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-3 pt-2">
           <a
             href={xmlSitemapUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-yellow-400 text-black font-black text-xs sm:text-sm uppercase border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-yellow-400 text-black font-black text-xs sm:text-sm uppercase border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all min-h-[44px]"
           >
             <ExternalLink size={16} className="stroke-[2.5]" />
             Open sitemap.xml
           </a>
           <button
             onClick={handleCopyXml}
-            className="inline-flex items-center gap-2 px-5 py-3 bg-white dark:bg-black text-black dark:text-white font-black text-xs sm:text-sm uppercase border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-white dark:bg-black text-black dark:text-white font-black text-xs sm:text-sm uppercase border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer min-h-[44px]"
           >
             {copied ? <Check size={16} className="text-green-500 stroke-[3]" /> : <Copy size={16} />}
             {copied ? 'XML Copied!' : 'Copy XML'}
           </button>
           <button
             onClick={handleDownloadXml}
-            className="inline-flex items-center gap-2 px-5 py-3 bg-white dark:bg-black text-black dark:text-white font-black text-xs sm:text-sm uppercase border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-white dark:bg-black text-black dark:text-white font-black text-xs sm:text-sm uppercase border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer min-h-[44px]"
           >
             <Download size={16} />
             Download sitemap.xml
           </button>
           <button
             onClick={() => setShowXmlViewer(!showXmlViewer)}
-            className="inline-flex items-center gap-2 px-4 py-3 bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 font-bold text-xs uppercase border-2 border-black hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors ml-auto cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 font-bold text-xs uppercase border-2 border-black hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors sm:ml-auto cursor-pointer min-h-[44px]"
           >
             {showXmlViewer ? 'Hide XML Source' : 'View XML Source'}
           </button>
@@ -183,11 +183,11 @@ export default function SitemapPage() {
 
         {showXmlViewer && (
           <div className="space-y-2 pt-2">
-            <div className="flex items-center justify-between text-xs font-mono font-bold text-neutral-500">
-              <span>Canonical target: {xmlSitemapUrl}</span>
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono font-bold text-neutral-500">
+              <span className="break-all">Canonical target: {xmlSitemapUrl}</span>
               <span>{xmlContent.length} bytes</span>
             </div>
-            <pre className="p-4 bg-neutral-900 text-yellow-300 font-mono text-xs border-4 border-black overflow-x-auto max-h-[350px] leading-relaxed shadow-inner">
+            <pre className="p-3 sm:p-4 bg-neutral-900 text-yellow-300 font-mono text-xs border-4 border-black overflow-x-auto max-h-[350px] leading-relaxed shadow-inner">
               {xmlContent}
             </pre>
           </div>
@@ -196,8 +196,8 @@ export default function SitemapPage() {
 
       {/* Interactive Search Bar for HTML Sitemap */}
       <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h2 className="text-3xl font-black uppercase italic border-b-4 border-yellow-400 pb-1 inline-block">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+          <h2 className="text-2xl sm:text-3xl font-black uppercase italic border-b-4 border-yellow-400 pb-1 inline-block">
             HTML Directory
           </h2>
           <div className="relative w-full sm:w-72">
@@ -213,16 +213,16 @@ export default function SitemapPage() {
         </div>
 
         {/* Directory Grid */}
-        <div className="grid md:grid-cols-3 gap-8 pt-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pt-2 sm:pt-4">
           {/* Main Pages */}
-          <section className="bg-white dark:bg-[#181922] border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-4">
+          <section className="bg-white dark:bg-[#181922] border-4 border-black p-4 sm:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-3 sm:space-y-4">
             <div className="flex items-center justify-between border-b-2 border-black pb-2">
-              <h3 className="text-xl font-black uppercase">Main Pages</h3>
+              <h3 className="text-lg sm:text-xl font-black uppercase">Main Pages</h3>
               <span className="text-xs font-black bg-neutral-200 dark:bg-neutral-700 px-2 py-0.5 border border-black">
                 {totalStatic}
               </span>
             </div>
-            <ul className="space-y-2.5 font-bold uppercase text-sm">
+            <ul className="space-y-2.5 font-bold uppercase text-xs sm:text-sm">
               {[
                 { to: '/', label: 'Home Page' },
                 { to: '/blog', label: 'Blog & Guides' },
@@ -249,14 +249,14 @@ export default function SitemapPage() {
           </section>
 
           {/* Category Hubs */}
-          <section className="bg-white dark:bg-[#181922] border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-4">
+          <section className="bg-white dark:bg-[#181922] border-4 border-black p-4 sm:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-3 sm:space-y-4">
             <div className="flex items-center justify-between border-b-2 border-black pb-2">
-              <h3 className="text-xl font-black uppercase">Category Hubs</h3>
+              <h3 className="text-lg sm:text-xl font-black uppercase">Category Hubs</h3>
               <span className="text-xs font-black bg-neutral-200 dark:bg-neutral-700 px-2 py-0.5 border border-black">
                 {totalCategories}
               </span>
             </div>
-            <ul className="space-y-2.5 font-bold uppercase text-sm">
+            <ul className="space-y-2.5 font-bold uppercase text-xs sm:text-sm">
               {[
                 { to: '/calculators', label: 'Calculators' },
                 { to: '/image-tools', label: 'Image Tools' },
@@ -280,19 +280,19 @@ export default function SitemapPage() {
           </section>
 
           {/* Tools & Utilities */}
-          <section className="bg-white dark:bg-[#181922] border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-4 md:col-span-2">
+          <section className="bg-white dark:bg-[#181922] border-4 border-black p-4 sm:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-3 sm:space-y-4 md:col-span-2">
             <div className="flex items-center justify-between border-b-2 border-black pb-2">
-              <h3 className="text-xl font-black uppercase">Web Utilities ({filteredTools.length})</h3>
+              <h3 className="text-lg sm:text-xl font-black uppercase">Web Utilities ({filteredTools.length})</h3>
               <span className="text-xs font-black bg-yellow-400 text-black px-2 py-0.5 border border-black">
                 Client-Side
               </span>
             </div>
-            <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 pt-1">
               {filteredTools.map(tool => (
                 <div key={tool.id} className="space-y-1">
                   <Link 
                     to={`/tools/${tool.slug}`} 
-                    className="block font-black text-sm uppercase underline hover:bg-yellow-400 hover:text-black px-1.5 py-0.5 transition-colors border border-transparent hover:border-black"
+                    className="block font-black text-xs sm:text-sm uppercase underline hover:bg-yellow-400 hover:text-black px-1.5 py-0.5 transition-colors border border-transparent hover:border-black"
                   >
                     {tool.name}
                   </Link>
@@ -315,14 +315,14 @@ export default function SitemapPage() {
           </section>
 
           {/* Technical Guides & Articles */}
-          <section className="bg-white dark:bg-[#181922] border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-4 md:col-span-3">
+          <section className="bg-white dark:bg-[#181922] border-4 border-black p-4 sm:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-3 sm:space-y-4 md:col-span-3">
             <div className="flex items-center justify-between border-b-2 border-black pb-2">
-              <h3 className="text-xl font-black uppercase">Technical Guides & Articles ({filteredBlogPosts.length})</h3>
+              <h3 className="text-lg sm:text-xl font-black uppercase">Technical Guides & Articles ({filteredBlogPosts.length})</h3>
               <span className="text-xs font-black bg-neutral-200 dark:bg-neutral-700 px-2 py-0.5 border border-black">
                 Verified Content
               </span>
             </div>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-1">
               {filteredBlogPosts.map(post => (
                 <Link
                   key={post.id}

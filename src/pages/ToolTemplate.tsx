@@ -178,7 +178,7 @@ export default function ToolTemplate() {
           </script>
         </Helmet>
         
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase mb-2 sm:mb-4 text-[var(--g6)] leading-none">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase mb-2 sm:mb-4 text-[var(--g6)] leading-tight break-words">
           {displayTitle}
         </h1>
 
@@ -193,7 +193,7 @@ export default function ToolTemplate() {
                 { label: tool.name }
               ]} />
 
-              <div className="bg-[var(--surface)] border-4 border-black p-4 sm:p-8 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] min-h-[400px]">
+              <div className="bg-[var(--surface)] border-4 border-black p-3.5 sm:p-6 md:p-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] min-h-[400px] overflow-hidden">
                 <ErrorBoundary>
                   <Suspense fallback={<ToolSkeleton />}>
                       {renderTool()}
@@ -202,9 +202,9 @@ export default function ToolTemplate() {
               </div>
 
               {tool.usp && (
-                  <div className="bg-black text-white p-4 sm:p-6 border-4 border-black shadow-[6px_6px_0px_0px_rgba(251,191,36,1)] sm:shadow-[8px_8px_0px_0px_rgba(251,191,36,1)] flex items-start gap-3 sm:gap-4">
+                  <div className="bg-black text-white p-3.5 sm:p-6 border-4 border-black shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] sm:shadow-[8px_8px_0px_0px_rgba(251,191,36,1)] flex items-start gap-3 sm:gap-4">
                       <div className="bg-yellow-400 text-black px-2 py-1 rounded-sm font-black text-xs uppercase shrink-0">USP</div>
-                      <p className="font-bold text-base sm:text-lg leading-tight uppercase italic">{tool.usp}</p>
+                      <p className="font-bold text-sm sm:text-base md:text-lg leading-tight uppercase italic">{tool.usp}</p>
                   </div>
               )}
               
@@ -296,19 +296,19 @@ export default function ToolTemplate() {
                   </ReactMarkdown>
                 </div>
                 
-                <div className="my-8 sm:my-12 p-6 sm:p-10 bg-yellow-400 border-4 sm:border-8 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] sm:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]">
-                  <h3 className="text-xl sm:text-2xl font-black uppercase mb-3 sm:mb-4 leading-tight">Pro Tip</h3>
-                  <p className="font-bold text-base sm:text-lg">Use keyboard shortcuts (Cmd/Ctrl + V) to instantly paste data into our tools for faster workflow.</p>
+                <div className="my-6 sm:my-12 p-4 sm:p-8 md:p-10 bg-yellow-400 border-4 sm:border-8 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+                  <h3 className="text-lg sm:text-2xl font-black uppercase mb-2 sm:mb-4 leading-tight">Pro Tip</h3>
+                  <p className="font-bold text-sm sm:text-base md:text-lg">Use keyboard shortcuts (Cmd/Ctrl + V) to instantly paste data into our tools for faster workflow.</p>
                 </div>
 
-                <AdSlot adSlot="9791142997" adFormat="auto" minHeight="250px" className="my-8 sm:my-12" />
+                <AdSlot adSlot="9791142997" adFormat="auto" minHeight="250px" className="my-6 sm:my-12" />
 
-                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[var(--g6)] mt-12 sm:mt-16 border-b-4 border-black pb-2 leading-tight">Frequently Asked Questions</h3>
-                <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+                <h3 className="text-xl sm:text-3xl font-black uppercase tracking-tight text-[var(--g6)] mt-8 sm:mt-16 border-b-4 border-black pb-2 leading-tight">Frequently Asked Questions</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mt-4 sm:mt-8">
                   {tool.faqs.map((faq, i) => (
-                      <div key={i} className="p-4 sm:p-6 border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                      <div key={i} className="p-4 sm:p-6 border-4 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
                           <h4 className="font-black uppercase mb-2 text-base sm:text-lg leading-tight">{faq.question}</h4>
-                          <p className="text-[var(--muted)] font-medium text-sm sm:text-base">{faq.answer}</p>
+                          <p className="text-[var(--muted)] font-medium text-xs sm:text-sm md:text-base">{faq.answer}</p>
                       </div>
                   ))}
                 </div>

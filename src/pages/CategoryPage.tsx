@@ -63,7 +63,7 @@ export default function CategoryPage() {
   const otherCategories = Object.entries(categoryMapping).filter(([catSlug]) => catSlug !== safeSlug);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       <Helmet>
         <title>{titleTag}</title>
         <meta name="description" content={metaDescription} />
@@ -84,7 +84,7 @@ export default function CategoryPage() {
 
       {/* Header & Editorial Intro */}
       <div className="border-b-4 border-black pb-6 space-y-4">
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <span className="bg-black text-white text-xs font-black uppercase px-2.5 py-1 tracking-wider">
             Verified Category
           </span>
@@ -92,11 +92,11 @@ export default function CategoryPage() {
             {tools.length} Free {tools.length === 1 ? 'Tool' : 'Tools'}
           </span>
         </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter text-[var(--g6)] leading-none">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter text-[var(--g6)] leading-tight break-words">
           {categoryName}
         </h1>
         {intro && (
-          <p className="text-base sm:text-lg text-[var(--muted)] font-medium leading-relaxed max-w-4xl">
+          <p className="text-sm sm:text-base md:text-lg text-[var(--muted)] font-medium leading-relaxed max-w-4xl">
             {intro}
           </p>
         )}
@@ -116,19 +116,19 @@ export default function CategoryPage() {
         <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight">
           Available {categoryName} ({tools.length})
         </h2>
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {tools.map(tool => (
             <Link 
               key={tool.id} 
               to={`/tools/${tool.slug}`} 
-              className="p-6 bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-yellow-50 transition-all flex flex-col justify-between"
+              className="p-5 sm:p-6 bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-yellow-50 transition-all flex flex-col justify-between"
             >
               <div>
                 <span className="inline-block bg-black text-white text-[10px] font-black uppercase px-1.5 py-0.5 mb-2">
                   {tool.category}
                 </span>
                 <h3 className="text-lg sm:text-xl font-black uppercase mb-2 leading-snug">{tool.name}</h3>
-                <p className="text-sm text-[var(--muted)] font-medium line-clamp-3 leading-relaxed">{tool.description}</p>
+                <p className="text-xs sm:text-sm text-[var(--muted)] font-medium line-clamp-3 leading-relaxed">{tool.description}</p>
               </div>
               <div className="mt-4 pt-3 border-t-2 border-black/10 flex items-center justify-between text-xs font-black uppercase">
                 <span>Launch Tool</span>
@@ -140,16 +140,16 @@ export default function CategoryPage() {
       </div>
 
       {/* Sibling Category Discovery Section */}
-      <div className="mt-12 pt-8 border-t-4 border-black">
+      <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t-4 border-black">
         <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight mb-4">
           Browse Other Tool Categories
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 sm:gap-3">
           {otherCategories.map(([catSlug, catTitle]) => (
             <Link
               key={catSlug}
               to={`/${catSlug}`}
-              className="p-3 text-center border-2 border-black bg-white hover:bg-yellow-200 text-xs font-black uppercase tracking-tight transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px]"
+              className="p-3 text-center border-2 border-black bg-white hover:bg-yellow-200 text-xs font-black uppercase tracking-tight transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px] min-h-[44px] flex items-center justify-center"
             >
               {catTitle}
             </Link>

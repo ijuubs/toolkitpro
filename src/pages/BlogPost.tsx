@@ -25,7 +25,7 @@ export default function BlogPost() {
   const { titleTag, metaDescription, canonicalUrl, structuredData } = generateBlogSEO(post);
 
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 space-y-8">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
       <Helmet>
         <title>{titleTag}</title>
         <meta name="description" content={metaDescription} />
@@ -42,34 +42,34 @@ export default function BlogPost() {
         </script>
       </Helmet>
 
-      <Link to="/blog" className="inline-block font-black uppercase text-sm border-2 border-black px-4 py-2 hover:bg-black hover:text-white transition-all">
+      <Link to="/blog" className="inline-block font-black uppercase text-xs sm:text-sm border-2 border-black px-3.5 py-1.5 sm:px-4 sm:py-2 hover:bg-black hover:text-white transition-all">
         ← Back to Blog
       </Link>
 
-      <header className="space-y-4">
+      <header className="space-y-3 sm:space-y-4">
         <Breadcrumbs items={[{ label: 'Blog', path: '/blog' }, { label: post.title }]} />
-        <div className="flex gap-4 items-center text-sm font-black uppercase">
+        <div className="flex flex-wrap gap-2 sm:gap-4 items-center text-xs sm:text-sm font-black uppercase">
             <span className="bg-yellow-400 px-2 py-1">{post.category}</span>
             <span className="text-[var(--muted)]">{post.date}</span>
             <span className="text-[var(--muted)]">•</span>
             <span className="text-[var(--muted)]">{post.readTime}</span>
         </div>
-        <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9]">
+        <h1 className="text-2xl sm:text-4xl md:text-6xl font-black uppercase tracking-tighter leading-tight break-words">
           {post.title}
         </h1>
-        <div className="flex items-center gap-4 pt-4 border-t-4 border-black">
-            <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white font-black italic">
+        <div className="flex items-center gap-3 sm:gap-4 pt-3 sm:pt-4 border-t-4 border-black">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-black rounded-full flex items-center justify-center text-white font-black italic text-sm sm:text-base shrink-0">
                 {post.author[0]}
             </div>
             <div className="font-bold">
-                <p className="text-xs uppercase font-black text-[var(--muted)]">Written by</p>
-                <p className="uppercase">{post.author}</p>
+                <p className="text-[10px] sm:text-xs uppercase font-black text-[var(--muted)]">Written by</p>
+                <p className="uppercase text-xs sm:text-base">{post.author}</p>
             </div>
         </div>
       </header>
 
-      <div className="prose prose-xl max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-black border-4 border-black p-8 md:p-12 bg-white shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
-        <p className="text-2xl font-bold italic border-l-8 border-yellow-400 pl-6 my-10">
+      <div className="prose prose-xl max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-black border-4 border-black p-4 sm:p-8 md:p-12 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+        <p className="text-base sm:text-xl md:text-2xl font-bold italic border-l-4 sm:border-l-8 border-yellow-400 pl-4 sm:pl-6 my-4 sm:my-8">
             {post.excerpt}
         </p>
         
@@ -80,13 +80,13 @@ export default function BlogPost() {
                 h2: ({ children }) => <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[var(--g6)] mt-8 mb-3 border-b-2 border-black pb-1">{children}</h3>,
                 h3: ({ children }) => <h4 className="text-lg sm:text-xl font-black uppercase tracking-tight text-[var(--g6)] mt-6 mb-2">{children}</h4>,
                 h4: ({ children }) => <h5 className="text-base sm:text-lg font-bold uppercase tracking-tight text-[var(--g6)] mt-4 mb-2">{children}</h5>,
-                p: ({ children }) => <p className="mb-4 text-[var(--muted)] leading-relaxed font-medium text-base sm:text-lg">{children}</p>,
-                ul: ({ children }) => <ul className="list-disc list-outside ml-6 space-y-2 mb-6 text-[var(--muted)] font-medium text-base sm:text-lg">{children}</ul>,
-                ol: ({ children }) => <ol className="list-decimal list-outside ml-6 space-y-2 mb-6 text-[var(--muted)] font-medium text-base sm:text-lg">{children}</ol>,
+                p: ({ children }) => <p className="mb-4 text-[var(--muted)] leading-relaxed font-medium text-sm sm:text-base">{children}</p>,
+                ul: ({ children }) => <ul className="list-disc list-outside ml-6 space-y-1.5 mb-4 text-[var(--muted)] font-medium text-sm sm:text-base">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal list-outside ml-6 space-y-1.5 mb-4 text-[var(--muted)] font-medium text-sm sm:text-base">{children}</ol>,
                 li: ({ children }) => <li className="leading-relaxed pl-1">{children}</li>,
                 strong: ({ children }) => <strong className="font-black text-[var(--g6)]">{children}</strong>,
                 code: ({ children }) => <code className="px-2 py-0.5 bg-yellow-200 border border-black font-mono text-xs sm:text-sm font-bold text-black">{children}</code>,
-                blockquote: ({ children }) => <blockquote className="border-l-4 border-black bg-yellow-100 p-4 my-6 italic font-bold text-base">{children}</blockquote>
+                blockquote: ({ children }) => <blockquote className="border-l-4 border-black bg-yellow-100 p-4 my-6 italic font-bold text-sm sm:text-base">{children}</blockquote>
               }}
             >
               {post.content}
@@ -94,13 +94,13 @@ export default function BlogPost() {
         </div>
       </div>
 
-      <div className="bg-black text-white p-12 border-4 border-black shadow-[12px_12px_0px_0px_rgba(251,191,36,1)]">
-          <h2 className="text-3xl font-black uppercase text-yellow-400 mb-4">Sharing is Caring</h2>
-          <p className="text-xl mb-8">If you found this guide helpful, consider sharing it with your network or following us for more updates.</p>
-          <div className="flex gap-4">
-              <button className="flex-1 bg-white text-black font-black uppercase py-4 border-4 border-white hover:bg-yellow-400 hover:border-black transition-all">Twitter</button>
-              <button className="flex-1 bg-white text-black font-black uppercase py-4 border-4 border-white hover:bg-yellow-400 hover:border-black transition-all">Facebook</button>
-              <button className="flex-1 bg-white text-black font-black uppercase py-4 border-4 border-white hover:bg-yellow-400 hover:border-black transition-all">LinkedIn</button>
+      <div className="bg-black text-white p-5 sm:p-8 md:p-12 border-4 border-black shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] sm:shadow-[12px_12px_0px_0px_rgba(251,191,36,1)]">
+          <h2 className="text-xl sm:text-3xl font-black uppercase text-yellow-400 mb-2 sm:mb-4">Sharing is Caring</h2>
+          <p className="text-sm sm:text-base md:text-xl mb-6 sm:mb-8">If you found this guide helpful, consider sharing it with your network or following us for more updates.</p>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <button className="flex-1 bg-white text-black font-black uppercase py-3 sm:py-4 border-2 sm:border-4 border-white hover:bg-yellow-400 hover:border-black transition-all text-xs sm:text-sm min-h-[44px]">Twitter</button>
+              <button className="flex-1 bg-white text-black font-black uppercase py-3 sm:py-4 border-2 sm:border-4 border-white hover:bg-yellow-400 hover:border-black transition-all text-xs sm:text-sm min-h-[44px]">Facebook</button>
+              <button className="flex-1 bg-white text-black font-black uppercase py-3 sm:py-4 border-2 sm:border-4 border-white hover:bg-yellow-400 hover:border-black transition-all text-xs sm:text-sm min-h-[44px]">LinkedIn</button>
           </div>
       </div>
     </div>

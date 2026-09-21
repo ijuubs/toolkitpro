@@ -98,7 +98,7 @@ export default function HomePage() {
               <ShieldCheck className="w-4 h-4 text-black" />
               <span>100% Client-Side Privacy • Zero Server Uploads</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter uppercase leading-[0.95] text-[var(--g6)]">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter uppercase leading-[0.95] text-[var(--g6)]">
               Free Online Utilities & Everyday Calculators
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-[var(--muted)] font-bold max-w-3xl leading-relaxed">
@@ -111,7 +111,7 @@ export default function HomePage() {
 
         {/* SEARCH BAR */}
         <div className="space-y-6">
-          <div className="bg-white border-4 border-black p-4 flex flex-col sm:flex-row gap-3 sm:gap-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+          <div className="bg-white border-4 border-black p-3 sm:p-4 flex flex-col sm:flex-row gap-3 sm:gap-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
               <div className="flex items-center gap-2 flex-1 min-w-0">
                 <Search className="w-5 h-5 text-black shrink-0" />
                 <input 
@@ -119,12 +119,12 @@ export default function HomePage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search for a tool... (e.g. JSON Formatter, Word Counter, Loan Calculator)" 
-                  className="w-full text-base sm:text-lg md:text-xl font-bold px-2 py-1 border-2 border-transparent focus:border-black focus:outline-none placeholder-neutral-600 dark:placeholder-neutral-400"
+                  className="w-full text-sm sm:text-base md:text-lg font-bold px-2 py-1 border-2 border-transparent focus:border-black focus:outline-none placeholder-neutral-600 dark:placeholder-neutral-400"
                 />
               </div>
               <button 
                 onClick={() => setSearchQuery('')}
-                className="bg-black text-white px-6 py-2.5 font-black uppercase tracking-wider hover:bg-yellow-400 hover:text-black transition-all border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 shrink-0"
+                className="bg-black text-white px-6 py-2.5 font-black uppercase tracking-wider hover:bg-yellow-400 hover:text-black transition-all border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 shrink-0 min-h-[44px]"
               >
                 {searchQuery ? 'Clear' : 'Search'}
               </button>
@@ -132,9 +132,9 @@ export default function HomePage() {
         </div>
 
         {/* CATEGORY SECTION */}
-        <section className="space-y-6">
-            <h2 className="text-2xl font-black uppercase tracking-tighter border-b-4 border-black pb-2">Browse by Category</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
+        <section className="space-y-4 sm:space-y-6">
+            <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tighter border-b-4 border-black pb-2">Browse by Category</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2.5 sm:gap-3 md:gap-4">
                 {[
                     { name: 'Calculators', slug: 'calculators', icon: TrendingUp },
                     { name: 'Image Tools', slug: 'image-tools', icon: LayoutGrid },
@@ -144,9 +144,9 @@ export default function HomePage() {
                     { name: 'Fiji Tools', slug: 'fiji-tools', icon: HardHat },
                     { name: 'Color Tools', slug: 'color-tools', icon: Palette },
                 ].map(cat => (
-                    <Link key={cat.slug} to={`/${cat.slug}`} className="flex flex-col items-center justify-center p-4 sm:p-5 bg-white border-4 border-black hover:bg-yellow-100 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
-                        <cat.icon className="w-8 h-8 sm:w-10 sm:h-10 mb-2 sm:mb-3" />
-                        <span className="font-black uppercase text-xs sm:text-sm text-center leading-tight">{cat.name}</span>
+                    <Link key={cat.slug} to={`/${cat.slug}`} className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white border-4 border-black hover:bg-yellow-100 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] min-h-[72px]">
+                        <cat.icon className="w-6 h-6 sm:w-8 sm:h-8 mb-1.5 sm:mb-2 text-[var(--ink)]" />
+                        <span className="font-black uppercase text-[11px] sm:text-xs text-center leading-tight">{cat.name}</span>
                     </Link>
                 ))}
             </div>
@@ -165,14 +165,14 @@ export default function HomePage() {
                     <p className="text-sm font-medium text-[var(--muted)] mb-6">Try searching for generic terms like "calculator", "converter", or select "All Tools".</p>
                     <button 
                       onClick={() => { setSearchQuery(''); }}
-                      className="px-6 py-3 bg-black text-white font-black uppercase text-sm border-2 border-black hover:bg-yellow-400 hover:text-black transition-all"
+                      className="px-6 py-3 bg-black text-white font-black uppercase text-sm border-2 border-black hover:bg-yellow-400 hover:text-black transition-all min-h-[44px]"
                     >
                       Show All Tools
                     </button>
                 </div>
             ) : (
                 <motion.div 
-                  className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
                   initial="hidden"
                   animate="visible"
                   variants={{
@@ -194,7 +194,7 @@ export default function HomePage() {
                         >
                           <Link 
                             to={`/tools/${tool.slug}`} 
-                            className="group p-6 md:p-8 bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all flex flex-col justify-between h-full min-w-0 overflow-hidden"
+                            className="group p-5 sm:p-6 md:p-8 bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] md:hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all flex flex-col justify-between h-full min-w-0 overflow-hidden"
                           >
                             <div className="min-w-0">
                               <div className="flex items-center justify-between gap-2 mb-3">
@@ -205,14 +205,14 @@ export default function HomePage() {
                                   →
                                 </span>
                               </div>
-                              <h3 className="text-xl md:text-2xl font-black mb-2 uppercase leading-tight break-words text-[var(--g6)]">
+                              <h3 className="text-lg sm:text-xl md:text-2xl font-black mb-2 uppercase leading-tight break-words text-[var(--g6)]">
                                 {tool.name}
                               </h3>
-                              <p className="font-medium text-sm md:text-base text-[var(--muted)] leading-relaxed line-clamp-3">
+                              <p className="font-medium text-xs sm:text-sm md:text-base text-[var(--muted)] leading-relaxed line-clamp-3">
                                 {tool.description}
                               </p>
                             </div>
-                            <div className="mt-6 pt-3 border-t-2 border-black flex items-center justify-between text-xs font-black uppercase">
+                            <div className="mt-5 pt-3 border-t-2 border-black flex items-center justify-between text-xs font-black uppercase">
                               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-yellow-300 text-black border-2 border-black font-black text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] group-hover:bg-black group-hover:text-yellow-300 transition-colors">
                                 Launch Tool <ArrowRight className="w-3.5 h-3.5" />
                               </span>
@@ -224,7 +224,7 @@ export default function HomePage() {
                         </motion.div>
                         {/* Insert an ad after every 6 tools for in-feed monetization */}
                         {(index + 1) % 6 === 0 && (
-                          <div key={`ad-${index}`} className="sm:col-span-2 md:col-span-1 min-h-[300px]">
+                          <div key={`ad-${index}`} className="sm:col-span-2 lg:col-span-1 min-h-[300px]">
                             <AdSlot adSlot="9791142997" adFormat="rectangle" minHeight="300px" className="my-0 h-full" />
                           </div>
                         )}
@@ -234,17 +234,17 @@ export default function HomePage() {
             )}
         </div>
 
-        <section className="bg-black text-white p-6 md:p-12 border-4 border-black shadow-[8px_8px_0px_0px_rgba(251,191,36,1)] md:shadow-[16px_16px_0px_0px_rgba(251,191,36,1)]">
-            <h2 className="text-3xl md:text-4xl font-black mb-6 md:mb-8 uppercase text-yellow-300 tracking-tighter">Essential Workflows</h2>
-            <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
+        <section className="bg-black text-white p-5 sm:p-8 md:p-12 border-4 border-black shadow-[6px_6px_0px_0px_rgba(251,191,36,1)] md:shadow-[12px_12px_0px_0px_rgba(251,191,36,1)]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 sm:mb-6 md:mb-8 uppercase text-yellow-300 tracking-tighter">Essential Workflows</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
                 {TOOLS.slice(0, 4).map(tool => (
                     <Link 
                         key={tool.id} 
                         to={`/tools/${tool.slug}`} 
-                        className="p-5 md:p-6 bg-white text-black border-4 border-black hover:bg-yellow-100 transition-colors"
+                        className="p-4 sm:p-5 md:p-6 bg-white text-black border-4 border-black hover:bg-yellow-100 transition-colors"
                     >
-                        <h3 className="text-xl md:text-2xl font-black mb-1 md:mb-2 uppercase">{tool.name}</h3>
-                        <p className="font-medium text-sm md:text-base">{tool.description}</p>
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-black mb-1 md:mb-2 uppercase">{tool.name}</h3>
+                        <p className="font-medium text-xs sm:text-sm md:text-base">{tool.description}</p>
                     </Link>
                 ))}
             </div>

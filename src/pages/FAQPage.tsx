@@ -30,7 +30,7 @@ const FAQS = [
 
 export default function FAQPage() {
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 space-y-12">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
       <Helmet>
         <title>FAQ | ToolKitPro</title>
         <meta name="description" content="Frequently Asked Questions about ToolKitPro's privacy, tools, and mission." />
@@ -60,13 +60,13 @@ export default function FAQPage() {
         </script>
       </Helmet>
       
-      <h1 className="text-5xl font-black uppercase tracking-tighter border-b-8 border-black pb-4">Frequently Asked Questions</h1>
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter border-b-4 sm:border-b-8 border-black pb-3 sm:pb-4 leading-tight">Frequently Asked Questions</h1>
       
-      <div className="space-y-8">
+      <div className="space-y-4 sm:space-y-6 md:space-y-8">
         {FAQS.map((faq, i) => (
-          <div key={i} className="border-4 border-black p-8 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-4">
-            <h3 className="text-2xl font-black uppercase italic border-b-2 border-yellow-400 pb-2">{faq.q}</h3>
-            <p className="text-xl font-medium text-[var(--muted)] leading-relaxed">{faq.a}</p>
+          <div key={i} className="border-4 border-black p-4 sm:p-6 md:p-8 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-2 sm:space-y-4">
+            <h3 className="text-lg sm:text-2xl font-black uppercase italic border-b-2 border-yellow-400 pb-2 leading-snug">{faq.q}</h3>
+            <p className="text-xs sm:text-base md:text-lg font-medium text-[var(--muted)] leading-relaxed">{faq.a}</p>
           </div>
         ))}
       </div>

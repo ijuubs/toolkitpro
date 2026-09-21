@@ -31,7 +31,7 @@ export default function HeroMiniTool() {
   };
 
   return (
-    <div className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-4 sm:p-6 space-y-4">
+    <div className="bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-3.5 sm:p-6 space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-4 border-black pb-3">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse border border-black" />
@@ -42,10 +42,11 @@ export default function HeroMiniTool() {
         </div>
 
         {/* Tab switchers */}
-        <div className="flex gap-2">
+        <div className="flex flex-wrap sm:flex-nowrap gap-2 w-full sm:w-auto">
           <button
+            type="button"
             onClick={() => setActiveTab('text')}
-            className={`px-3 py-1.5 font-black uppercase text-xs border-2 border-black flex items-center gap-1.5 transition-all ${
+            className={`flex-1 sm:flex-initial px-3 py-2 sm:py-1.5 font-black uppercase text-xs border-2 border-black flex items-center justify-center gap-1.5 transition-all min-h-[40px] sm:min-h-0 ${
               activeTab === 'text'
                 ? 'bg-yellow-400 text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                 : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200'
@@ -55,8 +56,9 @@ export default function HeroMiniTool() {
             <span>Instant Text Inspector</span>
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab('calc')}
-            className={`px-3 py-1.5 font-black uppercase text-xs border-2 border-black flex items-center gap-1.5 transition-all ${
+            className={`flex-1 sm:flex-initial px-3 py-2 sm:py-1.5 font-black uppercase text-xs border-2 border-black flex items-center justify-center gap-1.5 transition-all min-h-[40px] sm:min-h-0 ${
               activeTab === 'calc'
                 ? 'bg-yellow-400 text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                 : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200'
@@ -141,38 +143,38 @@ export default function HeroMiniTool() {
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row items-center gap-3 p-4 bg-yellow-50 border-2 border-black">
-            <span className="font-black uppercase text-sm">What is</span>
+          <div className="flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-start gap-2 sm:gap-3 p-3.5 sm:p-4 bg-yellow-50 border-2 border-black">
+            <span className="font-black uppercase text-xs sm:text-sm">What is</span>
             <div className="flex items-center gap-1">
               <input
                 type="number"
                 value={percentX}
                 onChange={(e) => setPercentX(e.target.value)}
-                className="w-20 p-2 font-black text-center text-lg border-2 border-black bg-white focus:outline-none"
+                className="w-16 sm:w-20 p-1.5 sm:p-2 font-black text-center text-base sm:text-lg border-2 border-black bg-white focus:outline-none"
               />
-              <span className="font-black text-lg">%</span>
+              <span className="font-black text-base sm:text-lg">%</span>
             </div>
-            <span className="font-black uppercase text-sm">of</span>
+            <span className="font-black uppercase text-xs sm:text-sm">of</span>
             <input
               type="number"
               value={percentY}
               onChange={(e) => setPercentY(e.target.value)}
-              className="w-28 p-2 font-black text-center text-lg border-2 border-black bg-white focus:outline-none"
+              className="w-24 sm:w-28 p-1.5 sm:p-2 font-black text-center text-base sm:text-lg border-2 border-black bg-white focus:outline-none"
             />
-            <span className="font-black text-lg">=</span>
-            <div className="px-4 py-2 bg-yellow-400 border-2 border-black font-black text-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+            <span className="font-black text-base sm:text-lg">=</span>
+            <div className="px-3 py-1.5 sm:px-4 sm:py-2 bg-yellow-400 border-2 border-black font-black text-lg sm:text-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
               {calcResult}
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-2 border-t-2 border-black text-xs">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pt-2 border-t-2 border-black text-xs">
             <span className="flex items-center gap-1.5 text-neutral-600 font-bold">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>Zero latency • Calculated instantaneously in RAM</span>
             </span>
             <Link
               to="/tools/percentage-calculator"
-              className="font-black uppercase inline-flex items-center gap-1 text-black hover:text-yellow-600 hover:underline"
+              className="font-black uppercase inline-flex items-center gap-1 text-black hover:text-yellow-600 hover:underline min-h-[32px] sm:min-h-0"
             >
               <span>Full Percentage Suite</span>
               <ArrowRight className="w-3.5 h-3.5" />
