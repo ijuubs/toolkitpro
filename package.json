@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "generate-sitemap": "tsx scripts/generate-sitemap.ts",
+    "prerender": "tsx scripts/prerender-seo.ts",
     "seo:audit": "tsx scripts/seo-audit.ts",
-    "build": "npm run generate-sitemap && vite build",
+    "build": "npm run generate-sitemap && vite build && tsx scripts/prerender-seo.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"

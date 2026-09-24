@@ -94,6 +94,7 @@ const categoryRoutes = [
     fs.mkdirSync(publicDir, { recursive: true });
   }
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapContent, 'utf8');
+  fs.writeFileSync(path.join(publicDir, 'sitemap_index.xml'), sitemapContent, 'utf8');
 
   // Also update robots.txt with current base URL
   const robotsTxtContent = `User-agent: *
@@ -123,6 +124,7 @@ Sitemap: ${BASE_URL}/sitemap.xml
   const distDir = path.join(__dirname, '..', 'dist');
   if (fs.existsSync(distDir)) {
     fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapContent, 'utf8');
+    fs.writeFileSync(path.join(distDir, 'sitemap_index.xml'), sitemapContent, 'utf8');
     fs.writeFileSync(path.join(distDir, 'robots.txt'), robotsTxtContent, 'utf8');
   }
 

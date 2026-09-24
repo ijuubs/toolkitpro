@@ -246,10 +246,20 @@ export default function XmlSitemapPage() {
 
         <a
           href="/sitemap.xml"
-          download="sitemap.xml"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-neutral-100 dark:bg-neutral-800 text-black dark:text-white font-black text-xs sm:text-sm uppercase border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all min-h-[44px]"
         >
           <ExternalLink size={16} />
+          Open Raw XML File
+        </a>
+
+        <a
+          href="/sitemap.xml"
+          download="sitemap.xml"
+          className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-white dark:bg-black text-black dark:text-white font-black text-xs sm:text-sm uppercase border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all min-h-[44px]"
+        >
+          <Download size={16} />
           Direct File Download
         </a>
 

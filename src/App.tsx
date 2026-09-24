@@ -144,6 +144,13 @@ export default function App() {
               </Suspense>
               </ErrorBoundary>
             } />
+            <Route path="sitemap_index.xml" element={
+              <ErrorBoundary>
+              <Suspense fallback={<PageSkeleton />}>
+                <XmlSitemapPage />
+              </Suspense>
+              </ErrorBoundary>
+            } />
             <Route path="blog" element={
               <ErrorBoundary>
               <Suspense fallback={<PageSkeleton />}>
