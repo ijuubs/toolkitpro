@@ -52,8 +52,8 @@ const DiffChecker = lazy(() => import('../components/tools/DiffChecker'));
 export default function ToolTemplate() {
   const { slug } = useParams<{ slug: string }>();
   
-  // Find tool by slug or alias
-  const tool = TOOLS.find((t) => t.slug === slug || (t.aliases && t.aliases.includes(slug || '')));
+  // Find tool by primary slug first, then fallback to aliases
+  const tool = TOOLS.find((t) => t.slug === slug) || TOOLS.find((t) => t.aliases && t.aliases.includes(slug || ''));
 
   if (!tool) {
     return (

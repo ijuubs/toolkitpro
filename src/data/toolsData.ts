@@ -307,7 +307,7 @@ This tool provides a mathematical projection for educational and planning purpos
     description: 'Calculate Fiji Value Added Tax (VAT). Easily add or remove VAT from prices using the current 12.5% rate or historical 15% rate.',
     category: 'Fiji Tools',
     usp: 'Includes the latest FRCS 12.5% rate effective August 2025, alongside historical 15% and zero-rated calculations.',
-    aliases: ['fiji-tax-calculator', 'calculate-vat-fiji', 'fiji-12.5-vat'],
+    aliases: ['fiji-vat-tax-calculator', 'calculate-vat-fiji', 'fiji-12.5-vat'],
     metaDescription: 'Calculate Fiji Value Added Tax (VAT) instantly. Add or remove VAT from any amount using the current 12.5% FRCS rate, historical 15% rate, or zero-rated items.',
     howTo: `### Complete Guide to Calculating Fiji VAT (Value Added Tax)
 
@@ -810,7 +810,7 @@ Because you might be encoding sensitive data (like API tokens or user IDs) into 
     description: 'Calculate your net take-home salary in Fiji. Computes 2026 Fiji PAYE tax, FNPF contribution (8%), and chargeable income with weekly, fortnightly, monthly breakdown.',
     category: 'Fiji Tools',
     usp: 'Includes up-to-date 2026 Fiji National Budget PAYE brackets (30k tax-free threshold) & 8% FNPF structures.',
-    aliases: ['fiji-tax-calculator', 'fiji-paye-calculator', 'fiji-fnpf-calculator'],
+    aliases: ['fiji-paye-calculator', 'fiji-income-tax-calculator', 'fiji-take-home-pay-calculator'],
     metaDescription: 'Calculate your net take-home salary in Fiji. Computes 2026 Fiji PAYE tax, FNPF contribution (8%), and chargeable income with weekly, fortnightly, monthly breakdown.',
     howTo: `### Complete Guide to Fiji Salary PAYE & FNPF Calculations
 

@@ -243,6 +243,52 @@ for (const slug of expectedFijiSlugs) {
   assert(toolTemplateSrc.includes(`case '${slug}':`), `Fiji tool "${slug}" is routed in ToolTemplate switch`);
 }
 
+// 8. ALIAS INTEGRITY & COLLISION AUDIT
+console.log('\n8. Tool Alias Integrity & Slug Collision Audit');
+const allAliases = new Map<string, string>();
+let aliasCollisions = 0;
+for (const tool of TOOLS) {
+  if (tool.aliases) {
+    for (const alias of tool.aliases) {
+      if (toolSlugs.has(alias)) {
+        assert(false, `Tool "${tool.slug}" alias "${alias}" collides with an existing tool slug!`);
+        aliasCollisions++;
+      }
+      if (allAliases.has(alias)) {
+        assert(false, `Duplicate alias "${alias}" found in tools "${allAliases.get(alias)}" and "${tool.slug}"!`);
+        aliasCollisions++;
+      } else {
+        allAliases.set(alias, tool.slug);
+      }
+    }
+  }
+}
+assert(aliasCollisions === 0, `All ${allAliases.size} tool aliases are unique with zero primary slug collisions`);
+
+// 9. PRE-RENDERED DIST FILES CANONICAL AUDIT
+console.log('\n9. Pre-rendered Dist Files Canonical Audit');
+const distToolsDir = path.join(__dirname, '..', 'dist', 'tools');
+if (fs.existsSync(distToolsDir)) {
+  let prerenderIssues = 0;
+  for (const tool of TOOLS) {
+    const indexPath = path.join(distToolsDir, tool.slug, 'index.html');
+    if (!fs.existsSync(indexPath)) {
+      assert(false, `Missing pre-rendered static HTML for tool: dist/tools/${tool.slug}/index.html`);
+      prerenderIssues++;
+    } else {
+      const content = fs.readFileSync(indexPath, 'utf8');
+      const expectedCanonical = `${PROD_DOMAIN}/tools/${tool.slug}`;
+      if (!content.includes(`<link rel="canonical" href="${expectedCanonical}" />`)) {
+        assert(false, `Tool ${tool.slug} pre-rendered HTML does not have exact expected canonical: ${expectedCanonical}`);
+        prerenderIssues++;
+      }
+    }
+  }
+  assert(prerenderIssues === 0, `All ${TOOLS.length} tools verified with exact canonical in pre-rendered static HTML`);
+} else {
+  console.log('  ℹ️  dist directory not built yet. Run npm run build to verify pre-rendered files.');
+}
+
 console.log('\n====================================================');
 console.log(`AUDIT SUMMARY: ${totalErrors} ERRORS, ${totalWarnings} WARNINGS`);
 console.log('====================================================');
