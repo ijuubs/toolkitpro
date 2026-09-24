@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense, lazy, useEffect } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
 import GlobalErrorOverlay from './components/GlobalErrorOverlay';
@@ -58,6 +59,7 @@ export default function App() {
       <BrowserRouter>
         <ScrollToTop />
         <AnalyticsTracker />
+        <SpeedInsights />
         <Routes>
             <Route path="/" element={<Layout />}>
             <Route index element={
