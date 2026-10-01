@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { marked } from 'marked';
 import { TOOLS, Tool } from '../src/data/toolsData';
 import { BLOG_POSTS, BlogPost } from '../src/data/blogData';
 import { 
@@ -41,6 +42,7 @@ function escapeHtml(str: string): string {
 function buildPrerenderRoutes(): PrerenderRoute[] {
   const routes: PrerenderRoute[] = [];
   const baseUrl = SITE_URL.replace(/\/+$/, '');
+  const categorySlugs = Object.keys(CATEGORY_METAS);
 
   // 1. HOMEPAGE (/)
   routes.push({
@@ -72,23 +74,33 @@ function buildPrerenderRoutes(): PrerenderRoute[] {
         <p>ToolKitPro provides professional-grade online utility tools for developers, businesses, and everyday productivity. Process data instantly and securely in your browser—no sign-ups required.</p>
       </header>
       <section>
-        <h2>Popular Browser Utilities</h2>
+        <h2>Tool Categories</h2>
         <ul>
-          ${TOOLS.slice(0, 12).map(t => `<li><a href="/tools/${t.slug}"><strong>${escapeHtml(t.name)}</strong> - ${escapeHtml(t.description)}</a></li>`).join('\n')}
+          ${categorySlugs.map(slug => `<li><a href="/${slug}"><strong>${escapeHtml(CATEGORY_METAS[slug].name)}</strong> - ${escapeHtml(CATEGORY_METAS[slug].description)}</a></li>`).join('\n')}
         </ul>
       </section>
       <section>
-        <h2>Tool Categories</h2>
+        <h2>All Online Utilities (${TOOLS.length})</h2>
         <ul>
-          <li><a href="/calculators">Calculators Hub</a></li>
-          <li><a href="/developer-tools">Developer Tools Hub</a></li>
-          <li><a href="/text-tools">Text Tools Hub</a></li>
-          <li><a href="/converters">Converters Hub</a></li>
-          <li><a href="/fiji-tools">Fiji Local Tools Hub</a></li>
-          <li><a href="/image-tools">Image Tools Hub</a></li>
-          <li><a href="/color-tools">Color Tools Hub</a></li>
+          ${TOOLS.map(t => `<li><a href="/tools/${t.slug}"><strong>${escapeHtml(t.name)}</strong> (${escapeHtml(t.category)}) - ${escapeHtml(t.description)}</a></li>`).join('\n')}
         </ul>
       </section>
+      <section>
+        <h2>Technical Guides & Tutorials (${BLOG_POSTS.length})</h2>
+        <ul>
+          ${BLOG_POSTS.map(p => `<li><a href="/blog/${p.slug}"><strong>${escapeHtml(p.title)}</strong> - ${escapeHtml(p.date)} by ${escapeHtml(p.author)}</a></li>`).join('\n')}
+        </ul>
+      </section>
+      <nav>
+        <a href="/about">About</a> • 
+        <a href="/contact">Contact</a> • 
+        <a href="/faq">FAQ</a> • 
+        <a href="/analytics">Analytics</a> • 
+        <a href="/sitemap">Sitemap</a> • 
+        <a href="/privacy">Privacy</a> • 
+        <a href="/terms">Terms</a> • 
+        <a href="/disclaimer">Disclaimer</a>
+      </nav>
     `
   });
 
@@ -187,7 +199,6 @@ function buildPrerenderRoutes(): PrerenderRoute[] {
   });
 
   // 3. CATEGORY HUBS (7 categories)
-  const categorySlugs = Object.keys(CATEGORY_METAS);
   categorySlugs.forEach(slug => {
     const meta = CATEGORY_METAS[slug];
     const canonical = generateCanonicalUrl(`/${slug}`);
@@ -217,6 +228,14 @@ function buildPrerenderRoutes(): PrerenderRoute[] {
           </nav>
           <h1>${escapeHtml(meta.name)}</h1>
           <p>${escapeHtml(meta.intro)}</p>
+          ${meta.keyFeatures && meta.keyFeatures.length > 0 ? `
+            <section>
+              <h2>Key Features</h2>
+              <ul>
+                ${meta.keyFeatures.map(f => `<li>${escapeHtml(f)}</li>`).join('\n')}
+              </ul>
+            </section>
+          ` : ''}
           <section>
             <h2>Available ${escapeHtml(meta.name)} (${catTools.length})</h2>
             <ul>
@@ -239,7 +258,7 @@ function buildPrerenderRoutes(): PrerenderRoute[] {
   TOOLS.forEach(tool => {
     const seo = generateToolSEO(tool, tool.slug);
     const related = getRelatedTools(tool, 4);
-    const cleanHowTo = stripMarkdownAndHtml(tool.howTo);
+    const renderedHowTo = marked.parse(tool.howTo);
 
     routes.push({
       path: `/tools/${tool.slug}`,
@@ -259,7 +278,9 @@ function buildPrerenderRoutes(): PrerenderRoute[] {
           
           <section class="how-to">
             <h2>How to use ${escapeHtml(tool.name)}</h2>
-            <p>${escapeHtml(cleanHowTo)}</p>
+            <div class="editorial-body">
+              ${renderedHowTo}
+            </div>
           </section>
 
           ${tool.faqs && tool.faqs.length > 0 ? `
@@ -288,7 +309,7 @@ function buildPrerenderRoutes(): PrerenderRoute[] {
   // 5. BLOG POSTS (14 posts)
   BLOG_POSTS.forEach(post => {
     const seo = generateBlogSEO(post);
-    const cleanContent = stripMarkdownAndHtml(post.content).slice(0, 1000);
+    const renderedContent = marked.parse(post.content);
 
     routes.push({
       path: `/blog/${post.slug}`,
@@ -308,7 +329,7 @@ function buildPrerenderRoutes(): PrerenderRoute[] {
             <p class="meta">Published: ${escapeHtml(post.date)} • By ${escapeHtml(post.author)} • ${escapeHtml(post.readTime)}</p>
           </header>
           <section class="article-body">
-            <p>${escapeHtml(cleanContent)}...</p>
+            ${renderedContent}
           </section>
           <footer>
             <a href="/blog">← Back to all articles</a>
@@ -359,10 +380,12 @@ export function prerenderAllRoutes() {
     pageHtml = pageHtml.replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/?>/gi, '');
     pageHtml = pageHtml.replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/?>/gi, '');
     pageHtml = pageHtml.replace(/<meta\s+property="og:type"\s+content=".*?"\s*\/?>/gi, '');
+    pageHtml = pageHtml.replace(/<meta\s+name="robots"\s+content=".*?"\s*\/?>/gi, '');
 
     // 4. Inject Verified Canonical & OpenGraph & Twitter Tags into <head>
     const headInjection = `
-    <!-- Verified Canonical URL for Googlebot & Search Engines -->
+    <!-- Verified Canonical URL & Search Indexing for Googlebot -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href="${route.canonicalUrl}" />
     <meta property="og:title" content="${escapeHtml(route.title)}" />
     <meta property="og:description" content="${escapeHtml(route.description)}" />
@@ -417,3 +440,4 @@ export function prerenderAllRoutes() {
 }
 
 prerenderAllRoutes();
+

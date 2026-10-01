@@ -100,6 +100,13 @@ const categoryRoutes = [
   const robotsTxtContent = `User-agent: *
 Allow: /
 
+# Googlebot & Search Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
 # Allow Google AdSense crawler
 User-agent: Mediapartners-Google
 Allow: /
@@ -118,6 +125,7 @@ User-agent: PerplexityBot
 Allow: /
 
 Sitemap: ${BASE_URL}/sitemap.xml
+Sitemap: ${BASE_URL}/sitemap_index.xml
 `;
   fs.writeFileSync(path.join(publicDir, 'robots.txt'), robotsTxtContent, 'utf8');
 

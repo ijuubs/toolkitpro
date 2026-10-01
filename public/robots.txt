@@ -1,6 +1,13 @@
 User-agent: *
 Allow: /
 
+# Googlebot & Search Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
 # Allow Google AdSense crawler
 User-agent: Mediapartners-Google
 Allow: /
@@ -19,3 +26,4 @@ User-agent: PerplexityBot
 Allow: /
 
 Sitemap: https://toolkitpro-e5y5.vercel.app/sitemap.xml
+Sitemap: https://toolkitpro-e5y5.vercel.app/sitemap_index.xml
