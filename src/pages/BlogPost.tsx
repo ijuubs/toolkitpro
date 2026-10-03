@@ -5,7 +5,6 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import ReactMarkdown from 'react-markdown';
 import { generateBlogSEO } from '../utils/seo';
 import AdSlot from '../components/AdSlot';
-import { Award, BookOpen } from 'lucide-react';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -27,7 +26,7 @@ export default function BlogPost() {
   const { titleTag, metaDescription, canonicalUrl, structuredData } = generateBlogSEO(post);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 pb-16">
       <Helmet>
         <title>{titleTag}</title>
         <meta name="description" content={metaDescription} />
@@ -103,32 +102,22 @@ export default function BlogPost() {
           </div>
           <div>
             <span className="bg-yellow-400 text-black text-[10px] font-black uppercase px-2 py-0.5 inline-block mb-1">
-              Verified Technical Author
+              Author
             </span>
             <h3 className="font-black text-lg uppercase leading-tight">{post.author}</h3>
-            <p className="text-xs text-[var(--muted)] font-medium">Software Engineering & Financial Calculations Desk</p>
+            <p className="text-xs text-[var(--muted)] font-medium">Written and maintained by the ToolKitPro developer</p>
           </div>
         </div>
         <Link 
           to="/about" 
           className="text-xs font-black uppercase underline hover:bg-yellow-300 px-2 py-1 border-2 border-black transition-colors shrink-0"
         >
-          Editorial Standards & Auditing →
+          About ToolKitPro →
         </Link>
       </div>
 
       <div className="border-4 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
         <AdSlot adSlot="9791142997" adFormat="auto" minHeight="250px" />
-      </div>
-
-      <div className="bg-black text-white p-5 sm:p-8 md:p-12 border-4 border-black shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] sm:shadow-[12px_12px_0px_0px_rgba(251,191,36,1)]">
-          <h2 className="text-xl sm:text-3xl font-black uppercase text-yellow-400 mb-2 sm:mb-4">Sharing is Caring</h2>
-          <p className="text-sm sm:text-base md:text-xl mb-6 sm:mb-8">If you found this guide helpful, consider sharing it with your network or following us for more updates.</p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button className="flex-1 bg-white text-black font-black uppercase py-3 sm:py-4 border-2 sm:border-4 border-white hover:bg-yellow-400 hover:border-black transition-all text-xs sm:text-sm min-h-[44px]">Twitter</button>
-              <button className="flex-1 bg-white text-black font-black uppercase py-3 sm:py-4 border-2 sm:border-4 border-white hover:bg-yellow-400 hover:border-black transition-all text-xs sm:text-sm min-h-[44px]">Facebook</button>
-              <button className="flex-1 bg-white text-black font-black uppercase py-3 sm:py-4 border-2 sm:border-4 border-white hover:bg-yellow-400 hover:border-black transition-all text-xs sm:text-sm min-h-[44px]">LinkedIn</button>
-          </div>
       </div>
     </div>
   );

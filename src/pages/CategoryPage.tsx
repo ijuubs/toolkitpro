@@ -86,7 +86,7 @@ export default function CategoryPage() {
       <div className="border-b-4 border-black pb-6 space-y-4">
         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <span className="bg-black text-white text-xs font-black uppercase px-2.5 py-1 tracking-wider">
-            Verified Category
+            Category Hub
           </span>
           <span className="bg-yellow-300 text-black border-2 border-black text-xs font-black uppercase px-2.5 py-0.5">
             {tools.length} Free {tools.length === 1 ? 'Tool' : 'Tools'}

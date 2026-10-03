@@ -31,12 +31,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://toolkitpro-e5y5.vercel.app/analytics</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://toolkitpro-e5y5.vercel.app/sitemap</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -332,30 +326,6 @@
   </url>
   <url>
     <loc>https://toolkitpro-e5y5.vercel.app/blog/architecture-of-instant-web-tools-web-workers</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://toolkitpro-e5y5.vercel.app/blog/loan-interest-explained</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://toolkitpro-e5y5.vercel.app/blog/image-optimization-for-seo</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://toolkitpro-e5y5.vercel.app/blog/securing-passwords-with-entropy</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://toolkitpro-e5y5.vercel.app/blog/mastering-json-debugging</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

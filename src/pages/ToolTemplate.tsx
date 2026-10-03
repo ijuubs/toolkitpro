@@ -55,6 +55,12 @@ export default function ToolTemplate() {
   // Find tool by primary slug first, then fallback to aliases
   const tool = TOOLS.find((t) => t.slug === slug) || TOOLS.find((t) => t.aliases && t.aliases.includes(slug || ''));
 
+  useEffect(() => {
+    if (tool) {
+      trackToolView(tool.id, tool.name, tool.category);
+    }
+  }, [tool?.id]);
+
   if (!tool) {
     return (
       <div className="max-w-4xl mx-auto py-20 text-center space-y-6">
@@ -80,12 +86,6 @@ export default function ToolTemplate() {
     currentUrl,
     structuredData
   } = generateToolSEO(tool, slug);
-
-  useEffect(() => {
-    if (tool) {
-      trackToolView(tool.id, tool.name, tool.category);
-    }
-  }, [tool?.id]);
 
   const renderTool = () => {
     switch(tool.id) {
@@ -200,6 +200,15 @@ export default function ToolTemplate() {
                   </Suspense>
                 </ErrorBoundary>
               </div>
+
+              {['Fiji Tools', 'Finance Tools', 'Health', 'Health Tools'].includes(tool.category) && (
+                <div className="p-3 bg-neutral-100 dark:bg-neutral-800 border-2 border-black text-xs font-bold flex items-center justify-between gap-2">
+                  <span>Estimates provided for informational purposes only.</span>
+                  <Link to="/disclaimer" className="underline uppercase font-black shrink-0 hover:text-yellow-600">
+                    Read Disclaimer →
+                  </Link>
+                </div>
+              )}
 
               {tool.usp && (
                   <div className="bg-black text-white p-3.5 sm:p-6 border-4 border-black shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] sm:shadow-[8px_8px_0px_0px_rgba(251,191,36,1)] flex items-start gap-3 sm:gap-4">

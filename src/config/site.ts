@@ -9,5 +9,7 @@ const getSiteUrl = () => {
 
 export const SITE_URL = getSiteUrl();
 
+export const CONTACT_EMAIL = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_CONTACT_EMAIL) || 'infotech.sudo@gmail.com';
+
 export const SITE_NAME = 'ToolKitPro';
 export const SITE_DESCRIPTION = 'High-performance browser-side utility tools. 100% private, client-side, zero log-in.';

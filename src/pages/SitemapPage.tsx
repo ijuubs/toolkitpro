@@ -18,7 +18,7 @@ export default function SitemapPage() {
   const xmlContent = useMemo(() => generateXmlSitemap(), []);
 
   // Calculate indexed totals
-  const totalStatic = 10;
+  const totalStatic = 9;
   const totalCategories = 7;
   const totalTools = TOOLS.length;
   const totalBlogPosts = BLOG_POSTS.length;
@@ -224,7 +224,6 @@ export default function SitemapPage() {
               {[
                 { to: '/', label: 'Home Page' },
                 { to: '/blog', label: 'Blog & Guides' },
-                { to: '/analytics', label: 'Analytics Dashboard' },
                 { to: '/about', label: 'About Us' },
                 { to: '/contact', label: 'Contact Us' },
                 { to: '/faq', label: 'FAQ' },
@@ -317,7 +316,7 @@ export default function SitemapPage() {
             <div className="flex items-center justify-between border-b-2 border-black pb-2">
               <h3 className="text-lg sm:text-xl font-black uppercase">Technical Guides & Articles ({filteredBlogPosts.length})</h3>
               <span className="text-xs font-black bg-neutral-200 dark:bg-neutral-700 px-2 py-0.5 border border-black">
-                Verified Content
+                Editorial Guides
               </span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-1">

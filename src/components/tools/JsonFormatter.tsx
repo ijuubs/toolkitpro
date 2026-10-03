@@ -12,7 +12,7 @@ export default function JsonFormatter() {
   const sampleJSON = {
     app: "ToolKitPro",
     version: "2.5.0",
-    features: ["client-side", "offline-ready", "zero-tracking"],
+    features: ["client-side", "offline-ready", "in-browser-processing"],
     privacy: {
       cloudUploads: false,
       memoryOnly: true,

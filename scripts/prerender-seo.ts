@@ -69,7 +69,7 @@ function buildPrerenderRoutes(): PrerenderRoute[] {
     ],
     contentHtml: `
       <header>
-        <span class="badge">100% Client-Side Privacy • Zero Server Uploads</span>
+        <span class="badge">Inputs are processed in your browser and not uploaded</span>
         <h1>Free Online Utilities & Everyday Calculators</h1>
         <p>ToolKitPro provides professional-grade online utility tools for developers, businesses, and everyday productivity. Process data instantly and securely in your browser—no sign-ups required.</p>
       </header>
@@ -95,7 +95,6 @@ function buildPrerenderRoutes(): PrerenderRoute[] {
         <a href="/about">About</a> • 
         <a href="/contact">Contact</a> • 
         <a href="/faq">FAQ</a> • 
-        <a href="/analytics">Analytics</a> • 
         <a href="/sitemap">Sitemap</a> • 
         <a href="/privacy">Privacy</a> • 
         <a href="/terms">Terms</a> • 
@@ -109,37 +108,30 @@ function buildPrerenderRoutes(): PrerenderRoute[] {
     {
       path: '/blog',
       title: `Technical Articles & Engineering Guides | ${SITE_NAME} Blog`,
-      description: 'Explore in-depth technical guides, engineering writeups, privacy deep dives, and mathematical tutorials curated by the ToolKitPro engineering team.',
+      description: 'Explore in-depth technical guides, engineering writeups, privacy deep dives, and mathematical tutorials curated by the ToolKitPro editorial team.',
       heading: 'Technical Guides & Engineering Articles',
       summary: 'Explore detailed tutorials on web cryptography, client-side PDF optimization, financial math, and browser performance.'
     },
     {
       path: '/about',
-      title: `About Us | 100% Client-Side RAM Architecture | ${SITE_NAME}`,
-      description: 'Learn about ToolKitPro\'s commitment to radical user privacy, zero server storage, and high-performance WebAssembly and Web Worker utilities.',
+      title: `About Us | Free In-Browser Utilities | ${SITE_NAME}`,
+      description: 'Learn about ToolKitPro: an independent platform offering free in-browser utility tools and calculators where inputs are processed locally.',
       heading: 'About ToolKitPro',
-      summary: 'ToolKitPro is built on a simple principle: your data belongs to you. All conversions, computations, and transformations run directly in your local browser sandbox.'
+      summary: 'ToolKitPro is built on a simple principle: your data belongs to you. All conversions, computations, and transformations run directly in your local browser.'
     },
     {
       path: '/contact',
       title: `Contact & Support | Feature Requests | ${SITE_NAME}`,
-      description: 'Have a feature request, found a bug, or want to suggest a new utility tool? Get in touch with the ToolKitPro developer team.',
-      heading: 'Contact the ToolKitPro Engineering Team',
-      summary: 'We welcome feedback, tool suggestions, bug reports, and contributions.'
+      description: 'Have a feature request, found a bug, or want to suggest a new utility tool? Get in touch with the ToolKitPro developer.',
+      heading: 'Contact the ToolKitPro Developer',
+      summary: 'We welcome feedback, tool suggestions, bug reports, and inquiries.'
     },
     {
       path: '/faq',
-      title: `Frequently Asked Questions (FAQ) | Security & Privacy | ${SITE_NAME}`,
-      description: 'Got questions about data security, client-side execution, offline PWA capabilities, or tool accuracy? Find answers here.',
+      title: `Frequently Asked Questions (FAQ) | ${SITE_NAME}`,
+      description: 'Got questions about data security, in-browser execution, offline capabilities, or tool accuracy? Find answers here.',
       heading: 'Frequently Asked Questions',
-      summary: 'Comprehensive answers regarding how ToolKitPro operates entirely within your browser.'
-    },
-    {
-      path: '/analytics',
-      title: `Live Platform Analytics & Performance | ${SITE_NAME}`,
-      description: 'Real-time aggregated metrics demonstrating tool usage, client-side computational efficiency, and privacy status across the ToolKitPro platform.',
-      heading: 'Live Web Analytics Dashboard',
-      summary: 'Transparent, privacy-respecting metrics demonstrating real-time platform performance.'
+      summary: 'Comprehensive answers regarding how ToolKitPro operates within your browser.'
     },
     {
       path: '/sitemap',
@@ -150,10 +142,10 @@ function buildPrerenderRoutes(): PrerenderRoute[] {
     },
     {
       path: '/privacy',
-      title: `Privacy Policy | Zero Server Logging Guarantee | ${SITE_NAME}`,
-      description: 'Our strict privacy policy guarantees that all files, calculations, passwords, and data entered into ToolKitPro remain in your device memory.',
+      title: `Privacy Policy | ${SITE_NAME}`,
+      description: 'Our privacy policy explains how inputs are processed in your browser and not uploaded to servers, alongside Google AdSense and analytics disclosures.',
       heading: 'Privacy Policy',
-      summary: 'ToolKitPro does not store, log, transmit, or inspect the files or text you process with our utilities.'
+      summary: 'ToolKitPro processes tool inputs in your browser and does not upload your files or text.'
     },
     {
       path: '/terms',

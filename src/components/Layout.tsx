@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Menu, X, ChevronRight, LayoutGrid, BarChart3, BookOpen, Info, HelpCircle, Mail, Map } from 'lucide-react';
+import { Menu, X, ChevronRight, LayoutGrid, BookOpen, Info, HelpCircle, Mail, Map, Cookie } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import Logo from './Logo';
-import CookieConsent from './CookieConsent';
+import CookieConsent, { OPEN_CONSENT_EVENT } from './CookieConsent';
 import BackToTop from './BackToTop';
 import { SITE_URL } from '../config/site';
 
@@ -39,13 +39,19 @@ export default function Layout() {
     };
   }, [mobileMenuOpen]);
 
+  const handleOpenCookieSettings = () => {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent(OPEN_CONSENT_EVENT));
+    }
+  };
+
   const orgSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "ToolKitPro",
     "url": `${SITE_URL}/`,
     "logo": `${SITE_URL}/toolkitpro-logo.jpg`,
-    "description": "Premium browser-side utility ecosystem. Fast, private, and professional."
+    "description": "Fast and private in-browser utility ecosystem."
   };
 
   const websiteSchema = {
@@ -78,11 +84,10 @@ export default function Layout() {
           </Link>
           <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 bg-yellow-300 text-black border-2 border-black font-black text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse inline-block" />
-            <span>100% Client-Side RAM Processing</span>
+            <span>Inputs are processed in your browser and not uploaded</span>
           </div>
           <div className="flex gap-1.5 sm:gap-3 md:gap-6 items-center">
             <Link to="/" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">Tools</Link>
-            <Link to="/analytics" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">Analytics</Link>
             <Link to="/blog" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">Blog</Link>
             <Link to="/about" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">About</Link>
             <ThemeToggle />
@@ -120,14 +125,6 @@ export default function Layout() {
                     <span>All Tools</span>
                   </Link>
                   <Link
-                    to="/analytics"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 p-3 bg-white dark:bg-[#202020] border-2 border-black font-black uppercase text-xs hover:bg-yellow-300 hover:text-black transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 min-h-[44px]"
-                  >
-                    <BarChart3 size={16} />
-                    <span>Analytics</span>
-                  </Link>
-                  <Link
                     to="/blog"
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center gap-2 p-3 bg-white dark:bg-[#202020] border-2 border-black font-black uppercase text-xs hover:bg-yellow-300 hover:text-black transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 min-h-[44px]"
@@ -142,6 +139,14 @@ export default function Layout() {
                   >
                     <Info size={16} />
                     <span>About Us</span>
+                  </Link>
+                  <Link
+                    to="/faq"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-2 p-3 bg-white dark:bg-[#202020] border-2 border-black font-black uppercase text-xs hover:bg-yellow-300 hover:text-black transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 min-h-[44px]"
+                  >
+                    <HelpCircle size={16} />
+                    <span>FAQ</span>
                   </Link>
                 </div>
               </div>
@@ -194,7 +199,7 @@ export default function Layout() {
 
               {/* Privacy Badge */}
               <div className="p-3 bg-yellow-300 text-black border-2 border-black font-black text-xs text-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                🛡️ 100% Client-Side Privacy • Zero Server Logging
+                🛡️ Inputs are processed in your browser and not uploaded
               </div>
             </div>
           </div>
@@ -213,7 +218,7 @@ export default function Layout() {
               ToolKitPro
             </Link>
             <p className="text-neutral-400 font-medium text-sm leading-relaxed">
-              Open browser-based utility platform. All operations execute locally in your computer's memory. Zero tracking, zero server uploads.
+              Open browser-based utility platform. All operations execute locally. Inputs are processed in your browser and not uploaded.
             </p>
             <div className="inline-block px-2.5 py-1 bg-neutral-900 border border-neutral-700 text-xs text-yellow-300 font-mono font-bold">
               v2.5.0 • PWA Ready
@@ -235,7 +240,6 @@ export default function Layout() {
           <div>
             <h4 className="font-black uppercase text-base mb-4 text-yellow-400 tracking-wider">Platform</h4>
             <ul className="space-y-2.5 font-bold uppercase text-xs text-neutral-300">
-              <li><Link to="/analytics" className="hover:text-yellow-400 transition-colors">Real-Time Analytics</Link></li>
               <li><Link to="/blog" className="hover:text-yellow-400 transition-colors">Articles & Guides</Link></li>
               <li><Link to="/about" className="hover:text-yellow-400 transition-colors">About ToolKitPro</Link></li>
               <li><Link to="/contact" className="hover:text-yellow-400 transition-colors">Feedback & Contact</Link></li>
@@ -251,18 +255,38 @@ export default function Layout() {
               <li><Link to="/terms" className="hover:text-yellow-400 transition-colors">Terms of Service</Link></li>
               <li><Link to="/disclaimer" className="hover:text-yellow-400 transition-colors">Disclaimer</Link></li>
               <li><Link to="/sitemap.xml" className="hover:text-yellow-400 transition-colors">XML Sitemap Index</Link></li>
+              <li>
+                <button
+                  type="button"
+                  onClick={handleOpenCookieSettings}
+                  className="hover:text-yellow-400 transition-colors text-left uppercase text-xs font-bold flex items-center gap-1 cursor-pointer"
+                >
+                  <Cookie size={12} />
+                  Cookie Settings
+                </button>
+              </li>
             </ul>
           </div>
         </div>
         
         <div className="max-w-[1200px] mx-auto mt-12 pt-6 border-t border-neutral-800 text-xs font-bold uppercase tracking-wider text-neutral-400 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p>&copy; {new Date().getFullYear()} ToolKitPro. Built for speed, privacy, and utility.</p>
-          <div className="flex gap-4 text-xs font-black uppercase text-yellow-400">
+          <div className="flex flex-wrap gap-4 text-xs font-black uppercase text-yellow-400 items-center">
             <Link to="/about" className="hover:underline">About</Link>
             <span>•</span>
             <Link to="/privacy" className="hover:underline">Privacy</Link>
             <span>•</span>
-            <Link to="/contact" className="hover:underline">Support</Link>
+            <Link to="/disclaimer" className="hover:underline">Disclaimer</Link>
+            <span>•</span>
+            <Link to="/contact" className="hover:underline">Contact</Link>
+            <span>•</span>
+            <button 
+              type="button" 
+              onClick={handleOpenCookieSettings} 
+              className="hover:underline uppercase text-yellow-400 font-black cursor-pointer"
+            >
+              Cookie Settings
+            </button>
           </div>
         </div>
       </footer>

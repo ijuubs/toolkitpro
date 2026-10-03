@@ -142,23 +142,13 @@ export default function AnalyticsPage() {
       <Helmet>
         <title>Live Real-Time Web Analytics | ToolKitPro</title>
         <meta name="description" content="True real-time web analytics for ToolKitPro. Live active users, page views, unique client sessions, tool execution frequency, and download conversion rates." />
-        <link rel="canonical" href={canonicalUrl} />
+        <meta name="robots" content="noindex, nofollow" />
         <meta property="og:title" content="Live Real-Time Web Analytics | ToolKitPro" />
         <meta property="og:description" content="True real-time web analytics for ToolKitPro. Live active users, page views, unique client sessions, tool execution frequency, and download conversion rates." />
-        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Live Real-Time Web Analytics | ToolKitPro" />
         <meta name="twitter:description" content="True real-time web analytics for ToolKitPro. Live active users, page views, unique client sessions, tool execution frequency, and download conversion rates." />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": "Live Real-Time Web Analytics - ToolKitPro",
-            "url": canonicalUrl,
-            "description": "True real-time telemetry, active sessions, tool execution frequency, and download conversion rates."
-          })}
-        </script>
       </Helmet>
 
       <Breadcrumbs items={[{ label: 'Home', path: '/' }, { label: 'Web Analytics' }]} />

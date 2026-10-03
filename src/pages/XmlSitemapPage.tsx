@@ -50,7 +50,6 @@ export default function XmlSitemapPage() {
       '/about': { priority: '0.8', changefreq: 'monthly', label: 'About Platform' },
       '/contact': { priority: '0.7', changefreq: 'monthly', label: 'Contact & Support' },
       '/faq': { priority: '0.8', changefreq: 'monthly', label: 'FAQ Directory' },
-      '/analytics': { priority: '0.8', changefreq: 'daily', label: 'Live Web Analytics' },
       '/sitemap': { priority: '0.5', changefreq: 'monthly', label: 'HTML Directory Sitemap' },
       '/privacy': { priority: '0.3', changefreq: 'monthly', label: 'Privacy Policy' },
       '/terms': { priority: '0.3', changefreq: 'monthly', label: 'Terms & Conditions' },
@@ -221,7 +220,7 @@ export default function XmlSitemapPage() {
           </div>
           <div className="bg-white border-2 border-black p-2.5 text-center">
             <span className="text-[10px] font-black uppercase text-neutral-600 block">Static & Hubs</span>
-            <span className="text-xl sm:text-2xl font-black font-mono text-black">17</span>
+            <span className="text-xl sm:text-2xl font-black font-mono text-black">16</span>
           </div>
         </div>
       </div>

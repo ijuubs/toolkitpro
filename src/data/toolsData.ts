@@ -1077,7 +1077,7 @@ Pasting production JSON payloads into random online formatters is a severe secur
 
 Portable Document Format (PDF) files are the digital standard for global business contracts, financial statements, academic papers, and government records. However, modern PDFs are frequently bloated by unoptimized embedded font tables, high-resolution scanned page images, redundant metadata trees, and legacy uncompressed streams. A simple five-page legal contract or scanned invoice can easily balloon into a 35MB file that exceeds standard email attachment limits (typically 20MB to 25MB) and chokes web portals.
 
-Our **Secure PDF Compressor** provides a surgical, client-side document optimization engine built on modern WebAssembly and JavaScript binary stream manipulation. Unlike legacy online conversion portals, our tool compresses files entirely inside your device's memory sandbox—zero bytes ever touch a cloud server.
+Our **Secure PDF Compressor** provides a surgical, client-side document optimization engine built on modern JavaScript and PDF binary stream manipulation. Unlike legacy online conversion portals, our tool compresses files entirely inside your device's browser sandbox—inputs are processed in your browser and not uploaded to a cloud server.
 
 #### 1. Under the Hood: How Binary PDF Compression Works
 
@@ -1112,7 +1112,7 @@ Because no external network requests are dispatched, our client-side compressor 
 - **HIPAA (Health Insurance Portability and Accountability Act):** Zero protected health information (PHI) exposure to third-party hosts.
 - **PCI-DSS:** Safe for sanitizing financial receipts, purchase orders, and payment records without PCI boundary expansion.`,
     faqs: [
-      { question: 'Is my document private when compressing PDFs on ToolKitPro?', answer: 'Yes, 100%. The compression executes entirely inside your browser memory using WebAssembly and client-side JavaScript. Your PDF is never uploaded to any cloud server or stored on external hard drives.' },
+      { question: 'Is my document private when compressing PDFs on ToolKitPro?', answer: 'Yes. The compression executes entirely inside your browser memory using client-side JavaScript. Your PDF is never uploaded to any cloud server or stored on external hard drives.' },
       { question: 'Will compressing my PDF reduce text sharpness or readability?', answer: 'No. Our compression prioritizes stream optimization, font deduplication, and metadata pruning. Vector fonts and typographic text retain 100% of their original razor-sharp vector clarity regardless of zoom level.' },
       { question: 'What is the maximum PDF file size supported?', answer: 'Because processing occurs in local RAM, file capacity is determined by your device hardware. Most modern laptops and phones comfortably handle PDFs up to 150MB without browser slowdown.' },
       { question: 'Can I compress password-protected PDF files?', answer: 'To compress an encrypted PDF, you must first unlock the document with its owner password, as binary stream optimization requires direct access to unencrypted object dictionaries.' },
@@ -1536,7 +1536,7 @@ A widespread predatory practice in the commercial QR generator market is the pro
       },
       {
         question: 'Does ToolKitPro track user scans or collect analytics?',
-        answer: 'No. Because ToolKitPro creates direct static QR codes without intermediary redirect gateways, we have zero tracking infrastructure. Your scanning data remains 100% private between the user and destination server.'
+        answer: 'No. Because ToolKitPro creates direct static QR codes without intermediary redirect gateways, we do not log or track scan events. The code directly encodes the URL or text you provide.'
       }
     ]
   },
@@ -2478,81 +2478,73 @@ Suppose a family of 4 establishes a total weekly grocery budget of **FJD $180.00
     id: 'fiji-taxi-fare-calculator',
     slug: 'fiji-taxi-fare-calculator',
     name: 'Fiji Taxi Fare Calculator',
-    titleTag: 'Fiji Taxi Fare Calculator | LTA Regulated Meter & Airport Rates',
-    description: 'Estimate your regulated taxi fare in Fiji under Land Transport Authority (LTA) rules. Computes flag fall rates, distance drops, waiting charges, and airport tariffs.',
+    titleTag: 'Fiji Taxi Fare Calculator | FCCC Regulated Meter & Regional Rates',
+    description: 'Estimate regulated taxi fares for general Viti Levu taxis in Fiji under FCCC rules in force from 1 October 2026. Computes flag fall, distance, and waiting charges.',
     category: 'Fiji Tools',
-    usp: 'Conforms to official Land Transport Authority (LTA) regulated tariff meters.',
+    usp: 'Conforms to official FCCC & LTA regulated tariff meters for Viti Levu taxis.',
     aliases: ['fiji-taxi-meter-calculator'],
-    metaDescription: 'Estimate your local taxi fare in Fiji. Computes regulated daytime and nighttime base drop rates, km distance, and idling wait times.',
+    metaDescription: 'Estimate regulated taxi fares in Fiji for general Viti Levu taxis. Computes day/night flag fall, $1.00/km distance rate, and 18c/min waiting time.',
     howTo: `### Complete Regulatory Guide to Taxi Fares & Meter Tariffs in Fiji
 
-Taxis represent one of the most accessible and reliable forms of passenger transport across the islands of Viti Levu, Vanua Levu, and Taveuni. Whether commuting to commercial offices in Suva Central, navigating the hospitality corridor along Nadi Bay, heading to Lautoka Hospital, or transferring from **Nadi International Airport (NAN)** to Coral Coast resorts, understanding the legal regulatory framework governing taxi meters prevents overcharging and ensures transparent transit.
+Taxis represent one of the most accessible and reliable forms of passenger transport across Fiji. Whether commuting to commercial offices in Suva Central, navigating the hospitality corridor along Nadi Bay, heading to Lautoka Hospital, or travelling along Kings and Queens Highways, understanding the regulatory framework governing taxi meters prevents overcharging and ensures transparent transit.
 
-Our **Fiji Taxi Fare Calculator** is calibrated to current tariff orders enforced by the **Land Transport Authority (LTA)** and the **Fijian Competition and Consumer Commission (FCCC)**, giving passengers, business commuters, and international tourists an exact estimate of their journey costs.
+Our **Fiji Taxi Fare Calculator** is calibrated to the official tariff order determined by the **Fijian Competition and Consumer Commission (FCCC)** and enforced by the **Land Transport Authority (LTA)** in force from **1 October 2026** (following the conclusion of the temporary fare adjustment period that ended on 30 September 2026).
 
-#### 1. Official Regulatory Framework & Legal Meter Mandates
+*Note: This calculator specifically covers general taxis operating on Viti Levu (excluding airport stations).*
 
-In the Republic of Fiji, all licensed public service vehicles (PSVs) operating as taxis (identifiable by yellow registration license plates beginning with the letter **\`LT\`**) are legally mandated under the **Land Transport Act** to utilize certified, sealed electronic meters within designated urban and municipal boundaries.
+#### 1. Official FCCC Tariff Schedule for General Viti Levu Taxis (from 1 Oct 2026)
 
-##### The Statutory Meter Tariff Schedule:
-- **Daytime Base Flag Fall (6:00 AM to 10:00 PM):**
-  - Base Flag Fall Drop: **FJD $2.00**
-  - Included Distance: The flag fall covers the initial entry and start of the journey.
-- **Nighttime Base Flag Fall (10:00 PM to 6:00 AM):**
-  - Base Flag Fall Drop: **FJD $3.00** (reflecting the statutory $1.00 nocturnal premium).
-- **Distance Running Rate:**
-  - Standard Urban Running Rate: **FJD $1.20 per kilometer** (meter increments typically advance in 100-meter drops of $0.12).
-- **Waiting Time Rate:**
-  - Stationary Traffic & Idling Charge: **FJD $0.20 per minute** ($12.00 per hour of continuous waiting in gridlock, traffic lights, or customer errands).
+In the Republic of Fiji, licensed public service vehicles (PSVs) operating as taxis (identifiable by yellow registration license plates beginning with the letter **\`LT\`**) are legally mandated under the **Land Transport Act** to utilize certified electronic meters.
 
-#### 2. Airport Taxi Tariffs: Nadi International (NAN) vs Nausori (SUV)
+##### Standard Viti Levu Tariff Rates:
+- **Daytime Flag Fall (6:00 AM to 9:00 PM):** **FJD $2.00**
+- **Nighttime Flag Fall (9:00 PM to 6:00 AM):** **FJD $3.00**
+- **Distance Running Rate:** **FJD $1.00 per kilometer** (advancing in incremental drops of 10 cents per 100 meters).
+- **Waiting / Traffic Idling Charge:** **FJD $0.18 per minute** ($10.80 per hour of stationary waiting in traffic or at customer request).
 
-Airport taxi services operate under specialized concession agreements with Airports Fiji Limited (AFL) and possess dedicated terminal ranks:
+#### 2. Regulated Rates for Other Islands & Airport Stations
 
-- **Nadi International Airport (NAN):**
-  Airport taxis departing the international arrivals terminal operate with a higher regulated base flag fall drop (typically **FJD $5.00 to $7.00**) to account for airport concession fees. Alternatively, official pre-negotiated fixed zone vouchers exist for major tourist hubs:
-  - Nadi Town: ~FJD $15 to $20
-  - Denarau Island Resorts: ~FJD $30 to $40
-  - Coral Coast (Sigatoka): ~FJD $90 to $120
-  - Pacific Harbour: ~FJD $160 to $190
-  - Suva City: ~FJD $220 to $280
-- **Nausori Airport (SUV):**
-  Transfers between Nausori Airport and Suva Central (approx. 22 km) typically register between **FJD $30.00 and $40.00** on a standard daytime meter, depending on traffic conditions along Kings Road.
+The FCCC establishes distinct statutory tariff schedules for different geographic zones and dedicated airport stations:
 
-#### 3. Worked Step-by-Step Distance Calculations
+- **Other Islands (Vanua Levu, Ovalau, Taveuni, and Kadavu):**
+  - Daytime Flag Fall (6:00 AM to 9:00 PM): **FJD $2.30**
+  - Nighttime Flag Fall (9:00 PM to 6:00 AM): **FJD $3.30**
+- **Nadi International Airport (NAN) Taxis:**
+  - Regulated Base Flag Fall: **FJD $5.00**
+- **Other Airports (including Nausori Airport - SUV):**
+  - Regulated Base Flag Fall: **FJD $7.10**
 
-##### Scenario A: Midday Urban Commute in Suva
-- **Route:** From Suva Central Business District (Victoria Parade) to the University of the South Pacific (USP Laucala Campus).
-- **Distance:** 4.5 kilometers.
-- **Estimated Waiting Time (Traffic Lights at Greig St & Rewa St):** 4 minutes.
-- **Calculation:**
-  - Base Flag Fall (Day): **FJD $2.00**
-  - Distance Charge: $4.5 \\text{ km} \\times \\$1.20 = \\text{FJD } \\$5.40$
-  - Waiting Charge: $4 \\text{ mins} \\times \\$0.20 = \\text{FJD } \\$0.80$
-  - **Total Legal Fare: FJD $8.20**
+*Please note: The interactive calculator above is calibrated for general Viti Levu taxis only.*
 
-##### Scenario B: Late-Night Ride in Nadi
-- **Route:** From Wailoaloa Beach to Martintar entertainment precinct.
-- **Distance:** 3.0 kilometers at 11:30 PM (Night tariff).
-- **Calculation:**
-  - Base Flag Fall (Night): **FJD $3.00**
-  - Distance Charge: $3.0 \\text{ km} \\times \\$1.20 = \\text{FJD } \\$3.60$
-  - Waiting Charge: $0 \\text{ mins}$
-  - **Total Legal Fare: FJD $6.60**
+#### 3. Worked Step-by-Step Calculation Examples
+
+##### Scenario A: Daytime Commute in Suva (4.5 km + 4 min waiting)
+- **Journey:** 4.5 kilometers during daytime (6:00 AM – 9:00 PM) with 4 minutes of traffic delays.
+- **Base Flag Fall (Day):** FJD $2.00
+- **Distance Charge:** $4.5 \\text{ km} \\times \\$1.00 = \\text{FJD } \\$4.50$
+- **Waiting Charge:** $4 \\text{ mins} \\times \\$0.18 = \\text{FJD } \\$0.72$
+- **Total Regulated Fare:** $\\$2.00 + \\$4.50 + \\$0.72 = \\text{FJD } \\$7.22$
+
+##### Scenario B: Nighttime Ride in Nadi (3.0 km)
+- **Journey:** 3.0 kilometers at 10:30 PM (Night tariff: 9:00 PM – 6:00 AM) with zero waiting.
+- **Base Flag Fall (Night):** FJD $3.00
+- **Distance Charge:** $3.0 \\text{ km} \\times \\$1.00 = \\text{FJD } \\$3.00$
+- **Waiting Charge:** $\\$0.00$
+- **Total Regulated Fare:** $\\$3.00 + \\$3.00 = \\text{FJD } \\$6.00$
 
 #### 4. Passenger Rights & Consumer Protection Guidelines
 
-- **Insist on the Meter:** Within urban and suburban limits, drivers are legally required to activate the meter when you enter the vehicle. Refuse unmetered verbal quotes for short trips.
-- **Receipts:** Passengers have the legal right to request a printed or handwritten receipt indicating the vehicle LT number, distance, and total charged.
-- **Long-Distance / Express Charters:** For inter-city journeys along Queens Highway (e.g., Suva to Nadi or Lautoka), meters are often waived in favor of mutually agreed fixed charter rates (typically FJD $200 to $260 for a private express hire). Confirm and lock the total price before departure.
-- **LTA Complaint Line:** If an operator refuses to use the meter, behaves unprofessionally, or attempts excessive surcharges, record the **\`LT\` registration number** displayed on the exterior door and call the LTA Toll-Free Complaint Line (582).`,
+- **Insist on the Meter:** Within urban and suburban limits on Viti Levu, drivers are legally required to activate the meter when passenger transit begins.
+- **Receipts:** Passengers have the legal right to request a printed or written receipt stating the vehicle LT plate number, distance, and total charged.
+- **Long-Distance Charters:** For inter-city express journeys (e.g. Suva to Nadi or Lautoka), fixed charter rates are often agreed upon before departure. Always confirm the agreed fare before starting the trip.
+- **LTA Complaints:** If an operator refuses to use the meter or attempts an unauthorized surcharge, record the vehicle **\`LT\` registration number** and contact the Land Transport Authority or FCCC.`,
     faqs: [
-      { question: 'Are taxi drivers in Fiji legally required to use meters?', answer: 'Yes. Under Land Transport Authority (LTA) regulations, taxi drivers operating in municipal and urban zones are legally required to turn on the electronic meter as soon as passenger transit commences.' },
-      { question: 'What is the daytime vs nighttime taxi base rate in Fiji?', answer: 'The official daytime base flag fall is FJD $2.00 (from 6:00 AM to 10:00 PM). The nighttime flag fall is FJD $3.00 (from 10:00 PM to 6:00 AM).' },
-      { question: 'How much does a taxi cost per kilometer in Fiji?', answer: 'The regulated distance rate is FJD $1.20 per kilometer, which advances on the electronic meter in incremental drops of approximately $0.12 every 100 meters.' },
-      { question: 'How much does a taxi from Nadi Airport to Denarau Island cost?', answer: 'A metered or regulated airport taxi from Nadi International Airport to Denarau Island typically costs between FJD $30.00 and $40.00, depending on traffic and terminal concession levies.' },
-      { question: 'Is tipping taxi drivers customary in Fiji?', answer: 'Tipping is not required or traditionally expected in Fiji. Rounding up to the nearest dollar or leaving small change is appreciated for courteous service but entirely voluntary.' },
-      { question: 'Can I pay for taxis in Fiji using credit cards or mobile money?', answer: 'While most traditional street taxis accept only cash (Fijian Dollars), an increasing number of airport and hotel taxis accept Vodafone M-PAiSA QR payments or major credit cards (often with a 3% card merchant fee).' }
+      { question: 'Are taxi drivers in Fiji legally required to use meters?', answer: 'Yes. Under Land Transport Authority (LTA) and FCCC regulations, taxi drivers operating in municipal and urban zones are legally required to activate the calibrated electronic meter at the start of a journey.' },
+      { question: 'What is the daytime vs nighttime taxi flag fall on Viti Levu?', answer: 'For general Viti Levu taxis (from 1 October 2026), the daytime flag fall is FJD $2.00 (6:00 AM to 9:00 PM) and the nighttime flag fall is FJD $3.00 (9:00 PM to 6:00 AM).' },
+      { question: 'What is the regulated distance rate per kilometer on Viti Levu?', answer: 'The regulated running distance rate is FJD $1.00 per kilometer (10 cents per 100 meters), with waiting time charged at FJD $0.18 per minute.' },
+      { question: 'What are the taxi flag fall rates in Vanua Levu, Ovalau, Taveuni, and Kadavu?', answer: 'Under FCCC determinations, taxis in Vanua Levu, Ovalau, Taveuni, and Kadavu have a flag fall of FJD $2.30 during the day (6:00 AM to 9:00 PM) and FJD $3.30 at night (9:00 PM to 6:00 AM).' },
+      { question: 'What is the base flag fall for airport taxis in Fiji?', answer: 'Taxis operating from Nadi International Airport have a regulated base flag fall of FJD $5.00, while taxis from other airports (such as Nausori Airport) have a flag fall of FJD $7.10.' },
+      { question: 'Does this calculator cover all regions of Fiji?', answer: 'This calculator is calibrated specifically for general Viti Levu taxis. Regional island rates (Vanua Levu, Taveuni, etc.) and airport station flag falls differ as outlined in our guide.' }
     ]
   },
   {

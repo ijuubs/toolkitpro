@@ -259,9 +259,9 @@ export const CATEGORY_METAS: Record<string, CategoryMeta> = {
   'developer-tools': {
     name: 'Developer Tools',
     title: `Developer Tools | Free Online Web, Code & Security Utilities | ${SITE_NAME}`,
-    description: 'Format JSON, inspect diffs, encode/decode Base64 and URLs, generate secure passwords and QR codes. 100% private, client-side browser developer tools.',
-    intro: 'Engineered specifically for software developers, system administrators, and security professionals. Parse and validate JSON payloads, calculate Myers diff differences between code snippets, encode UTF-8 Base64 strings, safely encode query parameters, and generate high-entropy passwords. Because all computation runs in your local browser sandbox, confidential API keys, tokens, and proprietary configurations never touch external servers.',
-    keyFeatures: ['100% Client-Side Privacy (Zero Server Logs)', 'RFC 8259 Compliant JSON Validation', 'Side-by-Side & Unified Diff Inspection', 'Cryptographically Secure Entropy Generation']
+    description: 'Format JSON, inspect diffs, encode/decode Base64 and URLs, generate secure passwords and QR codes. Private, in-browser developer tools.',
+    intro: 'Engineered specifically for software developers, system administrators, and security professionals. Parse and validate JSON payloads, calculate Myers diff differences between code snippets, encode UTF-8 Base64 strings, safely encode query parameters, and generate high-entropy passwords. Because all computation runs in your local browser, confidential API keys, tokens, and proprietary configurations never touch external servers.',
+    keyFeatures: ['In-Browser Processing (No Server Uploads)', 'RFC 8259 Compliant JSON Validation', 'Side-by-Side & Unified Diff Inspection', 'Cryptographically Secure Entropy Generation']
   },
   'text-tools': {
     name: 'Text Tools',
@@ -295,7 +295,7 @@ export const CATEGORY_METAS: Record<string, CategoryMeta> = {
     name: 'Image Tools',
     title: `Image Tools | Online Image Resizer & Color Utilities | ${SITE_NAME}`,
     description: 'Resize photos for social media or web performance, optimize dimensions, and inspect color palettes locally in your browser with zero server uploads.',
-    intro: 'Optimize your digital visual assets for web speed, social media packaging, and mobile display. Adjust image pixel dimensions with aspect-ratio locking, leverage high-order resampling to maintain edge clarity, and inspect image colors. All graphic manipulation is powered by your local browser Canvas and Web Workers, keeping your private photos 100% on your device.',
+    intro: 'Optimize your digital visual assets for web speed, social media packaging, and mobile display. Adjust image pixel dimensions with aspect-ratio locking, leverage high-order resampling to maintain edge clarity, and inspect image colors. All graphic manipulation is powered by your local browser Canvas APIs, keeping your private photos 100% on your device.',
     keyFeatures: ['Custom Width & Height Rescaling', 'Standard Social Media Presets', 'Aspect Ratio Lock & Lanczos Filtering', 'Local Memory Processing (Zero Server Uploads)']
   }
 };
@@ -396,7 +396,6 @@ export function generateXmlSitemap(customBaseUrl?: string): string {
     { path: '/about', priority: '0.8', changefreq: 'monthly' },
     { path: '/contact', priority: '0.7', changefreq: 'monthly' },
     { path: '/faq', priority: '0.8', changefreq: 'monthly' },
-    { path: '/analytics', priority: '0.8', changefreq: 'daily' },
     { path: '/sitemap', priority: '0.5', changefreq: 'monthly' },
     { path: '/privacy', priority: '0.3', changefreq: 'monthly' },
     { path: '/terms', priority: '0.3', changefreq: 'monthly' },

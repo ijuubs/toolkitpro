@@ -39,9 +39,9 @@ assert(toolSlugs.size === 34, `Expected 34 unique tool slugs, found ${toolSlugs.
 const categorySlugs = Object.keys(CATEGORY_METAS);
 assert(categorySlugs.length === 7, `Expected 7 category hubs, found ${categorySlugs.length}`);
 
-assert(BLOG_POSTS.length === 14, `Expected 14 blog posts / technical guides, found ${BLOG_POSTS.length}`);
+assert(BLOG_POSTS.length === 10, `Expected 10 blog posts / technical guides, found ${BLOG_POSTS.length}`);
 const blogSlugs = new Set(BLOG_POSTS.map(b => b.slug));
-assert(blogSlugs.size === 14, `Expected 14 unique blog slugs, found ${blogSlugs.size}`);
+assert(blogSlugs.size === 10, `Expected 10 unique blog slugs, found ${blogSlugs.size}`);
 
 const staticPaths = [
   '/',
@@ -49,17 +49,16 @@ const staticPaths = [
   '/about',
   '/contact',
   '/faq',
-  '/analytics',
   '/sitemap',
   '/privacy',
   '/terms',
   '/disclaimer'
 ];
-assert(staticPaths.length === 10, `Expected 10 static routes, found ${staticPaths.length}`);
+assert(staticPaths.length === 9, `Expected 9 static routes, found ${staticPaths.length}`);
 
 const totalExpectedRoutes = staticPaths.length + categorySlugs.length + TOOLS.length + BLOG_POSTS.length;
-console.log(`  ℹ️  Total Canonical Public URLs: ${totalExpectedRoutes} (10 static + 7 categories + 34 tools + 14 blog posts)`);
-assert(totalExpectedRoutes === 65, `Expected 65 total canonical URLs, found ${totalExpectedRoutes}`);
+console.log(`  ℹ️  Total Canonical Public URLs: ${totalExpectedRoutes} (9 static + 7 categories + 34 tools + 10 blog posts)`);
+assert(totalExpectedRoutes === 60, `Expected 60 total canonical URLs, found ${totalExpectedRoutes}`);
 
 // 2. SITEMAP AUDIT
 console.log('\n2. Sitemap (public/sitemap.xml) Audit');

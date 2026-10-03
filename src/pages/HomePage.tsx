@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { TOOLS } from '../data/toolsData';
 import { BLOG_POSTS } from '../data/blogData';
-import AdSlot from '../components/AdSlot';
 import HeroMiniTool from '../components/HeroMiniTool';
 import { SITE_URL } from '../config/site';
 import { 
@@ -96,7 +95,7 @@ export default function HomePage() {
         <div className="text-center md:text-left space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-yellow-300 border-2 border-black font-black uppercase text-xs shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
               <ShieldCheck className="w-4 h-4 text-black" />
-              <span>100% Client-Side Privacy • Zero Server Uploads</span>
+              <span>Inputs are processed in your browser and not uploaded</span>
             </div>
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter uppercase leading-[0.95] text-[var(--g6)]">
               Free Online Utilities & Everyday Calculators
@@ -183,52 +182,45 @@ export default function HomePage() {
                     }
                   }}
                 >
-                    {filteredTools.map((tool, index) => (
-                      <Fragment key={tool.id}>
-                        <motion.div
-                          variants={{
-                            hidden: { opacity: 0, y: 12 },
-                            visible: { opacity: 1, y: 0 }
-                          }}
-                          className="flex flex-col"
+                    {filteredTools.map((tool) => (
+                      <motion.div
+                        key={tool.id}
+                        variants={{
+                          hidden: { opacity: 0, y: 12 },
+                          visible: { opacity: 1, y: 0 }
+                        }}
+                        className="flex flex-col"
+                      >
+                        <Link 
+                          to={`/tools/${tool.slug}`} 
+                          className="group p-5 sm:p-6 md:p-8 bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] md:hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all flex flex-col justify-between h-full min-w-0 overflow-hidden"
                         >
-                          <Link 
-                            to={`/tools/${tool.slug}`} 
-                            className="group p-5 sm:p-6 md:p-8 bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] md:hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all flex flex-col justify-between h-full min-w-0 overflow-hidden"
-                          >
-                            <div className="min-w-0">
-                              <div className="flex items-center justify-between gap-2 mb-3">
-                                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 border border-black bg-yellow-300 text-black inline-block">
-                                  {getToolBadge(tool)}
-                                </span>
-                                <span className="text-xs font-black uppercase group-hover:translate-x-1 transition-transform">
-                                  →
-                                </span>
-                              </div>
-                              <h3 className="text-lg sm:text-xl md:text-2xl font-black mb-2 uppercase leading-tight break-words text-[var(--g6)]">
-                                {tool.name}
-                              </h3>
-                              <p className="font-medium text-xs sm:text-sm md:text-base text-[var(--muted)] leading-relaxed line-clamp-3">
-                                {tool.description}
-                              </p>
-                            </div>
-                            <div className="mt-5 pt-3 border-t-2 border-black flex items-center justify-between text-xs font-black uppercase">
-                              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-yellow-300 text-black border-2 border-black font-black text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] group-hover:bg-black group-hover:text-yellow-300 transition-colors">
-                                Launch Tool <ArrowRight className="w-3.5 h-3.5" />
+                          <div className="min-w-0">
+                            <div className="flex items-center justify-between gap-2 mb-3">
+                              <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 border border-black bg-yellow-300 text-black inline-block">
+                                {getToolBadge(tool)}
                               </span>
-                              <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
-                                Instant
+                              <span className="text-xs font-black uppercase group-hover:translate-x-1 transition-transform">
+                                →
                               </span>
                             </div>
-                          </Link>
-                        </motion.div>
-                        {/* Insert an ad after every 6 tools for in-feed monetization */}
-                        {(index + 1) % 6 === 0 && (
-                          <div key={`ad-${index}`} className="sm:col-span-2 lg:col-span-1 min-h-[300px]">
-                            <AdSlot adSlot="9791142997" adFormat="rectangle" minHeight="300px" className="my-0 h-full" />
+                            <h3 className="text-lg sm:text-xl md:text-2xl font-black mb-2 uppercase leading-tight break-words text-[var(--g6)]">
+                              {tool.name}
+                            </h3>
+                            <p className="font-medium text-xs sm:text-sm md:text-base text-[var(--muted)] leading-relaxed line-clamp-3">
+                              {tool.description}
+                            </p>
                           </div>
-                        )}
-                      </Fragment>
+                          <div className="mt-5 pt-3 border-t-2 border-black flex items-center justify-between text-xs font-black uppercase">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-yellow-300 text-black border-2 border-black font-black text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] group-hover:bg-black group-hover:text-yellow-300 transition-colors">
+                              Launch Tool <ArrowRight className="w-3.5 h-3.5" />
+                            </span>
+                            <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
+                              Instant
+                            </span>
+                          </div>
+                        </Link>
+                      </motion.div>
                     ))}
                 </motion.div>
             )}
