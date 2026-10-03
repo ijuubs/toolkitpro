@@ -80,7 +80,7 @@ export default function CategoryPage() {
         </script>
       </Helmet>
 
-      <Breadcrumbs items={[{ label: 'Home', path: '/' }, { label: categoryName }]} />
+      <Breadcrumbs skipSchema items={[{ label: 'Home', path: '/' }, { label: categoryName }]} />
 
       {/* Header & Editorial Intro */}
       <div className="border-b-4 border-black pb-6 space-y-4">

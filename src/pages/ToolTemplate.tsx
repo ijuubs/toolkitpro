@@ -187,7 +187,7 @@ export default function ToolTemplate() {
           const relatedTools = getRelatedTools(tool, 4);
           return (
             <>
-              <Breadcrumbs items={[
+              <Breadcrumbs skipSchema items={[
                 { label: 'Home', path: '/' }, 
                 { label: categoryInfo.name, path: `/${categoryInfo.slug}` }, 
                 { label: tool.name }

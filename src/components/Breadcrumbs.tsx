@@ -10,9 +10,12 @@ interface BreadcrumbItem {
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[];
+  skipSchema?: boolean;
 }
 
-export default function Breadcrumbs({ items }: BreadcrumbsProps) {
+export default function Breadcrumbs({ items, skipSchema = false }: BreadcrumbsProps) {
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : `${SITE_URL}/`;
+
   const schemaList = [
     {
       "@type": "ListItem",
@@ -20,27 +23,34 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
       "name": "Home",
       "item": `${SITE_URL}/`
     },
-    ...items.map((item, index) => ({
-      "@type": "ListItem",
-      "position": index + 2,
-      "name": item.label,
-      "item": item.path ? `${SITE_URL}${item.path}` : undefined
-    }))
+    ...items.map((item, index) => {
+      const itemUrl = item.path 
+        ? (item.path.startsWith('http') ? item.path : `${SITE_URL}${item.path.startsWith('/') ? item.path : `/${item.path}`}`)
+        : currentUrl;
+      return {
+        "@type": "ListItem",
+        "position": index + 2,
+        "name": item.label,
+        "item": itemUrl
+      };
+    })
   ];
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": schemaList.filter(item => item.item !== undefined)
+    "itemListElement": schemaList
   };
 
   return (
     <>
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema)}
-        </script>
-      </Helmet>
+      {!skipSchema && (
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(breadcrumbSchema)}
+          </script>
+        </Helmet>
+      )}
       <nav className="flex items-center space-x-2 text-sm font-black uppercase tracking-wider mb-6 overflow-x-auto no-scrollbar whitespace-nowrap py-2">
         <Link to="/" className="flex items-center gap-1 hover:bg-yellow-400 hover:text-black px-1 transition-colors">
           <Home size={14} />

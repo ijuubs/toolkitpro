@@ -210,6 +210,7 @@ export function generateBlogSEO(post: BlogPost) {
     '@type': 'BlogPosting',
     headline: post.title,
     description: metaDescription,
+    image: [logoUrl],
     datePublished: post.date,
     dateModified: post.date,
     mainEntityOfPage: {
@@ -224,7 +225,10 @@ export function generateBlogSEO(post: BlogPost) {
       '@type': 'Organization',
       name: SITE_NAME,
       url: `${SITE_URL}/`,
-      logo: logoUrl
+      logo: {
+        '@type': 'ImageObject',
+        url: logoUrl
+      }
     }
   };
 
@@ -336,6 +340,7 @@ export function generateCategorySEO(categoryName: string, path: string, tools: T
         '@type': 'ListItem',
         position: index + 1,
         name: tool.name,
+        item: `${SITE_URL}/tools/${tool.slug}`,
         url: `${SITE_URL}/tools/${tool.slug}`
       }))
     }
