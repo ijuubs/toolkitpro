@@ -1,30 +1,31 @@
 import { Helmet } from 'react-helmet-async';
-import { SITE_URL } from '../config/site';
+import { SITE_URL, SITE_NAME } from '../config/site';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { ShieldCheck, Cpu, Award, BookOpen, CheckCircle2 } from 'lucide-react';
 
 export default function AboutPage() {
+  const canonicalUrl = `${SITE_URL}/about`;
+
   return (
-    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 pb-16">
       <Helmet>
-        <title>About Us | ToolKitPro</title>
-        <meta name="description" content="Learn more about ToolKitPro, your premier destination for high-performance, private, and secure online utility tools." />
-        <link rel="canonical" href={`${SITE_URL}/about`} />
-        <meta property="og:title" content="About Us | ToolKitPro" />
-        <meta property="og:description" content="Learn more about ToolKitPro, your premier destination for high-performance, private, and secure online utility tools." />
-        <meta property="og:url" content={`${SITE_URL}/about`} />
+        <title>About Us | Editorial Standards & Client-Side Architecture | {SITE_NAME}</title>
+        <meta name="description" content={`Learn about ${SITE_NAME}: our mission for radical user privacy, 100% client-side WebAssembly tools, mathematical auditing standards, and engineering team.`} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={`About Us | ${SITE_NAME}`} />
+        <meta property="og:description" content={`Learn about ${SITE_NAME}: our mission for radical user privacy, 100% client-side WebAssembly tools, mathematical auditing standards, and engineering team.`} />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About Us | ToolKitPro" />
-        <meta name="twitter:description" content="Learn more about ToolKitPro, your premier destination for high-performance, private, and secure online utility tools." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AboutPage",
-            "name": "About Us - ToolKitPro",
-            "url": `${SITE_URL}/about`,
-            "description": "Learn more about ToolKitPro, your premier destination for high-performance, private, and secure online utility tools.",
+            "name": `About Us - ${SITE_NAME}`,
+            "url": canonicalUrl,
+            "description": `Editorial standards, client-side RAM architecture, and engineering principles behind ${SITE_NAME}.`,
             "publisher": {
               "@type": "Organization",
-              "name": "ToolKitPro",
+              "name": SITE_NAME,
               "url": `${SITE_URL}/`,
               "logo": `${SITE_URL}/toolkitpro-logo.jpg`
             }
@@ -32,113 +33,93 @@ export default function AboutPage() {
         </script>
       </Helmet>
       
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter border-b-4 sm:border-b-8 border-black pb-3 sm:pb-4 text-black leading-tight">About ToolKitPro</h1>
+      <Breadcrumbs items={[{ label: 'Home', path: '/' }, { label: 'About Us' }]} />
+
+      <div className="border-b-4 sm:border-b-8 border-black pb-4 sm:pb-6">
+        <span className="bg-black text-white text-xs font-black uppercase px-2.5 py-1 tracking-wider inline-block mb-2">
+          Engineering & Editorial Standards
+        </span>
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-black leading-tight">
+          About {SITE_NAME}
+        </h1>
+        <p className="font-bold text-xs sm:text-sm text-neutral-600 mt-2">
+          Professional-grade utility suite built with industrial precision, radical privacy, and zero server logging.
+        </p>
+      </div>
       
-      <div className="prose prose-xl max-w-none text-[var(--muted)] leading-relaxed space-y-8 sm:space-y-10">
-        <div className="space-y-4 sm:space-y-6">
-          <p className="font-bold text-black border-l-4 sm:border-l-8 border-yellow-400 pl-4 sm:pl-6 py-3 sm:py-4 bg-yellow-50 text-lg sm:text-2xl italic leading-snug">
-            ToolKitPro was built with a single mission: to provide the world with professional-grade utility tools that respect user privacy and deliver instant results.
+      <div className="prose prose-xl max-w-none text-neutral-800 leading-relaxed space-y-8">
+        <div className="bg-yellow-50 border-4 border-black p-5 sm:p-7 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <p className="font-black text-black text-lg sm:text-2xl uppercase tracking-tight mb-2">
+            Our Core Mission
           </p>
-          
-          <p className="text-sm sm:text-base md:text-lg">
-            In an era where the internet is cluttered with slow, bloated, and invasive "tool" sites, we decided to build something different. ToolKitPro follows a **Neu-Brutalist** design philosophy—sharp, fast, and honest. We don't hide our functions behind complex menus or unnecessary loading states.
+          <p className="text-sm sm:text-base text-neutral-700 leading-relaxed">
+            {SITE_NAME} was engineered with a clear mandate: to provide the global web community with fast, accessible, and mathematically audited utility tools without compromising user privacy. In an era where online utility portals frequently harvest contact information or upload sensitive documents to remote cloud storage, we provide a trustworthy, serverless computing alternative.
           </p>
         </div>
 
-        <section className="space-y-4 sm:space-y-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[var(--g6)] uppercase tracking-tighter">Our Story</h2>
-          <p className="text-sm sm:text-base md:text-lg text-[var(--muted)] leading-relaxed">
-            Founded in early 2024 by a small team of senior software engineers and product designers, ToolKitPro was born out of frustration. As developers, we found ourselves constantly searching for simple tools—like a high-quality JSON formatter or a fast image resizer—only to be met with sites that required logins, tracking cookies, and overwhelming paywalls.
+        <section className="space-y-4">
+          <h2 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tighter flex items-center gap-2">
+            <Cpu size={24} />
+            The Client-Side Sovereignty Architecture
+          </h2>
+          <p className="text-sm sm:text-base text-neutral-700 leading-relaxed">
+            Every utility in our catalog—ranging from our PDF Compressor and Image Resizer to our Myers-diff engine and Base64 encoders—leverages modern web standards including WebAssembly, Web Workers, the HTML5 File API, and the Web Crypto API.
           </p>
-          <p className="text-sm sm:text-base md:text-lg text-[var(--muted)] leading-relaxed">
-            We realized that the web needed a "neutral zone"—a place where utilities were built with industrial precision but designed for the modern user who values their time and privacy. With backgrounds in building scalable cloud architectures and accessible UI systems at top-tier tech firms, we combined our expertise to create a platform that is as robust as it is beautiful.
-          </p>
-        </section>
-
-        <section className="bg-black text-white p-5 sm:p-8 md:p-10 border-4 sm:border-8 border-black shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] sm:shadow-[16px_16px_0px_0px_rgba(251,191,36,1)] space-y-4 sm:space-y-6">
-          <h2 className="text-xl sm:text-3xl font-black uppercase tracking-widest text-yellow-400">The Privacy Manifest</h2>
-          <p className="font-medium text-xs sm:text-sm md:text-base text-gray-300 leading-relaxed">
-            Why do standard "free" utility sites want your email? Usually, they're building a list to sell or using trackers to follow you across the web. **ToolKitPro is different.**
-          </p>
-          <p className="font-medium text-xs sm:text-sm md:text-base text-gray-300 leading-relaxed">
-            Our core architecture is built on the principle of **Client-Side Sovereignty**. This means that for the vast majority of our tools, the math, the processing, and the transformation happen inside *your* browser. Your PDF never leaves your machine. Your image is resized in your local memory. Your password is generated via your device's own entropy source.
+          <p className="text-sm sm:text-base text-neutral-700 leading-relaxed">
+            When you process data on {SITE_NAME}, the computation executes entirely inside your device's memory (RAM). When you close the browser tab, the data evaporates. Zero telemetry logs your sensitive inputs, and zero network calls send your files across the internet.
           </p>
         </section>
 
-        <section className="space-y-4 sm:space-y-6">
-          <h2 className="text-2xl sm:text-3xl font-black text-[var(--g6)] uppercase tracking-tighter">Open Source & Community</h2>
-          <p className="text-sm sm:text-base md:text-lg text-[var(--muted)] leading-relaxed">
-            We believe that the best tools are built together. ToolKitPro actively contributes to the open-source community by maintaining libraries that power our ecosystem—from high-performance string manipulation to complex health algorithms.
+        <section className="bg-black text-white p-6 sm:p-8 border-4 border-black shadow-[6px_6px_0px_0px_rgba(251,191,36,1)] space-y-4">
+          <h2 className="text-xl sm:text-2xl font-black uppercase text-yellow-400 flex items-center gap-2">
+            <Award size={22} />
+            Editorial Integrity & Mathematical Verification Standards
+          </h2>
+          <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+            Our calculators and converters are not casual approximations. Every formula implemented in our software undergoes strict technical verification:
           </p>
-          <p className="text-sm sm:text-base md:text-lg text-[var(--muted)] leading-relaxed">
-            We also engage deeply with our community of over 50,000 monthly users to refine our tools. Every "feature request" or "bug report" we receive via our contact portal is read by a real engineer, not a bot. We are building ToolKitPro to be the infrastructure for your daily productivity.
-          </p>
+          <ul className="list-disc pl-5 space-y-2 text-xs sm:text-sm text-neutral-300">
+            <li><strong>Financial Algorithms:</strong> Our loan and mortgage amortization engines adhere to the standard actuarial monthly payment formula, with precision rounding to exact currency cents.</li>
+            <li><strong>Health Metrics:</strong> BMI classifications adhere strictly to the World Health Organization (WHO) international guidelines, and metabolic TDEE outputs use the clinically validated Mifflin-St Jeor equation.</li>
+            <li><strong>Statutory Fiji Formulas:</strong> Our Fiji tax, VAT, FNPF, and TSLS calculators are referenced against official Fiji Revenue and Customs Service (FRCS) and Fiji National Provident Fund schedules.</li>
+            <li><strong>Cryptographic Randomness:</strong> Our password generators utilize the cryptographically secure pseudo-random number generator (CSPRNG) via `crypto.getRandomValues()`.</li>
+          </ul>
         </section>
 
-        <h2 className="text-2xl sm:text-3xl font-black text-[var(--g6)] uppercase tracking-tighter">Our Core Philosophy</h2>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 list-none pl-0">
-          <li className="border-4 border-black p-4 sm:p-6 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-            <strong className="block text-lg sm:text-xl uppercase mb-2 text-[var(--g6)]">Privacy First</strong>
-            <span className="text-xs sm:text-sm md:text-base text-[var(--muted)]">Most tools run entirely in your browser. Your data stays where it belongs—with you.</span>
-          </li>
-          <li className="border-4 border-black p-4 sm:p-6 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-            <strong className="block text-lg sm:text-xl uppercase mb-2 text-[var(--g6)]">Technical Perfection</strong>
-            <span className="text-xs sm:text-sm md:text-base text-[var(--muted)]">We use WebAssembly and modern React to ensure tools are lightning fast and mathematically precise.</span>
-          </li>
-          <li className="border-4 border-black p-4 sm:p-6 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-            <strong className="block text-lg sm:text-xl uppercase mb-2 text-[var(--g6)]">Zero Friction</strong>
-            <span className="text-xs sm:text-sm md:text-base text-[var(--muted)]">No logins, no credit cards, no distraction. Just utilities that work instantly.</span>
-          </li>
-          
-          <li className="border-4 border-black p-4 sm:p-6 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-            <strong className="block text-lg sm:text-xl uppercase mb-2 text-[var(--g6)]">Educational Value</strong>
-            <span className="text-xs sm:text-sm md:text-base text-[var(--muted)]">We don't just give you the answer; we explain the formula and the "why" behind it.</span>
-          </li>
-        </ul>
-
-        <section className="space-y-4 sm:space-y-6">
-          <h2 className="text-2xl sm:text-3xl font-black text-[var(--g6)] uppercase tracking-tighter">Brand Assets</h2>
-          <p className="text-sm sm:text-base md:text-lg text-[var(--muted)]">
-            Writing an article about ToolKitPro? Need our logo for a partnership? Download our official high-resolution branding assets below.
+        <section className="space-y-4">
+          <h2 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tighter flex items-center gap-2">
+            <BookOpen size={24} />
+            Editorial Guidelines & Publication Policy
+          </h2>
+          <p className="text-sm sm:text-base text-neutral-700 leading-relaxed">
+            Our technical articles and how-to guides are authored by software engineers and subject matter specialists. We do not publish automated or unreviewed content. Every tutorial, architectural breakdown, and mathematical guide must:
           </p>
-          <div className="border-4 border-black bg-white p-4 sm:p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 sm:gap-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-            <div className="w-36 h-36 sm:w-48 sm:h-48 border-4 border-black bg-white flex items-center justify-center p-3 sm:p-4 shrink-0">
-              <img src="/toolkitpro-logo.jpg" alt="ToolKitPro Logo" className="max-w-full max-h-full" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div className="border-2 border-black p-4 bg-neutral-50 space-y-1">
+              <strong className="block font-black uppercase text-black">1. Primary Source Accuracy</strong>
+              <p className="text-neutral-600">Formulas and technical specifications are cited directly from ISO standards, RFCs, and academic journals.</p>
             </div>
-            <div className="space-y-3 sm:space-y-4 flex-1 text-center md:text-left">
-              <h3 className="text-xl sm:text-2xl font-black uppercase text-[var(--g6)]">Official Logo</h3>
-              <p className="font-medium text-xs sm:text-sm md:text-base text-[var(--muted)]">High-resolution Neu-Brutalist logo in JPEG format.</p>
-              <button
-                type="button"
-                onClick={async () => {
-                  try {
-                    const response = await fetch('/toolkitpro-logo.jpg');
-                    const blob = await response.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = 'ToolKitPro_Logo.jpg';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    window.URL.revokeObjectURL(url);
-                  } catch (error) {
-                    console.error('Download failed:', error);
-                  }
-                }}
-                className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 bg-yellow-400 text-black border-4 border-black font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] text-xs sm:text-sm min-h-[44px]"
-              >
-                Download Logo
-              </button>
+            <div className="border-2 border-black p-4 bg-neutral-50 space-y-1">
+              <strong className="block font-black uppercase text-black">2. Practical Worked Examples</strong>
+              <p className="text-neutral-600">Every guide includes step-by-step arithmetic so readers can manually verify results.</p>
+            </div>
+            <div className="border-2 border-black p-4 bg-neutral-50 space-y-1">
+              <strong className="block font-black uppercase text-black">3. Objective Tool Limitations</strong>
+              <p className="text-neutral-600">We clearly document mathematical assumptions, edge cases, and tax year thresholds.</p>
+            </div>
+            <div className="border-2 border-black p-4 bg-neutral-50 space-y-1">
+              <strong className="block font-black uppercase text-black">4. Regular Review Cycles</strong>
+              <p className="text-neutral-600">All tools and documentation are audited biannually to maintain alignment with updated browser APIs and statutory rates.</p>
             </div>
           </div>
         </section>
-      </div>
-      <div className="bg-black text-white p-5 sm:p-8 border-4 border-black shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] sm:shadow-[8px_8px_0px_0px_rgba(251,191,36,1)]">
-        <h3 className="text-xl sm:text-2xl font-black uppercase mb-2 sm:mb-4 text-yellow-400">Join our journey</h3>
-        <p className="text-xs sm:text-sm md:text-base">
-          We are constantly adding new tools to our ecosystem. If you have a suggestion for a tool that would make your life easier, feel free to reach out to us.
-        </p>
+
+        <section className="border-4 border-black p-5 sm:p-7 bg-white space-y-3">
+          <h3 className="text-lg sm:text-xl font-black uppercase">Open Communication & Contact</h3>
+          <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
+            We value feedback from developers, students, researchers, and financial professionals. If you find a discrepancy in any calculation or wish to suggest an addition to our suite, please contact us via our <a href="/contact" className="underline font-bold text-black">Contact Page</a> or email our technical desk directly.
+          </p>
+        </section>
       </div>
     </div>
   );

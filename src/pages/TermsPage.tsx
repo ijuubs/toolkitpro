@@ -1,59 +1,99 @@
 import { Helmet } from 'react-helmet-async';
-import { SITE_URL } from '../config/site';
+import { SITE_URL, SITE_NAME } from '../config/site';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 export default function TermsPage() {
+  const canonicalUrl = `${SITE_URL}/terms`;
+
   return (
-    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 pb-16">
       <Helmet>
-        <title>Terms & Conditions | ToolKitPro</title>
-        <meta name="description" content="View the Terms and Conditions for using the ToolKitPro utility platform." />
-        <link rel="canonical" href={`${SITE_URL}/terms`} />
-        <meta property="og:title" content="Terms & Conditions | ToolKitPro" />
-        <meta property="og:description" content="View the Terms and Conditions for using the ToolKitPro utility platform." />
-        <meta property="og:url" content={`${SITE_URL}/terms`} />
+        <title>Terms & Conditions | Acceptable Use Policy | {SITE_NAME}</title>
+        <meta name="description" content={`Official Terms of Service and Conditions of Use for ${SITE_NAME}. Review permitted client-side tool usage, intellectual property, and disclaimers.`} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={`Terms & Conditions | ${SITE_NAME}`} />
+        <meta property="og:description" content={`Official Terms of Service for ${SITE_NAME}. Review permitted client-side tool usage, intellectual property, and disclaimers.`} />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Terms & Conditions | ToolKitPro" />
-        <meta name="twitter:description" content="View the Terms and Conditions for using the ToolKitPro utility platform." />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "Terms & Conditions - ToolKitPro",
-            "url": `${SITE_URL}/terms`,
-            "description": "View the Terms and Conditions for using the ToolKitPro utility platform."
+            "name": `Terms & Conditions - ${SITE_NAME}`,
+            "url": canonicalUrl,
+            "description": `Terms of Service and Acceptable Use Policy for ${SITE_NAME}.`
           })}
         </script>
       </Helmet>
+
+      <Breadcrumbs items={[{ label: 'Home', path: '/' }, { label: 'Terms of Service' }]} />
       
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter border-b-4 sm:border-b-8 border-black pb-3 sm:pb-4 leading-tight">Terms & Conditions</h1>
+      <div className="border-b-4 sm:border-b-8 border-black pb-4 sm:pb-6">
+        <span className="bg-black text-white text-xs font-black uppercase px-2.5 py-1 tracking-wider inline-block mb-2">
+          Legal Agreement
+        </span>
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-black leading-tight">
+          Terms of Service
+        </h1>
+        <p className="font-bold text-xs sm:text-sm text-neutral-600 mt-2">
+          Effective Date: January 1, 2026 • Last Reviewed: October 3, 2026
+        </p>
+      </div>
       
-      <div className="prose prose-lg max-w-none text-[var(--muted)] space-y-4 sm:space-y-6 text-sm sm:text-base leading-relaxed">
-        <p>Welcome to ToolKitPro!</p>
-        
-        <p>These terms and conditions outline the rules and regulations for the use of ToolKitPro's Website, located at toolkitpro.io.</p>
+      <div className="prose prose-lg max-w-none text-neutral-800 space-y-6 text-sm sm:text-base leading-relaxed">
+        <p>
+          Welcome to <strong>{SITE_NAME}</strong>. By accessing or using our website located at <a href={SITE_URL} className="underline font-bold text-black">{SITE_URL}</a> and any of our associated utility tools, calculators, and applications, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+        </p>
 
-        <h2 className="text-xl sm:text-2xl font-black text-black uppercase pt-2">1. Terms</h2>
-        <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use ToolKitPro if you do not agree to take all of the terms and conditions stated on this page.</p>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-black text-black uppercase pt-2">1. Permitted Use of Client-Side Tools</h2>
+          <p>
+            {SITE_NAME} provides free, high-performance web utility tools for personal, educational, research, and professional purposes. You are granted a revocable, non-exclusive, non-transferable license to utilize the tools in accordance with these terms.
+          </p>
+          <ul className="list-disc pl-5 sm:pl-6 space-y-1.5 font-medium">
+            <li>You may use our converters, formatters, calculators, and generators for commercial or personal work free of charge.</li>
+            <li>All computations run within your local browser sandbox; you are responsible for maintaining backups of your input files and outputs.</li>
+          </ul>
+        </section>
 
-        <h2 className="text-xl sm:text-2xl font-black text-black uppercase pt-2">2. License</h2>
-        <p>Unless otherwise stated, ToolKitPro and/or its licensors own the intellectual property rights for all material on ToolKitPro. All intellectual property rights are reserved. You may access this from ToolKitPro for your own personal use subjected to restrictions set in these terms and conditions.</p>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-black text-black uppercase pt-2">2. User Restrictions & Prohibited Conduct</h2>
+          <p>When using {SITE_NAME}, you agree not to:</p>
+          <ul className="list-disc pl-5 sm:pl-6 space-y-1.5 font-medium">
+            <li>Engage in automated scraping, denial-of-service attacks, or excessive bot requests that degrade the platform for other visitors;</li>
+            <li>Attempt to bypass security headers, ad blockers, or reverse engineer proprietary client-side bundles for unauthorized redistribution;</li>
+            <li>Misrepresent outputs generated by our financial or health calculators as licensed professional advice;</li>
+            <li>Use the platform for any unlawful purpose or in violation of applicable international, federal, state, or local laws.</li>
+          </ul>
+        </section>
 
-        <h2 className="text-xl sm:text-2xl font-black text-black uppercase pt-2">3. User Restrictions</h2>
-        <p>You are specifically restricted from all of the following:</p>
-        <ul className="list-disc pl-5 sm:pl-6 space-y-1 sm:space-y-2">
-          <li>Publishing any Website material in any other media;</li>
-          <li>Selling, sublicensing and/or otherwise commercializing any Website material;</li>
-          <li>Publicly performing and/or showing any Website material;</li>
-          <li>Using this Website in any way that is or may be damaging to this Website;</li>
-          <li>Using this Website in any way that impacts user access to this Website.</li>
-        </ul>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-black text-black uppercase pt-2">3. Intellectual Property Rights</h2>
+          <p>
+            Unless otherwise indicated, all content on {SITE_NAME}—including editorial articles, tool interface layouts, graphic designs, algorithms, codebases, and brand trademarks—is the property of {SITE_NAME} and protected by copyright and intellectual property laws. You retain full ownership of any original files, text, or data you input into our tools.
+          </p>
+        </section>
 
-        <h2 className="text-xl sm:text-2xl font-black text-black uppercase pt-2">4. Disclaimer</h2>
-        <p>The tools provided on this website are for informational and utility purposes only. ToolKitPro does not guarantee the accuracy or reliability of the results produced by the tools. Use of the tools is at your own risk.</p>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-black text-black uppercase pt-2">4. Disclaimers & Mathematical Calculations</h2>
+          <p>
+            The tools, guides, and calculations provided on {SITE_NAME} are provided strictly on an "as-is" and "as-available" basis. While we make every effort to ensure formulas comply with standard mathematical specifications (such as WHO BMI standards, standard compound interest formulas, and Fiji statutory tax scales), we make no warranties, expressed or implied, regarding 100% accuracy, merchantability, or fitness for a particular purpose.
+          </p>
+        </section>
 
-        <h2 className="text-xl sm:text-2xl font-black text-black uppercase pt-2">5. Variations of Terms</h2>
-        <p>ToolKitPro is permitted to revise these terms at any time as it sees fit, and by using this Website you are expected to review these terms on a regular basis.</p>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-black text-black uppercase pt-2">5. Limitation of Liability</h2>
+          <p>
+            In no event shall {SITE_NAME}, its developers, or affiliates be liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising out of your use of or inability to use the tools or website.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-black text-black uppercase pt-2">6. Changes to Terms</h2>
+          <p>
+            We reserve the right to modify these Terms of Service at any time. Any changes will be posted on this page with an updated effective date.
+          </p>
+        </section>
       </div>
     </div>
   );

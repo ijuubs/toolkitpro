@@ -4,6 +4,8 @@ import { BLOG_POSTS } from '../data/blogData';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ReactMarkdown from 'react-markdown';
 import { generateBlogSEO } from '../utils/seo';
+import AdSlot from '../components/AdSlot';
+import { Award, BookOpen } from 'lucide-react';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -92,6 +94,31 @@ export default function BlogPost() {
               {post.content}
             </ReactMarkdown>
         </div>
+      </div>
+
+      <div className="border-4 border-black p-5 sm:p-7 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="w-14 h-14 bg-black rounded-full flex items-center justify-center text-white font-black italic text-xl shrink-0">
+            {post.author[0]}
+          </div>
+          <div>
+            <span className="bg-yellow-400 text-black text-[10px] font-black uppercase px-2 py-0.5 inline-block mb-1">
+              Verified Technical Author
+            </span>
+            <h3 className="font-black text-lg uppercase leading-tight">{post.author}</h3>
+            <p className="text-xs text-[var(--muted)] font-medium">Software Engineering & Financial Calculations Desk</p>
+          </div>
+        </div>
+        <Link 
+          to="/about" 
+          className="text-xs font-black uppercase underline hover:bg-yellow-300 px-2 py-1 border-2 border-black transition-colors shrink-0"
+        >
+          Editorial Standards & Auditing →
+        </Link>
+      </div>
+
+      <div className="border-4 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+        <AdSlot adSlot="9791142997" adFormat="auto" minHeight="250px" />
       </div>
 
       <div className="bg-black text-white p-5 sm:p-8 md:p-12 border-4 border-black shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] sm:shadow-[12px_12px_0px_0px_rgba(251,191,36,1)]">
