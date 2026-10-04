@@ -87,7 +87,43 @@ export default function BlogPost() {
                 li: ({ children }) => <li className="leading-relaxed pl-1">{children}</li>,
                 strong: ({ children }) => <strong className="font-black text-[var(--g6)]">{children}</strong>,
                 code: ({ children }) => <code className="px-2 py-0.5 bg-yellow-200 border border-black font-mono text-xs sm:text-sm font-bold text-black">{children}</code>,
-                blockquote: ({ children }) => <blockquote className="border-l-4 border-black bg-yellow-100 p-4 my-6 italic font-bold text-sm sm:text-base">{children}</blockquote>
+                blockquote: ({ children }) => <blockquote className="border-l-4 border-black bg-yellow-100 p-4 my-6 italic font-bold text-sm sm:text-base">{children}</blockquote>,
+                a: ({ href, children }) => {
+                  const isInternal = href && (href.startsWith('/') || href.includes('toolkitpro'));
+                  if (isInternal) {
+                    const targetPath = href.replace(/^https?:\/\/[^/]+/, '');
+                    return (
+                      <Link 
+                        to={targetPath} 
+                        className="font-black underline text-black hover:bg-yellow-300 px-1 py-0.5 border-b-2 border-black transition-colors inline-block"
+                      >
+                        {children}
+                      </Link>
+                    );
+                  }
+                  return (
+                    <a 
+                      href={href} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="font-bold underline text-blue-800 hover:text-black transition-colors"
+                    >
+                      {children}
+                    </a>
+                  );
+                },
+                table: ({ children }) => (
+                  <div className="overflow-x-auto my-6 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <table className="w-full text-left border-collapse text-xs sm:text-sm bg-white">
+                      {children}
+                    </table>
+                  </div>
+                ),
+                thead: ({ children }) => <thead className="bg-black text-white uppercase font-black">{children}</thead>,
+                tbody: ({ children }) => <tbody className="divide-y-2 divide-black">{children}</tbody>,
+                tr: ({ children }) => <tr className="hover:bg-yellow-50 transition-colors">{children}</tr>,
+                th: ({ children }) => <th className="p-3 border-r-2 border-black last:border-r-0 font-black">{children}</th>,
+                td: ({ children }) => <td className="p-3 border-r-2 border-black last:border-r-0 font-medium">{children}</td>
               }}
             >
               {post.content}
@@ -116,9 +152,7 @@ export default function BlogPost() {
         </Link>
       </div>
 
-      <div className="border-4 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-        <AdSlot adSlot="9791142997" adFormat="auto" minHeight="250px" />
-      </div>
+      <AdSlot adSlot="9791142997" adFormat="auto" minHeight="250px" className="mt-8" />
     </div>
   );
 }

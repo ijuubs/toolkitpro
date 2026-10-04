@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { CheckCircle2 } from 'lucide-react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function FijiElectricityBillCalculator() {
   const [kwhUsage, setKwhUsage] = useState<string>('120'); // Average monthly usage in kWh
@@ -79,6 +80,20 @@ export default function FijiElectricityBillCalculator() {
 
       {results && (
         <div className="border-4 border-black bg-yellow-101 bg-yellow-100 p-6 space-y-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-black pb-4">
+            <h3 className="font-black uppercase text-xl">Electricity Bill Estimate</h3>
+            <ShareResultActions
+              title="Fiji EFL Electricity Bill Estimate"
+              summary={`Fiji EFL Electricity Bill Estimate (ToolKitPro):
+• Projected Monthly Bill: FJD $${results.monthlyBill.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Projected Annual Cost: FJD $${results.annualBill.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Monthly Usage: ${kwhUsage} kWh
+• Standard Energy Cost: FJD $${results.baseBill.toFixed(2)}
+• Government Subsidy: FJD $${results.subsidyAmount.toFixed(2)} (${parseFloat(kwhUsage) <= 100 ? '50% Subsidy Applied' : 'No Subsidy'})
+• 15% VAT Component: FJD $${results.estimatedVat.toFixed(2)}`}
+            />
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <span className="text-sm font-black uppercase text-gray-600 block">Estimated Monthly Utility Bill</span>
@@ -115,6 +130,13 @@ export default function FijiElectricityBillCalculator() {
               <span>50% Government Electricity Subsidy applied (Usage is under 100 kWh threshold).</span>
             </div>
           )}
+          
+          <div className="border-2 border-black p-3 bg-neutral-50 text-xs text-neutral-800 space-y-1 mt-4">
+            <p><strong>Last reviewed:</strong> Oct 2026</p>
+            <p><strong>Applicable period:</strong> 2026/2027 Financial Year</p>
+            <p><strong>Reference:</strong> Energy Fiji Limited (EFL) / Government of Fiji Subsidy Policies</p>
+            <p className="italic">Disclaimer: Electricity tariff and subsidy amounts change. This estimate assumes current standard rates and subsidy thresholds.</p>
+          </div>
         </div>
       )}
     </div>

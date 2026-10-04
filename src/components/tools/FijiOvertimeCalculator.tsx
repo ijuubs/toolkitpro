@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function FijiOvertimeCalculator() {
   const [hourlyRate, setHourlyRate] = useState<string>('6.50'); // standard entry level rate or typical rate
@@ -100,12 +101,24 @@ export default function FijiOvertimeCalculator() {
 
       {results.totalPay > 0 && (
         <div className="border-4 border-black bg-yellow-100 p-6 space-y-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <div>
-            <span className="text-sm font-black uppercase text-gray-600 block">Total Estimated Earnings</span>
-            <span className="text-4xl sm:text-5xl font-black text-black">
-              FJD ${results.totalPay.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </span>
-            <span className="block text-xs font-bold text-gray-600 mt-1">For a total of {results.totalHours} clocked hours.</span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span className="text-sm font-black uppercase text-gray-600 block">Total Estimated Earnings</span>
+              <span className="text-4xl sm:text-5xl font-black text-black">
+                FJD ${results.totalPay.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </span>
+              <span className="block text-xs font-bold text-gray-600 mt-1">For a total of {results.totalHours} clocked hours.</span>
+            </div>
+            <ShareResultActions
+              title="Fiji Overtime Earnings Estimate"
+              summary={`Fiji Overtime Earnings Breakdown (ToolKitPro):
+• Total Estimated Earnings: FJD $${results.totalPay.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Base Rate: FJD $${Number(hourlyRate).toFixed(2)}/hr
+• Normal Hours (1.0x): ${regularHours} hrs (FJD $${results.regularPay.toFixed(2)})
+• Overtime (1.5x): ${ot15Hours} hrs (FJD $${results.ot15Pay.toFixed(2)})
+• Double Time (2.0x): ${ot20Hours} hrs (FJD $${results.ot20Pay.toFixed(2)})
+• Total Clocked Hours: ${results.totalHours} hrs`}
+            />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t-4 border-black pt-4">

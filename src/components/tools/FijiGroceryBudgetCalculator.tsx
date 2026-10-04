@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Salad, Wheat, Utensils, Coffee } from 'lucide-react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function FijiGroceryBudgetCalculator() {
   const [familySize, setFamilySize] = useState<string>('4');
@@ -76,6 +77,25 @@ export default function FijiGroceryBudgetCalculator() {
 
       {results && (
         <div className="border-4 border-black bg-yellow-100 p-6 space-y-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-black pb-4">
+            <div>
+              <h3 className="font-black uppercase text-xl">Grocery Budget Breakdown</h3>
+              <p className="text-xs font-bold text-gray-700">For a household of {results.size} {results.size === 1 ? 'person' : 'people'}</p>
+            </div>
+            <ShareResultActions
+              title="Fiji Household Grocery Budget Estimate"
+              summary={`Fiji Household Grocery Budget Estimate (ToolKitPro):
+• Weekly Grocery Budget: FJD $${(parseFloat(weeklyBudget) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (Household of ${results.size})
+• Monthly Allocation: FJD $${results.monthlyBudget.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Annual Spend Projection: FJD $${results.annualBudget.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+• Per Person Weekly: FJD $${results.perPersonWeekly.toFixed(2)}
+• Roots & Fresh Greens (25%): FJD $${results.produce.toFixed(2)}
+• Grains & Cooking Oils (25%): FJD $${results.grains.toFixed(2)}
+• Proteins & Seafood (30%): FJD $${results.proteins.toFixed(2)}
+• Beverages & Household (20%): FJD $${results.pantryEssentials.toFixed(2)}`}
+            />
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <span className="text-sm font-black uppercase text-gray-600 block">Monthly Allocation</span>

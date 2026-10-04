@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 interface ConversionOption {
   key: string;
@@ -100,9 +101,19 @@ export default function UnitConverter() {
       </button>
 
       {result !== null && (
-        <div className="p-6 bg-yellow-300 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-          <p className="text-sm font-black uppercase tracking-wider text-black mb-1">Converted Result</p>
-          <p className="text-4xl font-black text-black">{result.toLocaleString(undefined, { maximumFractionDigits: 4 })}</p>
+        <div className="p-6 bg-yellow-300 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-black uppercase tracking-wider text-black mb-1">Converted Result</p>
+              <p className="text-4xl font-black text-black">{result.toLocaleString(undefined, { maximumFractionDigits: 4 })}</p>
+            </div>
+            <ShareResultActions
+              title="Unit Conversion Result"
+              summary={`Unit Conversion (ToolKitPro):
+• ${val} [${CONVERSION_LIST.find(o => o.key === type)?.label || type}]
+• Result = ${result.toLocaleString(undefined, { maximumFractionDigits: 4 })}`}
+            />
+          </div>
         </div>
       )}
     </div>

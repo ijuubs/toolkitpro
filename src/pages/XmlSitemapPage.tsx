@@ -159,13 +159,13 @@ export default function XmlSitemapPage() {
         <title>XML Sitemap (sitemap.xml) | {SITE_NAME}</title>
         <meta 
           name="description" 
-          content={`Valid sitemaps.org 0.9 XML index for ${SITE_NAME} containing ${parsedUrls.length} verified canonical URLs for search engines.`} 
+          content={`Valid sitemaps.org 0.9 XML sitemap for ${SITE_NAME} containing ${parsedUrls.length} verified canonical URLs for search engines.`} 
         />
         <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content={`XML Sitemap | ${SITE_NAME}`} />
         <meta 
           property="og:description" 
-          content={`Complete sitemaps.org XML sitemap index for ${SITE_NAME}.`} 
+          content={`Complete sitemaps.org XML sitemap for ${SITE_NAME}.`} 
         />
         <meta property="og:url" content={canonicalUrl} />
       </Helmet>
@@ -198,10 +198,10 @@ export default function XmlSitemapPage() {
         </div>
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-black leading-tight flex items-center gap-3">
           <FileCode className="shrink-0 stroke-[2.5]" size={36} />
-          XML Sitemap Index
+          XML Sitemap
         </h1>
         <p className="font-bold text-black text-sm sm:text-base md:text-lg max-w-3xl">
-          Search engine protocol index specifying canonical endpoints, crawl frequencies, priorities, and last modified timestamps for all {parsedUrls.length} published routes.
+          Search engine protocol file specifying canonical endpoints, crawl frequencies, priorities, and last modified timestamps for all {parsedUrls.length} published routes.
         </p>
 
         {/* Quick Stats Grid */}

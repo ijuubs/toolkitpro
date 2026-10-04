@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function TdeeCalculator() {
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -101,8 +102,19 @@ export default function TdeeCalculator() {
       </div>
 
       {results && (
-        <div className="bg-yellow-400 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <h2 className="text-2xl font-black uppercase mb-4 text-center">Your Energy Needs</h2>
+        <div className="bg-yellow-400 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <h2 className="text-2xl font-black uppercase text-center sm:text-left">Your Energy Needs</h2>
+            <ShareResultActions
+              title="Daily Energy Needs & Calorie Targets"
+              summary={`Daily Energy & Calorie Targets (ToolKitPro):
+• BMR (Basal Metabolic Rate): ${Math.round(results.bmr).toLocaleString()} kcal/day
+• TDEE (Maintenance): ${Math.round(results.tdee).toLocaleString()} kcal/day
+• Weight Loss Target (-500 kcal): ${Math.round(results.tdee - 500).toLocaleString()} kcal/day
+• Muscle Gain Target (+500 kcal): ${Math.round(results.tdee + 500).toLocaleString()} kcal/day
+• Profile: ${gender}, ${age} yrs, ${weight} kg, ${height} cm`}
+            />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
              <div className="bg-white border-4 border-black p-4 text-center">
               <div className="text-sm font-bold uppercase text-neutral-800 dark:text-neutral-200 mb-1">BMR (Basal Metabolic Rate)</div>

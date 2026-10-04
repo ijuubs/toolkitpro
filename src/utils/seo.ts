@@ -287,9 +287,9 @@ export const CATEGORY_METAS: Record<string, CategoryMeta> = {
   'fiji-tools': {
     name: 'Fiji Tools',
     title: `Fiji Calculators & Utilities | VAT, FNPF, TSLS, Salary & Taxi Tools | ${SITE_NAME}`,
-    description: 'Comprehensive suite of official calculators for Fiji. Estimate 15% VAT, FNPF superannuation, TSLS student loans, PAYE salary tax, taxi fares, and electricity bills.',
+    description: 'The complete topical hub for Fiji-specific calculators. Estimate 12.5% VAT, FNPF superannuation, TSLS student loans, PAYE salary tax, taxi fares, and family grocery budgets.',
     intro: 'Built specifically for the people, businesses, and workers of the Republic of Fiji. Access localized calculators aligned with current statutory regulations: FRCS Value Added Tax (standard 12.5% and historical 15%), mandatory FNPF pension contributions, TSLS/TELS student loan and bond repayment policies, ERA overtime and annual leave rules, LTA taxi meter tariffs, and Energy Fiji Limited (EFL) residential electricity tariffs. Transparent, fast, and always localized in Fiji Dollars (FJD).',
-    keyFeatures: ['FRCS 12.5% & 15% VAT Breakdown', 'FNPF 8% Employee & 8%/10% Employer Pension Modeling', 'TSLS / TELS Student Debt & Bond Payback Schedules', 'LTA Regulated Taxi Meter Estimations']
+    keyFeatures: ['FRCS 12.5% & 15% VAT Breakdown', 'FNPF 8% Employee & Employer Pension Modeling', 'TSLS / TELS Student Debt & Bond Payback Schedules', 'LTA Regulated Taxi Meter Estimations']
   },
   'image-tools': {
     name: 'Image Tools',
@@ -395,8 +395,8 @@ export function generateXmlSitemap(customBaseUrl?: string): string {
     { path: '/blog', priority: '0.9', changefreq: 'weekly' },
     { path: '/about', priority: '0.8', changefreq: 'monthly' },
     { path: '/contact', priority: '0.7', changefreq: 'monthly' },
-    { path: '/faq', priority: '0.8', changefreq: 'monthly' },
-    { path: '/sitemap', priority: '0.5', changefreq: 'monthly' },
+    { path: '/faq', priority: '0.7', changefreq: 'weekly' },
+    { path: '/sitemap', priority: '0.5', changefreq: 'weekly' },
     { path: '/privacy', priority: '0.3', changefreq: 'monthly' },
     { path: '/terms', priority: '0.3', changefreq: 'monthly' },
     { path: '/disclaimer', priority: '0.3', changefreq: 'monthly' },

@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { TOOLS } from '../data/toolsData';
 import { Suspense, lazy, useEffect } from 'react';
 import { trackToolView } from '../utils/analytics';
+import { addRecentTool } from '../utils/recentTools';
 import AdSlot from '../components/AdSlot';
 import ErrorBoundary from '../components/ErrorBoundary';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -58,6 +59,7 @@ export default function ToolTemplate() {
   useEffect(() => {
     if (tool) {
       trackToolView(tool.id, tool.name, tool.category);
+      addRecentTool(tool.id);
     }
   }, [tool?.id]);
 
@@ -132,9 +134,9 @@ export default function ToolTemplate() {
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
-      {/* Sticky Sidebar */}
+      {/* Sidebar */}
       <aside className="w-full lg:w-64 shrink-0 order-2 lg:order-1">
-        <div className="sticky top-8 space-y-6">
+        <div className="space-y-6">
           <div className="bg-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
             <h3 className="font-black uppercase text-lg mb-4 border-b-2 border-black pb-2">Tools</h3>
             <ul className="space-y-2">
@@ -151,8 +153,8 @@ export default function ToolTemplate() {
             </ul>
           </div>
           
-          <div className="hidden lg:block border-4 border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-              <AdSlot adSlot="9791142997" adFormat="vertical" minHeight="600px" />
+          <div className="hidden lg:block">
+            <AdSlot adSlot="9791142997" adFormat="vertical" minHeight="600px" />
           </div>
         </div>
       </aside>

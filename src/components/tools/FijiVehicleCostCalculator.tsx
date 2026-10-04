@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function FijiVehicleCostCalculator() {
   const [vehiclePrice, setVehiclePrice] = useState<string>('24000'); // purchase price
@@ -100,6 +101,20 @@ export default function FijiVehicleCostCalculator() {
 
       {results && (
         <div className="border-4 border-black bg-yellow-100 p-6 space-y-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-black pb-4">
+            <h3 className="font-black uppercase text-xl">Vehicle Operating Cost Estimate</h3>
+            <ShareResultActions
+              title="Fiji Vehicle Operating Cost Estimate"
+              summary={`Fiji Vehicle Operating Cost Estimate (ToolKitPro):
+• Total Monthly Running Cost: FJD $${results.monthlyTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Total Annual Cost Estimate: FJD $${results.annualTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Monthly Fuel: FJD $${results.monthlyFuel.toFixed(0)}
+• Monthly Maintenance: FJD $${results.monthlyMaintenance.toFixed(0)}
+• LTA Road Tax (Monthly Eq.): FJD $${results.monthlyRegEquivalent.toFixed(0)} (FJD $${annualReg}/yr)
+• Insurance (Monthly Eq.): FJD $${results.monthlyInsEquivalent.toFixed(0)} (FJD $${annualInsurance}/yr)`}
+            />
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <span className="text-xs font-black uppercase text-gray-600 block">Total Running Cost (Monthly)</span>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function LoanCalculator() {
   const [principal, setPrincipal] = useState<number>(100000);
@@ -20,6 +21,14 @@ export default function LoanCalculator() {
   };
 
   const { payment, totalPayment, totalInterest } = calculateLoan();
+
+  const shareSummary = payment > 0 ? `Loan Repayment Calculation (ToolKitPro):
+• Monthly Payment: $${payment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Loan Principal: $${principal.toLocaleString('en-US')}
+• Interest Rate: ${rate}% p.a.
+• Loan Term: ${years} Years
+• Total Interest: $${totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Total Payment: $${totalPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '';
 
   return (
     <div className="space-y-6 max-w-2xl mx-auto">
@@ -58,11 +67,19 @@ export default function LoanCalculator() {
       </div>
 
       <div className="bg-yellow-100 border-4 border-black p-6 space-y-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-        <div>
-          <h3 className="text-xl font-black uppercase">Monthly Payment</h3>
-          <p className="text-4xl font-black text-black">
-            ${payment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 className="text-xl font-black uppercase">Monthly Payment</h3>
+            <p className="text-4xl font-black text-black">
+              ${payment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </p>
+          </div>
+          {payment > 0 && (
+            <ShareResultActions
+              title="Loan Repayment Calculation"
+              summary={shareSummary}
+            />
+          )}
         </div>
         <div className="grid grid-cols-2 gap-4 pt-4 border-t-2 border-black">
           <div>

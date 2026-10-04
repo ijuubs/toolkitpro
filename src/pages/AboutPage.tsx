@@ -61,11 +61,19 @@ export default function AboutPage() {
         <section className="space-y-4">
           <h2 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tighter flex items-center gap-2">
             <ShieldCheck size={24} />
-            How the Tools Work
+            Data Privacy & Technology
           </h2>
           <p className="text-neutral-700 leading-relaxed">
             Whenever possible, our tools run on client-side JavaScript. This means your text inputs, files, and calculation data are processed directly in your web browser. Your confidential entries, document contents, and personal numbers are not uploaded to our backend servers.
           </p>
+          <p className="text-neutral-700 leading-relaxed">
+            To provide a modern web experience and maintain this free service, we utilize a small number of trusted third-party services:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-neutral-700">
+            <li><strong>Analytics:</strong> We use Google Analytics 4 (GA4) and Google Tag Manager to monitor aggregate site traffic and improve performance.</li>
+            <li><strong>Advertising:</strong> Google AdSense is used to display non-intrusive advertisements.</li>
+            <li><strong>Infrastructure:</strong> Our site is hosted on Vercel, which provides secure, high-performance global delivery.</li>
+          </ul>
           <p className="text-neutral-700 leading-relaxed">
             For more information on how we handle user data and third-party advertising, please review our <Link to="/privacy" className="underline font-bold text-black">Privacy Policy</Link>.
           </p>

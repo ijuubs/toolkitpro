@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function SipCalculator() {
   const [monthlyInvestment, setMonthlyInvestment] = useState<number | ''>(500);
@@ -20,6 +21,14 @@ export default function SipCalculator() {
   };
 
   const results = calculateSIP();
+
+  const shareSummary = results ? `SIP Investment Projection (ToolKitPro):
+• Total Future Value: $${results.futureValue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+• Total Invested: $${results.totalInvested.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+• Estimated Wealth Gain: $${results.estimatedReturns.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+• Monthly Contribution: $${Number(monthlyInvestment).toLocaleString()}
+• Expected Return Rate: ${expectedReturn}% p.a.
+• Duration: ${timePeriod} Years` : '';
 
   return (
     <div className="space-y-6">
@@ -57,8 +66,14 @@ export default function SipCalculator() {
       </div>
 
       {results && (
-        <div className="bg-yellow-400 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <h2 className="text-2xl font-black uppercase mb-4">Results</h2>
+        <div className="bg-yellow-400 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <h2 className="text-2xl font-black uppercase text-center sm:text-left">Results</h2>
+            <ShareResultActions
+              title="SIP Investment Projection"
+              summary={shareSummary}
+            />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-white border-4 border-black p-4 text-center">
               <div className="text-sm font-bold uppercase text-gray-600 mb-1">Total Invested</div>

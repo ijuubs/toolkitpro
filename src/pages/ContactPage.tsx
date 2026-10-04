@@ -114,6 +114,7 @@ export default function ContactPage() {
                 <input 
                   required 
                   type="text" 
+                  minLength={2}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full border-4 border-black p-2.5 text-sm focus:bg-yellow-50 outline-none" 
@@ -145,6 +146,7 @@ export default function ContactPage() {
                 <label className="block font-black uppercase text-xs mb-1">Message / Tool Feedback</label>
                 <textarea 
                   required 
+                  minLength={10}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="w-full border-4 border-black p-2.5 text-sm focus:bg-yellow-50 outline-none h-28" 

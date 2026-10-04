@@ -5,6 +5,7 @@ import { TOOLS } from '../data/toolsData';
 import { BLOG_POSTS } from '../data/blogData';
 import HeroMiniTool from '../components/HeroMiniTool';
 import { SITE_URL } from '../config/site';
+import { getRecentTools } from '../utils/recentTools';
 import { 
   Code2, 
   HardHat, 
@@ -17,13 +18,17 @@ import {
   Zap, 
   Lock,
   ArrowRight,
-  Palette
+  Palette,
+  Clock,
+  ChevronRight
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Tool } from '../data/toolsData';
 
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [recentTools] = useState<Tool[]>(() => getRecentTools());
 
 
   const filteredTools = TOOLS.filter(tool => {
@@ -97,66 +102,221 @@ export default function HomePage() {
               <ShieldCheck className="w-4 h-4 text-black" />
               <span>Inputs are processed in your browser and not uploaded</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter uppercase leading-[0.95] text-[var(--g6)]">
-              Free Online Utilities & Everyday Calculators
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9] text-[var(--g6)]">
+              Browser-Native <br className="hidden md:block" /> Utilities
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-[var(--muted)] font-bold max-w-3xl leading-relaxed">
-              ToolkitPro provides professional-grade online utility tools for developers, businesses, and everyday productivity. Process data instantly and securely in your browser—no sign-ups required.
+              Professional-grade tools for developers, finance, and daily productivity. 100% private, instant, and secure.
             </p>
 
-            {/* Interactive Live Mini-Tool Sandbox */}
-            <HeroMiniTool />
-        </div>
-
-        {/* SEARCH BAR */}
-        <div className="space-y-6">
-          <div className="bg-white border-4 border-black p-3 sm:p-4 flex flex-col sm:flex-row gap-3 sm:gap-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-              <div className="flex items-center gap-2 flex-1 min-w-0">
-                <Search className="w-5 h-5 text-black shrink-0" />
-                <input 
-                  type="text" 
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search for a tool... (e.g. JSON Formatter, Word Counter, Loan Calculator)" 
-                  className="w-full text-sm sm:text-base md:text-lg font-bold px-2 py-1 border-2 border-transparent focus:border-black focus:outline-none placeholder-neutral-600 dark:placeholder-neutral-400"
-                />
+            {/* SEARCH BAR (Hierarchy #1) */}
+            <div className="pt-4">
+              <div className="bg-white border-4 border-black p-2 sm:p-3 flex flex-col sm:flex-row gap-2 sm:gap-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] max-w-2xl">
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <Search className="w-5 h-5 text-black shrink-0 ml-2" />
+                    <input 
+                      type="text" 
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Find a tool..." 
+                      className="w-full text-sm sm:text-base md:text-lg font-bold px-2 py-1 border-2 border-transparent focus:border-black focus:outline-none placeholder-neutral-500"
+                    />
+                  </div>
+                  <button 
+                    onClick={() => setSearchQuery('')}
+                    className="bg-black text-white px-8 py-2 font-black uppercase tracking-wider hover:bg-yellow-400 hover:text-black transition-all border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 shrink-0 min-h-[44px]"
+                  >
+                    {searchQuery ? 'Clear' : 'Search'}
+                  </button>
               </div>
-              <button 
-                onClick={() => setSearchQuery('')}
-                className="bg-black text-white px-6 py-2.5 font-black uppercase tracking-wider hover:bg-yellow-400 hover:text-black transition-all border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 shrink-0 min-h-[44px]"
-              >
-                {searchQuery ? 'Clear' : 'Search'}
-              </button>
-          </div>
+            </div>
         </div>
 
-        {/* CATEGORY SECTION */}
-        <section className="space-y-4 sm:space-y-6">
-            <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tighter border-b-4 border-black pb-2">Browse by Category</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2.5 sm:gap-3 md:gap-4">
-                {[
-                    { name: 'Calculators', slug: 'calculators', icon: TrendingUp },
-                    { name: 'Image Tools', slug: 'image-tools', icon: LayoutGrid },
-                    { name: 'Text Tools', slug: 'text-tools', icon: Code2 },
-                    { name: 'Developer Tools', slug: 'developer-tools', icon: Code2 },
-                    { name: 'Converters', slug: 'converters', icon: Compass },
-                    { name: 'Fiji Tools', slug: 'fiji-tools', icon: HardHat },
-                    { name: 'Color Tools', slug: 'color-tools', icon: Palette },
-                ].map(cat => (
-                    <Link key={cat.slug} to={`/${cat.slug}`} className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white border-4 border-black hover:bg-yellow-100 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] min-h-[72px]">
-                        <cat.icon className="w-6 h-6 sm:w-8 sm:h-8 mb-1.5 sm:mb-2 text-[var(--ink)]" />
-                        <span className="font-black uppercase text-[11px] sm:text-xs text-center leading-tight">{cat.name}</span>
-                    </Link>
-                ))}
+        {/* RECENTLY USED SECTION */}
+        {recentTools.length > 0 && !searchQuery && (
+          <section className="space-y-4">
+            <div className="flex items-center gap-2 border-b-4 border-black pb-2">
+              <Clock className="w-5 h-5 text-black" />
+              <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tighter">Continue Working</h2>
             </div>
-        </section>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2.5 sm:gap-3">
+              {recentTools.map(tool => (
+                <Link 
+                  key={tool.id} 
+                  to={`/tools/${tool.slug}`}
+                  className="p-3 bg-yellow-50 border-2 border-black hover:bg-yellow-200 transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px] flex flex-col justify-between min-h-[80px]"
+                >
+                  <span className="font-black uppercase text-[10px] leading-tight line-clamp-2">{tool.name}</span>
+                  <div className="mt-2 text-[10px] font-bold text-neutral-500 flex justify-between items-center">
+                    <span>Open</span>
+                    <ArrowRight size={10} />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* FEATURED TOOLS (Hierarchy #2) */}
+        {!searchQuery && (
+          <section className="space-y-6">
+              <div className="flex items-center justify-between border-b-4 border-black pb-2">
+                <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter">Featured Tools</h2>
+                <div className="flex items-center gap-2 text-xs font-black uppercase bg-black text-white px-2 py-0.5">
+                  <Zap size={12} className="text-yellow-400 fill-yellow-400" /> Essential
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                  {TOOLS.filter(t => ['word-counter', 'json-formatter', 'qr-code-generator', 'loan-calculator'].includes(t.id)).map(tool => (
+                      <Link 
+                          key={tool.id} 
+                          to={`/tools/${tool.slug}`} 
+                          className="group p-5 bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-yellow-50 transition-all flex flex-col justify-between h-full"
+                      >
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-[10px] font-black uppercase px-2 py-0.5 bg-black text-white">{getToolBadge(tool)}</span>
+                              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                            </div>
+                            <h3 className="text-lg sm:text-xl font-black uppercase mb-2 leading-tight">{tool.name}</h3>
+                            <p className="font-medium text-xs text-[var(--muted)] line-clamp-2">{tool.description}</p>
+                          </div>
+                      </Link>
+                  ))}
+              </div>
+          </section>
+        )}
+
+        {/* FIJI TOOLS SPOTLIGHT (Hierarchy #3) */}
+        {!searchQuery && (
+          <section className="bg-emerald-50 border-4 border-black p-6 sm:p-8 md:p-10 shadow-[8px_8px_0px_0px_rgba(16,185,129,1)]">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+                <div className="space-y-2">
+                  <span className="inline-block bg-black text-white text-[10px] font-black uppercase px-2 py-1 tracking-widest">Localized Hub</span>
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter">Fiji Utility Suite</h2>
+                  <p className="text-sm sm:text-base font-bold text-emerald-800 max-w-2xl">Official calculators for Fiji workers & businesses. Aligned with current FRCS, FNPF, and FCCC statutory regulations.</p>
+                </div>
+                <Link to="/fiji-tools" className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-black uppercase text-sm border-2 border-black hover:bg-emerald-600 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 shrink-0">
+                  Explore Fiji Tools <ArrowRight size={18} />
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {TOOLS.filter(t => ['fiji-vat-calculator', 'fiji-salary-calculator', 'fiji-taxi-fare-calculator'].includes(t.id)).map(tool => (
+                      <Link 
+                          key={tool.id} 
+                          to={`/tools/${tool.slug}`} 
+                          className="p-4 bg-white border-2 border-black hover:bg-emerald-100 transition-colors flex items-center justify-between"
+                      >
+                          <span className="font-black uppercase text-sm">{tool.name}</span>
+                          <ChevronRight size={18} className="text-emerald-600" />
+                      </Link>
+                  ))}
+              </div>
+          </section>
+        )}
+
+        {/* CATEGORY SECTION (Hierarchy #4) */}
+        {!searchQuery && (
+          <section className="space-y-4 sm:space-y-6">
+              <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tighter border-b-4 border-black pb-2">Popular Categories</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2.5 sm:gap-3 md:gap-4">
+                  {[
+                      { name: 'Calculators', slug: 'calculators', icon: TrendingUp },
+                      { name: 'Image Tools', slug: 'image-tools', icon: LayoutGrid },
+                      { name: 'Text Tools', slug: 'text-tools', icon: Code2 },
+                      { name: 'Developer Tools', slug: 'developer-tools', icon: Code2 },
+                      { name: 'Converters', slug: 'converters', icon: Compass },
+                      { name: 'Fiji Tools', slug: 'fiji-tools', icon: HardHat },
+                      { name: 'Color Tools', slug: 'color-tools', icon: Palette },
+                  ].map(cat => (
+                      <Link key={cat.slug} to={`/${cat.slug}`} className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white border-4 border-black hover:bg-yellow-100 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] min-h-[72px]">
+                          <cat.icon className="w-6 h-6 sm:w-8 sm:h-8 mb-1.5 sm:mb-2 text-[var(--ink)]" />
+                          <span className="font-black uppercase text-[11px] sm:text-xs text-center leading-tight">{cat.name}</span>
+                      </Link>
+                  ))}
+              </div>
+          </section>
+        )}
+
+        {/* PRIVACY & CLIENT-SIDE PROCESSING (Hierarchy #5) */}
+        {!searchQuery && (
+          <section className="bg-black text-white p-8 sm:p-12 md:p-16 border-4 border-black shadow-[10px_10px_0px_0px_rgba(250,204,21,1)] relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-10">
+                <Lock size={120} />
+              </div>
+              <div className="relative z-10 max-w-3xl space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-400 text-black font-black uppercase text-[10px] tracking-widest">Privacy First</div>
+                <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter leading-[0.95]">Your data never leaves your device.</h2>
+                <p className="text-lg sm:text-xl font-bold text-neutral-300 leading-relaxed">Unlike traditional tools that upload your files and data to their servers, ToolKitPro uses <span className="text-yellow-400">WebAssembly and Browser-Native APIs</span>. Everything stays 100% local, guaranteed.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                  <div className="flex items-center gap-3">
+                    <ShieldCheck className="text-yellow-400 shrink-0" size={24} />
+                    <span className="text-xs font-black uppercase tracking-wider">Zero Uploads</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <ShieldCheck className="text-yellow-400 shrink-0" size={24} />
+                    <span className="text-xs font-black uppercase tracking-wider">Zero Retention</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <ShieldCheck className="text-yellow-400 shrink-0" size={24} />
+                    <span className="text-xs font-black uppercase tracking-wider">100% Private</span>
+                  </div>
+                </div>
+              </div>
+          </section>
+        )}
+
+        {/* PWA INSTALLATION (Hierarchy #6) */}
+        {!searchQuery && (
+          <section className="bg-yellow-400 border-4 border-black p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+            <div className="flex items-center gap-4 text-center md:text-left">
+              <div className="bg-black text-white p-3 border-2 border-black hidden sm:block">
+                <Zap size={32} />
+              </div>
+              <div>
+                <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight">ToolkitPro Desktop & Mobile</h2>
+                <p className="text-sm font-bold text-black opacity-80 uppercase tracking-wide">Install as a lightweight app for offline access and instant loading.</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap justify-center gap-3">
+              <div className="px-4 py-2 bg-white border-2 border-black font-black uppercase text-[10px]">PWA Ready</div>
+              <div className="px-4 py-2 bg-white border-2 border-black font-black uppercase text-[10px]">Offline Support</div>
+            </div>
+          </section>
+        )}
+
+        {/* USEFUL GUIDES (Hierarchy #7) */}
+        {!searchQuery && (
+          <section className="space-y-8">
+            <div className="flex justify-between items-end border-b-8 border-black pb-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter leading-tight">Useful Guides</h2>
+              <Link to="/blog" className="hidden sm:block text-lg font-black uppercase underline hover:bg-yellow-400 hover:text-black px-2 py-1 transition-colors">View All &rarr;</Link>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+              {BLOG_POSTS.slice(0, 3).map(post => (
+                <Link key={post.id} to={`/blog/${post.slug}`} className="block border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_rgba(250,204,21,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all flex flex-col h-full">
+                  <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                    <div className="text-xs font-black uppercase text-neutral-900 dark:text-neutral-100 mb-2">{post.category}</div>
+                    <h3 className="text-xl sm:text-2xl font-black uppercase mb-3 leading-tight">{post.title}</h3>
+                    <p className="font-medium text-sm sm:text-base text-neutral-900 dark:text-neutral-100 flex-grow line-clamp-3">{post.excerpt}</p>
+                    <div className="mt-4 pt-4 border-t-2 border-black flex justify-between items-center text-xs font-bold uppercase">
+                      <span>{post.date}</span>
+                      <span>{post.readTime}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* ALL TOOLS SECTION */}
-        <div className="space-y-6">
+        <div className="space-y-6 pt-10">
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b-4 border-black pb-2 gap-2">
               <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter">
-                Tool Directory
+                {searchQuery ? 'Search Results' : 'Full Tool Directory'}
               </h2>
+              {!searchQuery && <span className="text-xs font-bold uppercase text-neutral-500">{TOOLS.length} Utilities Available</span>}
             </div>
             {filteredTools.length === 0 ? (
                 <div className="text-center py-12 border-4 border-black border-dashed bg-white p-8">
@@ -226,116 +386,30 @@ export default function HomePage() {
             )}
         </div>
 
-        <section className="bg-black text-white p-5 sm:p-8 md:p-12 border-4 border-black shadow-[6px_6px_0px_0px_rgba(251,191,36,1)] md:shadow-[12px_12px_0px_0px_rgba(251,191,36,1)]">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 sm:mb-6 md:mb-8 uppercase text-yellow-300 tracking-tighter">Essential Workflows</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-                {TOOLS.slice(0, 4).map(tool => (
-                    <Link 
-                        key={tool.id} 
-                        to={`/tools/${tool.slug}`} 
-                        className="p-4 sm:p-5 md:p-6 bg-white text-black border-4 border-black hover:bg-yellow-100 transition-colors"
-                    >
-                        <h3 className="text-lg sm:text-xl md:text-2xl font-black mb-1 md:mb-2 uppercase">{tool.name}</h3>
-                        <p className="font-medium text-xs sm:text-sm md:text-base">{tool.description}</p>
-                    </Link>
-                ))}
-            </div>
-        </section>
-
-        <section className="space-y-8 md:space-y-12 bg-white p-6 sm:p-8 md:p-12 border-4 border-black border-dashed" itemScope itemType="https://schema.org/Article">
-            <div className="max-w-4xl space-y-6 md:space-y-8">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter border-b-4 md:border-b-8 border-black pb-3 md:pb-4 leading-tight">Your Ultimate Hub for Utility Tools</h2>
-              <div className="prose prose-sm sm:prose-base md:prose-lg max-w-none text-black leading-relaxed space-y-4 md:space-y-6">
-                  <p className="font-bold text-lg md:text-xl">
-                    Welcome to ToolKitPro, your comprehensive destination for high-quality, professional-grade online utility tools. Whether you are a developer formatting JSON payloads, a student counting words for an essay, or a business owner calculating profit margins, our suite of tools is designed to accelerate your workflow.
-                  </p>
-                  
-                  <h3 className="text-xl md:text-2xl font-black uppercase mt-6 md:mt-8 mb-2 md:mb-4">What Are Free Online Utility Tools?</h3>
-                  <p className="text-sm md:text-base">
-                    Online utility tools are specialized, single-purpose web applications designed to solve specific problems quickly. Instead of downloading heavy software suites or dealing with complex configurations, you simply open your browser and get the job done. From developers who need quick <strong>URL Encoding</strong> or <strong>JSON Formatting</strong>, to writers who need instantaneous <strong>Word Counters</strong>, online tools provide immediate value with zero friction.
-                  </p>
-
-                  <h3 className="text-xl md:text-2xl font-black uppercase mt-6 md:mt-8 mb-2 md:mb-4">Developer & Programmer Tools</h3>
-                  <p className="text-sm md:text-base">
-                    Software engineering requires precision. Our developer tools are built to help programmers debug, format, and convert data structures without relying on questionable third-party cloud processors. All our developer tools like the JSON Formatter and URL Encoder operate 100% locally in your browser to maintain the highest standard of data privacy. No data is sent to our servers.
-                  </p>
-
-                  <h3 className="text-xl md:text-2xl font-black uppercase mt-6 md:mt-8 mb-2 md:mb-4">Business & Financial Calculators</h3>
-                  <p className="text-sm md:text-base">
-                    Time is money in the business world. ToolKitPro offers a growing suite of financial calculators designed to help entrepreneurs and professionals make data-driven decisions. Whether you are forecasting with a <strong>Compound Interest Calculator</strong>, analyzing a new venture with an <strong>ROI Calculator</strong>, or determining your retail pricing with our upcoming <strong>Profit Margin Calculator</strong>, we provide accurate, instant calculations.
-                  </p>
-                  
-                  <h3 className="text-xl md:text-2xl font-black uppercase mt-6 md:mt-8 mb-2 md:mb-4">Everyday Productivity Tools</h3>
-                  <p className="text-sm md:text-base">
-                    You don't need to be a software engineer to benefit from utility tools. Our platform includes essential productivity instruments for daily tasks. Generate robust security credentials with our <strong>Password Generator</strong>, compress heavy documents with our <strong>PDF Compressor</strong>, or effortlessly convert metrics with our <strong>Unit Converter</strong>. Every tool is optimized for mobile and desktop, ensuring you can work efficiently from anywhere.
-                  </p>
-
-                  <h3 className="text-xl md:text-2xl font-black uppercase mt-6 md:mt-8 mb-2 md:mb-4">The Benefits of Using ToolKitPro</h3>
-                  <ul className="list-disc pl-5 md:pl-6 space-y-2 md:space-y-3 font-medium text-sm md:text-base">
-                      <li><strong>100% Free to Use:</strong> No subscriptions, no hidden fees, and absolutely no paywalls.</li>
-                      <li><strong>Client-Side Processing:</strong> Your data security is our priority. Tools run directly in your browser's memory, guaranteeing zero server retention.</li>
-                      <li><strong>Instant Results:</strong> Because processing happens locally, you circumvent upload times and server latency. Get your results in milliseconds.</li>
-                      <li><strong>No Sign-Up Required:</strong> Skip the annoying registration flows. Open the tool, input your data, and get instant results.</li>
-                  </ul>
+        {/* SEO CONTENT SECTION */}
+        {!searchQuery && (
+          <section className="space-y-8 md:space-y-12 bg-white p-6 sm:p-8 md:p-12 border-4 border-black border-dashed" itemScope itemType="https://schema.org/Article">
+              <div className="max-w-4xl space-y-6 md:space-y-8">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter border-b-4 md:border-b-8 border-black pb-3 md:pb-4 leading-tight">ToolKitPro Philosophy</h2>
+                <div className="prose prose-sm sm:prose-base md:prose-lg max-w-none text-black leading-relaxed space-y-4 md:space-y-6">
+                    <p className="font-bold text-lg md:text-xl">
+                      Welcome to ToolKitPro, your comprehensive destination for high-quality, professional-grade online utility tools. Whether you are a developer formatting JSON payloads, a student counting words for an essay, or a business owner calculating profit margins, our suite of tools is designed to accelerate your workflow.
+                    </p>
+                    
+                    <h3 className="text-xl md:text-2xl font-black uppercase mt-6 md:mt-8 mb-2 md:mb-4">Why Local Browser Processing?</h3>
+                    <p className="text-sm md:text-base">
+                      The traditional web model of uploading sensitive files or data to a server for processing is outdated and insecure. ToolKitPro leverages modern browser technologies to process your data right where it lives—on your computer. 
+                    </p>
+                    <ul className="list-disc pl-5 md:pl-6 space-y-2 md:space-y-3 font-medium text-sm md:text-base">
+                        <li><strong>100% Free:</strong> No subscriptions or paywalls.</li>
+                        <li><strong>Client-Side:</strong> Your data never touches our servers.</li>
+                        <li><strong>Offline Ready:</strong> Many tools work without an active internet connection.</li>
+                        <li><strong>Zero Friction:</strong> No sign-ups or logins required.</li>
+                    </ul>
+                </div>
               </div>
-            </div>
-        </section>
-
-        <section className="space-y-8 md:space-y-12 bg-yellow-50 p-6 sm:p-8 md:p-12 border-4 border-black">
-          <div className="max-w-4xl space-y-6 md:space-y-8">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4 md:mb-6 leading-tight">Built For Professionals</h2>
-            <div className="grid sm:grid-cols-2 gap-8 md:gap-10">
-              <div className="space-y-2 md:space-y-4">
-                <h3 className="text-xl md:text-2xl font-black uppercase border-b-4 border-black pb-1 md:pb-2">100% Privacy</h3>
-                <p className="font-medium text-black text-sm md:text-base">Unlike competing sites, we don't store your data. PDF compression, Image resizing, and JSON formatting all happen directly in your browser. Your sensitive information never leaves your machine.</p>
-              </div>
-              <div className="space-y-2 md:space-y-4">
-                <h3 className="text-xl md:text-2xl font-black uppercase border-b-4 border-black pb-1 md:pb-2">Technical Rigor</h3>
-                <p className="font-medium text-black text-sm md:text-base">Our calculators are built on verified scientific formulas (like WHO-standard BMI) and industrial-grade algorithms (like Lanczos resampling for image scaling).</p>
-              </div>
-              <div className="space-y-2 md:space-y-4">
-                <h3 className="text-xl md:text-2xl font-black uppercase border-b-4 border-black pb-1 md:pb-2">Zero Friction</h3>
-                <p className="font-medium text-black text-sm md:text-base">No accounts. No sign-ups. We provide a clean, Neu-Brutalist utility experience supported by unobtrusive ads, keeping the tools free for high-performance users.</p>
-              </div>
-              <div className="space-y-2 md:space-y-4">
-                <h3 className="text-xl md:text-2xl font-black uppercase border-b-4 border-black pb-1 md:pb-2">Expert Insights</h3>
-                <p className="font-medium text-black text-sm md:text-base">Every tool is accompanied by deep technical guides and FAQs, ensuring you not only get the result you need but also understand the math and logic behind it.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="space-y-8 md:space-y-12 bg-white p-6 sm:p-8 md:p-12 border-4 border-black border-dashed">
-          <div className="max-w-6xl mx-auto space-y-6 md:space-y-8">
-            <div className="flex justify-between items-end border-b-8 border-black pb-4">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter leading-tight">Latest Articles</h2>
-              <Link to="/blog" className="hidden sm:block text-lg font-black uppercase underline hover:bg-yellow-400 hover:text-black px-2 py-1 transition-colors">View All &rarr;</Link>
-            </div>
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-              {BLOG_POSTS.slice(0, 3).map(post => (
-                <Link key={post.id} to={`/blog/${post.slug}`} className="block border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_rgba(250,204,21,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all flex flex-col h-full">
-                  <div className="p-4 sm:p-6 flex flex-col flex-grow">
-                    <div className="text-xs font-black uppercase text-neutral-900 dark:text-neutral-100 mb-2">{post.category}</div>
-                    <h3 className="text-xl sm:text-2xl font-black uppercase mb-3 leading-tight">{post.title}</h3>
-                    <p className="font-medium text-sm sm:text-base text-neutral-900 dark:text-neutral-100 flex-grow">{post.excerpt}</p>
-                    <div className="mt-4 pt-4 border-t-2 border-black flex justify-between items-center text-xs font-bold uppercase">
-                      <span>{post.date}</span>
-                      <span>{post.readTime}</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-            <div className="sm:hidden mt-6 text-center">
-              <Link to="/blog" className="inline-block px-8 py-3 bg-black text-white text-lg font-black uppercase tracking-widest hover:bg-yellow-400 hover:text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 transition-all">View All Articles</Link>
-            </div>
-          </div>
-          
-          <div className="border-t-4 border-black pt-8 md:pt-12 flex flex-col items-center text-center space-y-4 md:space-y-6">
-            <h3 className="text-2xl md:text-3xl font-black uppercase italic leading-tight">Ready to optimize your workflow?</h3>
-            <Link to="/about" className="px-8 py-3 md:px-12 md:py-4 bg-black text-white text-lg md:text-xl font-black uppercase tracking-widest hover:bg-yellow-400 hover:text-black border-4 border-black transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-1 active:translate-y-1">Learn More About Us</Link>
-          </div>
-        </section>
+          </section>
+        )}
     </div>
   );
 }

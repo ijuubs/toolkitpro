@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { trackToolUsage } from '../../utils/analytics';
-import { Copy, Check, RotateCcw } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function FijiVatCalculator() {
   const [amount, setAmount] = useState<string>('');
   const [mode, setMode] = useState<'add' | 'remove'>('add');
   const [vatRate, setVatRate] = useState<string>('12.5'); // Default to current 12.5% rate
-  const [copied, setCopied] = useState<boolean>(false);
 
   const calculate = () => {
     const val = parseFloat(amount);
@@ -32,21 +32,6 @@ export default function FijiVatCalculator() {
   };
 
   const results = calculate();
-
-  const handleCopy = () => {
-    if (!results) return;
-    const text = `VAT Calculation:
-Rate: ${vatRate}%
-VAT Exclusive: $${results.exclusive.toFixed(2)}
-VAT Amount: $${results.vatAmount.toFixed(2)}
-VAT Inclusive: $${results.inclusive.toFixed(2)}`;
-    
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-    
-    trackToolUsage('fiji-vat-calculator', 'Fiji VAT Calculator', 'Fiji Tools', 'copy_results');
-  };
 
   const handleClear = () => {
     setAmount('');
@@ -136,15 +121,17 @@ VAT Inclusive: $${results.inclusive.toFixed(2)}`;
 
       {results && amount && !isNaN(parseFloat(amount)) && parseFloat(amount) >= 0 && (
         <div className="border-4 border-black bg-emerald-100 p-6 space-y-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
             <h3 className="font-black uppercase text-xl">Calculation Results</h3>
-            <button
-              onClick={handleCopy}
-              className="flex items-center gap-2 bg-black text-white px-4 py-2 font-black uppercase text-sm hover:bg-yellow-400 hover:text-black border-2 border-black transition-all active:translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:shadow-none"
-            >
-              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-              {copied ? 'Copied' : 'Copy'}
-            </button>
+            <ShareResultActions
+              title="Fiji VAT Calculation Result"
+              summary={`Fiji VAT Calculation (ToolKitPro):
+• Mode: ${mode === 'add' ? 'Add VAT (Price is Exclusive)' : 'Remove VAT (Price is Inclusive)'}
+• VAT Rate: ${vatRate}%
+• VAT Exclusive Price: $${results.exclusive.toFixed(2)}
+• VAT Amount: $${results.vatAmount.toFixed(2)}
+• VAT Inclusive Price: $${results.inclusive.toFixed(2)}`}
+            />
           </div>
 
           <div className="space-y-4">
@@ -169,6 +156,13 @@ VAT Inclusive: $${results.inclusive.toFixed(2)}`;
             {mode === 'add' ? 
               ` The formula adds ${vatRate}% to the base price. (Base × ${1 + parseFloat(vatRate)/100})` : 
               ` The formula extracts the ${vatRate}% VAT already included in the price. (Price ÷ ${1 + parseFloat(vatRate)/100})`}
+          </div>
+          
+          <div className="border-2 border-black p-3 bg-neutral-50 text-xs text-neutral-800 space-y-1 mt-4">
+            <p><strong>Last reviewed:</strong> Oct 2026</p>
+            <p><strong>Applicable period:</strong> 2026/2027 Financial Year</p>
+            <p><strong>Reference:</strong> Fiji Revenue and Customs Service (FRCS)</p>
+            <p className="italic">Disclaimer: Based on current VAT rates (12.5% standard). Verify with FRCS for specific goods/services.</p>
           </div>
         </div>
       )}

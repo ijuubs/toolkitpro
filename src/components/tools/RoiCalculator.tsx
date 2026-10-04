@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function RoiCalculator() {
   const [amountInvested, setAmountInvested] = useState<number | ''>('');
@@ -19,6 +20,12 @@ export default function RoiCalculator() {
   };
 
   const results = calculateROI();
+
+  const shareSummary = results ? `Return on Investment (ROI) Calculation (ToolKitPro):
+• Net Profit: $${results.netProfit.toFixed(2)}
+• Total ROI: ${results.roiPercentage.toFixed(2)}%
+• Amount Invested: $${Number(amountInvested).toLocaleString()}
+• Amount Returned: $${Number(amountReturned).toLocaleString()}${results.annualizedRoi !== null ? `\n• Annualized ROI: ${results.annualizedRoi.toFixed(2)}% (${timePeriod} years)` : ''}` : '';
 
   return (
     <div className="space-y-6">
@@ -59,8 +66,14 @@ export default function RoiCalculator() {
       </div>
 
       {results && (
-        <div className="bg-yellow-400 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <h2 className="text-2xl font-black uppercase mb-4">Results</h2>
+        <div className="bg-yellow-400 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <h2 className="text-2xl font-black uppercase text-center sm:text-left">Results</h2>
+            <ShareResultActions
+              title="ROI Calculation Result"
+              summary={shareSummary}
+            />
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="bg-white border-4 border-black p-4 text-center">
               <div className="text-sm font-bold uppercase text-gray-600 mb-1">Net Profit</div>

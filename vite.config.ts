@@ -14,7 +14,7 @@ export default defineConfig(({mode}) => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
+        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png', 'pwa-maskable-512x512.png'],
         manifest: {
           name: 'ToolKitPro - High-Performance Utility Ecosystem',
           short_name: 'ToolKitPro',
@@ -22,8 +22,33 @@ export default defineConfig(({mode}) => {
           theme_color: '#facc15',
           background_color: '#f5f5f6',
           display: 'standalone',
+          display_override: ['window-controls-overlay', 'standalone', 'minimal-ui'],
           orientation: 'portrait-primary',
           start_url: '/',
+          categories: ['productivity', 'utilities', 'finance', 'developer tools'],
+          shortcuts: [
+            {
+              name: 'Word Counter',
+              short_name: 'Words',
+              description: 'Count words and characters in text',
+              url: '/tools/word-counter',
+              icons: [{ src: '/pwa-192x192.png', sizes: '192x192' }]
+            },
+            {
+              name: 'JSON Formatter',
+              short_name: 'JSON',
+              description: 'Format and validate JSON data',
+              url: '/tools/json-formatter',
+              icons: [{ src: '/pwa-192x192.png', sizes: '192x192' }]
+            },
+            {
+              name: 'Loan Calculator',
+              short_name: 'Loan',
+              description: 'Calculate loan repayments',
+              url: '/tools/loan-calculator',
+              icons: [{ src: '/pwa-192x192.png', sizes: '192x192' }]
+            }
+          ],
           icons: [
             {
               src: '/pwa-192x192.png',
@@ -48,7 +73,37 @@ export default defineConfig(({mode}) => {
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,xml,txt}'],
           navigateFallback: 'index.html',
-          navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/ads\.txt$/, /^\/llms\.txt$/]
+          navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/ads\.txt$/, /^\/llms\.txt$/],
+          runtimeCaching: [
+            {
+              urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'google-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
+              }
+            },
+            {
+              urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'gstatic-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
+              }
+            }
+          ]
         }
       }),
       {
@@ -59,7 +114,6 @@ export default defineConfig(({mode}) => {
       }
     ],
     define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
     },
     resolve: {
       alias: {

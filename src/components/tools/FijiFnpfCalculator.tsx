@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { trackToolUsage } from '../../utils/analytics';
-import { Copy, Check, RotateCcw, AlertTriangle } from 'lucide-react';
+import { RotateCcw, AlertTriangle } from 'lucide-react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function FijiFnpfCalculator() {
   const [currentAge, setCurrentAge] = useState<string>('30');
@@ -11,8 +12,6 @@ export default function FijiFnpfCalculator() {
   const [employerRate, setEmployerRate] = useState<string>('10');
   const [salaryGrowth, setSalaryGrowth] = useState<string>('3');
   const [annualReturn, setAnnualReturn] = useState<string>('6');
-  
-  const [copied, setCopied] = useState<boolean>(false);
 
   const calculate = () => {
     const age = parseInt(currentAge);
@@ -68,25 +67,6 @@ export default function FijiFnpfCalculator() {
   };
 
   const results = calculate();
-
-  const handleCopy = () => {
-    if (!results) return;
-    const text = `FNPF Retirement Projection:
-Years to Retirement: ${results.years}
-Starting Balance: $${results.startingBalance.toFixed(2)}
-Total Employee Contrib: $${results.totalEmployeeContrib.toFixed(2)}
-Total Employer Contrib: $${results.totalEmployerContrib.toFixed(2)}
-Total Est. Interest Earned: $${results.totalInterest.toFixed(2)}
-Projected Final Balance: $${results.finalBalance.toFixed(2)}
-
-*Estimate only. Not financial advice.*`;
-    
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-    
-    trackToolUsage('fiji-fnpf-calculator', 'Fiji FNPF Calculator', 'Fiji Tools', 'copy_results');
-  };
 
   const handleClear = () => {
     setCurrentAge('');
@@ -232,15 +212,19 @@ Projected Final Balance: $${results.finalBalance.toFixed(2)}
 
       {results && (
         <div className="border-4 border-black bg-blue-50 p-4 sm:p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col h-full">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 border-b-2 border-black pb-3">
             <h3 className="font-black uppercase text-xl">Projection Results</h3>
-            <button
-              onClick={handleCopy}
-              className="flex items-center gap-2 bg-black text-white px-4 py-2 font-black uppercase text-sm hover:bg-yellow-400 hover:text-black border-2 border-black transition-all active:translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:shadow-none"
-            >
-              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-              <span className="hidden sm:inline">{copied ? 'Copied' : 'Copy'}</span>
-            </button>
+            <ShareResultActions
+              title="Fiji FNPF Savings Projection"
+              summary={`Fiji FNPF Savings Projection (ToolKitPro):
+• Projected Final Balance: FJD $${results.finalBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+• Years to Retirement: ${results.years} Years (Age ${currentAge} to ${retirementAge})
+• Starting Balance: FJD $${results.startingBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+• Total Employee Contributions (${employeeRate}%): FJD $${results.totalEmployeeContrib.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+• Total Employer Contributions (${employerRate}%): FJD $${results.totalEmployerContrib.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+• Total Estimated Interest Earned (${annualReturn}% return): FJD $${results.totalInterest.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+• Monthly Salary: FJD $${Number(monthlySalary).toLocaleString()}`}
+            />
           </div>
 
           <div className="grid gap-4 mb-6">
@@ -283,6 +267,13 @@ Projected Final Balance: $${results.finalBalance.toFixed(2)}
             <p className="text-xs font-bold leading-relaxed text-gray-800">
               <strong>Disclaimer:</strong> This is an estimate based on constant compound interest, static contribution rates, and steady salary growth over {results.years} years. Actual FNPF returns depend on official annual declarations and economic factors. This is not financial advice.
             </p>
+          </div>
+          
+          <div className="border-2 border-black p-3 bg-neutral-50 text-xs text-neutral-800 space-y-1 mt-4">
+            <p><strong>Last reviewed:</strong> Oct 2026</p>
+            <p><strong>Applicable period:</strong> 2026/2027 Financial Year</p>
+            <p><strong>Reference:</strong> Fiji National Provident Fund (FNPF) Guidelines</p>
+            <p className="italic">Disclaimer: Projections are estimates and not financial advice. FNPF interest rates and contribution rates are subject to annual change by the Fund.</p>
           </div>
         </div>
       )}

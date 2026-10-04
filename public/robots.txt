@@ -1,9 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /analytics
 
 # Googlebot & Search Crawlers
 User-agent: Googlebot
 Allow: /
+Disallow: /analytics
 
 User-agent: Googlebot-Image
 Allow: /
@@ -15,15 +17,18 @@ Allow: /
 # Allow AI Search Crawlers
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /analytics
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /analytics
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /analytics
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /analytics
 
-Sitemap: https://toolkitpro-e5y5.vercel.app/sitemap.xml
 Sitemap: https://toolkitpro-e5y5.vercel.app/sitemap_index.xml

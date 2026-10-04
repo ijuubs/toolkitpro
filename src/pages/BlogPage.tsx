@@ -6,10 +6,13 @@ import { generateCanonicalUrl } from '../utils/seo';
 
 export default function BlogPage() {
   const [subscribed, setSubscribed] = useState(false);
+  const [email, setEmail] = useState('');
   const canonicalUrl = generateCanonicalUrl('/blog');
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email) return;
+    console.log('Newsletter subscription submitted for:', email);
     setSubscribed(true);
   };
 
@@ -70,11 +73,12 @@ export default function BlogPage() {
           <p className="text-base sm:text-xl font-medium">Get the latest tools and articles delivered straight to your inbox once a month.</p>
           {subscribed ? (
             <div className="bg-green-100 border-4 border-green-500 p-4 max-w-lg mx-auto">
-              <p className="font-black text-green-700 uppercase">Thanks for subscribing!</p>
+              <p className="font-black text-green-700 uppercase">Thanks! Interest noted.</p>
+              <p className="text-sm font-bold text-green-800">The subscription service is currently in development. You are not yet added to a mailing list.</p>
             </div>
           ) : (
             <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-lg mx-auto">
-                <input required type="email" placeholder="email@example.com" className="flex-1 border-4 border-black p-3 sm:p-4 font-bold outline-none focus:bg-white text-sm sm:text-base" />
+                <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email@example.com" className="flex-1 border-4 border-black p-3 sm:p-4 font-bold outline-none focus:bg-white text-sm sm:text-base" />
                 <button type="submit" className="bg-black text-white font-black uppercase px-6 sm:px-8 py-3 sm:py-4 hover:bg-yellow-400 hover:text-black transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] min-h-[44px]">Subscribe</button>
             </form>
           )}

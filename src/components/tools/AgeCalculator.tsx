@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function AgeCalculator() {
   const [dob, setDob] = useState<string>('');
@@ -86,10 +87,22 @@ export default function AgeCalculator() {
       )}
 
       {results && !results.error && (
-        <div className="bg-yellow-400 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <h2 className="text-2xl font-black uppercase mb-4 text-center">Precise Age</h2>
+        <div className="bg-yellow-400 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <h2 className="text-2xl font-black uppercase text-center sm:text-left">Precise Age</h2>
+            <ShareResultActions
+              title="Age Calculation Result"
+              summary={`Age Calculation (ToolKitPro):
+• Exact Age: ${results.years} years, ${results.months} months, ${results.days} days
+• Date of Birth: ${dob}
+• Target Date: ${currentDate}
+• Total Days: ${results.totalDays?.toLocaleString()}
+• Total Weeks: ${results.totalWeeks?.toLocaleString()}
+• Total Months: ${results.totalMonths?.toLocaleString()}`}
+            />
+          </div>
           
-          <div className="bg-white border-4 border-black p-6 text-center mb-6">
+          <div className="bg-white border-4 border-black p-6 text-center">
              <div className="text-3xl sm:text-4xl font-black">
                {results.years} <span className="text-xl text-gray-600">years</span> {results.months} <span className="text-xl text-gray-600">months</span> {results.days} <span className="text-xl text-gray-600">days</span>
              </div>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function FijiAnnualLeaveCalculator() {
   const [balance, setBalance] = useState<string>('12'); // starting balance
@@ -116,6 +117,19 @@ export default function FijiAnnualLeaveCalculator() {
 
       {results && (
         <div className="border-4 border-black bg-yellow-100 p-6 space-y-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-black pb-4">
+            <h3 className="font-black uppercase text-xl">Leave Calculation Summary</h3>
+            <ShareResultActions
+              title="Fiji Annual Leave Entitlement"
+              summary={`Fiji Annual Leave Entitlement (ToolKitPro):
+• Remaining Leave Balance: ${results.remaining} ${results.remaining === 1 ? 'Day' : 'Days'}
+• Leave Days Requested: ${requested} Days
+• Initial Balance: ${balance} Days
+• Leave Start Date: ${startDateStr}${results.returnDate ? `\n• Return-To-Work Date: ${results.returnDate}` : ''}
+• Weekends Excluded: ${excludeWeekends ? 'Yes' : 'No'}`}
+            />
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <span className="text-xs font-black uppercase text-gray-600 block">Remaining Leave Balance</span>

@@ -37,7 +37,7 @@ export default function DisclaimerPage() {
           Disclaimer
         </h1>
         <p className="font-bold text-xs sm:text-sm text-neutral-600 mt-2">
-          Please read this disclaimer carefully before relying on calculations, tools, or guides on {SITE_NAME}.
+          Last updated: October 4, 2026 • Please read this disclaimer carefully before relying on calculations, tools, or guides on {SITE_NAME}.
         </p>
       </div>
       

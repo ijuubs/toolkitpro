@@ -642,7 +642,7 @@ Exempt supplies carry no VAT, but suppliers **cannot** claim input tax credits o
     metaDescription: 'Free online loan calculator with amortization schedules. Calculate monthly payments, total interest, and payoff dates for mortgages, auto loans, and personal loans.',
     howTo: `### Complete Guide to Loan Payments, Interest Rates, and Amortization Schedules
 
-Whether you are financing a new home, purchasing an automobile, taking out an educational loan, or consolidating high-interest credit card debt, understanding how lenders structure loans is essential for making sound financial decisions. Our **Loan Calculator** evaluates standard amortized installment loans, providing full visibility into your monthly financial commitment, the cumulative interest incurred over time, and the exact trajectory of your debt payoff.
+Whether you are financing a new home, purchasing an automobile, taking out an educational loan, or consolidating high-interest credit card debt, understanding how lenders structure loans is essential for making sound financial decisions. Our **Loan Calculator** evaluates standard amortized installment loans, providing full visibility into your monthly financial commitment, the cumulative interest incurred over time, and the exact trajectory of your debt payoff. For long-term wealth building beyond debt, consider using our [Compound Interest Calculator](/tools/compound-interest-calculator) to see the inverse power of exponential growth.
 
 ---
 
@@ -805,7 +805,7 @@ Our tool calculates values asynchronously as you type. No page reloads, no form 
 
 Writing across all digital and academic mediums is governed by strict length constraints and readability expectations. A college admissions essay must fit precisely within a 650-word ceiling; an SEO copywriter must craft a meta description within 155 to 160 characters; a corporate executive preparing a keynote speech must align their script with a standard 130-words-per-minute delivery pace; and a digital advertiser must adhere to character limits on Twitter/X, LinkedIn, and Google Ads.
 
-Our **Online Word Counter** is far more than a basic space-splitting script. It is an industrial-strength, client-side linguistic analysis engine engineered to analyze word morphology, character sets, syntactic sentence structures, estimated reading times, speaking cadences, and keyword distribution metrics in real time.
+Our **Online Word Counter** is far more than a basic space-splitting script. It is an industrial-strength, client-side linguistic analysis engine engineered to analyze word morphology, character sets, syntactic sentence structures, estimated reading times, speaking cadences, and keyword distribution metrics in real time. For those preparing technical documentation, our [Markdown to HTML Converter](/tools/markdown-to-html) allows you to preview your formatted output alongside live word counts.
 
 ---
 
@@ -940,7 +940,7 @@ When drafting private legal notices, proprietary software documentation, medical
 
 JavaScript Object Notation (JSON) is the universal, language-agnostic data interchange format of modern computing. Codified under **RFC 8259** and **ECMA-404**, JSON powers everything from RESTful API payloads and GraphQL responses to NoSQL document databases (MongoDB, CouchDB), serverless cloud functions, Docker container configurations, and modern frontend state stores.
 
-While JSON was derived from the object literal syntax of JavaScript, it is a strict, text-based specification. A single stray trailing comma, unescaped quotation mark, or unquoted key will instantly trigger a fatal parser exception across production web servers. Our **JSON Formatter & Validator** provides developers, database administrators, and QA engineers with a zero-latency, client-side workstation to inspect, prettify, compress, and validate data structures with surgical precision.
+While JSON was derived from the object literal syntax of JavaScript, it is a strict, text-based specification. A single stray trailing comma, unescaped quotation mark, or unquoted key will instantly trigger a fatal parser exception across production web servers. Our **JSON Formatter & Validator** provides developers, database administrators, and QA engineers with a zero-latency, client-side workstation to inspect, prettify, compress, and validate data structures with surgical precision. If you need to compare two different JSON payloads to find specific value changes, our [Diff Checker](/tools/diff-checker) provides side-by-side visual comparison.
 
 ---
 
@@ -1666,7 +1666,7 @@ The United States **National Institute of Standards and Technology (NIST)** publ
     metaDescription: 'Calculate your Body Mass Index (BMI) instantly. Understand your weight health status using our professional, WHO-standard BMI calculator.',
     howTo: `### The Ultimate Guide to Body Mass Index (BMI)
 
-Body Mass Index (BMI) is a foundational health metric used by medical professionals, fitness experts, and individuals worldwide to assess whether a person has a healthy body weight for their height. While often debated, it remains one of the most effective, low-cost screening tools for weight-related health risks.
+Body Mass Index (BMI) is a foundational health metric used by medical professionals, fitness experts, and individuals worldwide to assess whether a person has a healthy body weight for their height. While often debated, it remains one of the most effective, low-cost screening tools for weight-related health risks. To understand your specific energy requirements beyond a simple weight-to-height ratio, combine your BMI results with our [TDEE Calculator](/tools/tdee-calculator) to determine your daily caloric needs.
 
 #### 1. What is BMI?
 BMI is a statistical measurement that looks at the ratio of your weight to your height squared. It doesn't directly measure body fat, but research has shown that BMI scores are moderately correlated with more direct measures of body fat, such as skinfold thickness measurements, bioelectrical impedance, and dual-energy X-ray absorptiometry (DXA).
@@ -1820,7 +1820,7 @@ Improper URL encoding exposes backend web services to critical vulnerabilities:
 
 Understanding your payslip and statutory tax liabilities in the Republic of Fiji is fundamental for household financial planning, career negotiations, and corporate payroll compliance. Under the administration of the **Fiji Revenue and Customs Service (FRCS)** and the **Fiji National Provident Fund (FNPF)**, individual wage earners are subject to statutory pension deductions and progressive Pay-As-You-Earn (PAYE) income withholding.
 
-Our **Fiji Salary Calculator** models all statutory tax bands, the **$30,000 FJD personal tax-free threshold**, mandatory pension matching, and net take-home pay across weekly, fortnightly, and monthly payroll intervals.
+Our **Fiji Salary Calculator** models all statutory tax bands, the **$30,000 FJD personal tax-free threshold**, mandatory pension matching, and net take-home pay across weekly, fortnightly, and monthly payroll intervals. To see how your retirement savings are growing alongside your salary, use our [Fiji FNPF Calculator](/tools/fiji-fnpf-calculator) for detailed projections. If you are shopping for essentials, remember to check which items are exempt using our [Fiji VAT Calculator](/tools/fiji-vat-calculator).
 
 #### 1. The Statutory Pension Pillar: Fiji National Provident Fund (FNPF)
 
@@ -2408,7 +2408,7 @@ Understanding which household appliances consume the most electricity under Fiji
 
 Managing monthly grocery expenditures is one of the most critical aspects of household budgeting for families across Viti Levu, Vanua Levu, and the outer maritime islands. In Fiji, food shopping requires navigating a unique two-tier retail ecosystem: open-air **Municipal Agricultural Markets** (Suva, Lautoka, Nadi, Ba, Nausori, Labasa) offering locally grown root crops and produce, and modern **Supermarkets** carrying price-regulated pantry staples and imported consumer goods.
 
-Our **Fiji Grocery Budget Calculator** provides a localized economic planning tool that divides family budgets into culturally authentic food groups, incorporates **Fijian Competition and Consumer Commission (FCCC)** price control guidelines, and leverages statutory Value Added Tax (VAT) exemptions to maximize family purchasing power.
+Our **Fiji Grocery Budget Calculator** provides a localized economic planning tool that divides family budgets into culturally authentic food groups, incorporates **Fijian Competition and Consumer Commission (FCCC)** price control guidelines, and leverages statutory Value Added Tax (VAT) exemptions to maximize family purchasing power. Use our [Fiji VAT Calculator](/tools/fiji-vat-calculator) to see how tax affects other non-essential purchases.
 
 #### 1. Understanding Retail Food Pricing in Fiji: Municipal Markets vs Supermarkets
 
@@ -2489,6 +2489,8 @@ Suppose a family of 4 establishes a total weekly grocery budget of **FJD $180.00
 Taxis represent one of the most accessible and reliable forms of passenger transport across Fiji. Whether commuting to commercial offices in Suva Central, navigating the hospitality corridor along Nadi Bay, heading to Lautoka Hospital, or travelling along Kings and Queens Highways, understanding the regulatory framework governing taxi meters prevents overcharging and ensures transparent transit.
 
 Our **Fiji Taxi Fare Calculator** is calibrated to the official tariff order determined by the **Fijian Competition and Consumer Commission (FCCC)** and enforced by the **Land Transport Authority (LTA)** in force from **1 October 2026** (following the conclusion of the temporary fare adjustment period that ended on 30 September 2026).
+
+For those considering owning their own vehicle instead of relying on public transport, our [Fiji Vehicle Running Cost Calculator](/tools/fiji-vehicle-cost-calculator) provides a full breakdown of monthly ownership expenses.
 
 *Note: This calculator specifically covers general taxis operating on Viti Levu (excluding airport stations).*
 
@@ -2998,7 +3000,7 @@ Compound interest is the foundational mathematical engine behind global banking,
 
 Unlike simple linear interest—which calculates returns strictly on the initial principal deposit—compound interest earns **interest on previously accumulated interest**, producing an exponential growth trajectory that accelerates over multi-decade time horizons.
 
-Our **Compound Interest Calculator** delivers an actuarial-grade financial model that combines initial lump-sum deposits, recurring periodic contributions, and customizable compounding frequencies (annual, semi-annual, monthly, daily) with complete data privacy.
+Our **Compound Interest Calculator** delivers an actuarial-grade financial model that combines initial lump-sum deposits, recurring periodic contributions, and customizable compounding frequencies with complete data privacy. To evaluate a specific business venture or existing asset, use our [ROI Calculator](/tools/roi-calculator). If you are looking to calculate the cost of borrowing rather than saving, our [Loan Calculator](/tools/loan-calculator) uses the inverse of these exponential principles.
 
 ---
 

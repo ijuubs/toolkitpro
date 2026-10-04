@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function FijiLoanRepaymentCalculator() {
   const [amount, setAmount] = useState<string>('15000');
@@ -106,11 +107,23 @@ export default function FijiLoanRepaymentCalculator() {
 
       {results && (
         <div className="border-4 border-black bg-yellow-100 p-6 space-y-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <div>
-            <span className="text-sm font-black uppercase text-gray-600 block">Your Scheduled {results.frequencyLabel} Repayment</span>
-            <span className="text-4xl sm:text-5xl font-black text-black">
-              FJD ${results.repayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span className="text-sm font-black uppercase text-gray-600 block">Your Scheduled {results.frequencyLabel} Repayment</span>
+              <span className="text-4xl sm:text-5xl font-black text-black">
+                FJD ${results.repayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </span>
+            </div>
+            <ShareResultActions
+              title="Fiji Loan Repayment Estimate"
+              summary={`Fiji Loan Repayment Calculation (ToolKitPro):
+• Scheduled ${results.frequencyLabel} Repayment: FJD $${results.repayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Loan Amount: FJD $${Number(amount).toLocaleString()}
+• Interest Rate: ${rate}% p.a.
+• Loan Term: ${term} Years
+• Total Interest to Pay: FJD $${results.totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Total Loan Cost: FJD $${results.totalRepay.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+            />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t-4 border-black pt-4">

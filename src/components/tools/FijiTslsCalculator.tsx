@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { 
   GraduationCap, 
   RotateCcw, 
-  Copy, 
-  Check, 
   ExternalLink, 
   AlertCircle, 
   Info, 
@@ -16,6 +14,7 @@ import {
   Scale
 } from 'lucide-react';
 import { trackToolUsage } from '../../utils/analytics';
+import ShareResultActions from '../ShareResultActions';
 
 export type Mode = 'bond_service' | 'bond_buyout' | 'overseas_loan';
 
@@ -96,7 +95,6 @@ export default function FijiTslsCalculator() {
   const [repaymentTermMonths, setRepaymentTermMonths] = useState<string>('24'); // Repayment schedule term in months
   const [monthlyIncome, setMonthlyIncome] = useState<string>('2500'); // Optional monthly gross salary for affordability comparison
 
-  const [copied, setCopied] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   // Calculation logic based on verified legislation & TSLS Handbook (2026–2027)
@@ -209,18 +207,33 @@ export default function FijiTslsCalculator() {
         repaymentTermMonths: termMonths,
         salaryPercentage,
         monthlyIncome: income,
+        // Fill missing fields for type safety
+        years: 0,
+        multiplier: 0,
+        totalRequiredMonths: 0,
+        totalRequiredYears: '0.0',
+        servedMonths: 0,
+        remainingServiceMonths: 0,
+        completionPercentage: 0,
+        remainingPercentage: 0,
+        deliveredValue: 0,
+        baseUnservedBalance: 0,
+        penaltyRate: 0,
+        penaltyCategory: 0,
+        penaltyDescription: '',
+        penaltyAmount: 0,
+        isExemptTemporaryTravel: false,
       };
     }
   };
 
   const results = calculateResults();
 
-  const handleCopy = () => {
-    if (!results) return;
+  const getSummaryText = (): string => {
+    if (!results) return '';
 
-    let text = '';
     if (mode === 'bond_service') {
-      text = `Fiji TSLS Service Bond Summary:
+      return `Fiji TSLS Service Bond Summary:
 • Study Scheme: ${studyScheme === 'local' ? 'Local Institution (1.5x Bond Multiplier)' : 'Overseas Scholarship (2.5x Bond Multiplier)'}
 • Total Funded Award: FJD $${results.award.toLocaleString('en-US', { minimumFractionDigits: 2 })}
 • Estimated Total Required Service: ${results.totalRequiredMonths} months (${results.totalRequiredYears} years)
@@ -232,7 +245,7 @@ export default function FijiTslsCalculator() {
 *Disclaimer: Educational mathematical estimate. Subject to official verification by the Tertiary Scholarships and Loans Service (TSLS) under the TSLS (Budget Amendment) Act 2026.*`;
     } else if (mode === 'bond_buyout') {
       if (results.isExemptTemporaryTravel) {
-        text = `Fiji TSLS Temporary Travel Release Estimate:
+        return `Fiji TSLS Temporary Travel Release Estimate:
 • Status: Approved Temporary Travel Release (Vacation / Medical / Business)
 • Original Funded Award: FJD $${results.award.toLocaleString('en-US', { minimumFractionDigits: 2 })}
 • Bond Service Completed: ${results.servedMonths} of ${results.totalRequiredMonths} months (${results.completionPercentage}%)
@@ -241,7 +254,7 @@ export default function FijiTslsCalculator() {
 
 *Disclaimer: Official travel approval must be obtained from TSLS.*`;
       } else {
-        text = `Fiji TSLS Repayment in Lieu of Bond (Migration / Clearance Buyout):
+        return `Fiji TSLS Repayment in Lieu of Bond (Migration / Clearance Buyout):
 • Total Funded Award: FJD $${results.award.toLocaleString('en-US', { minimumFractionDigits: 2 })}
 • Required Service Duration: ${results.totalRequiredMonths} months (${results.multiplier}x multiplier)
 • Service Completed: ${results.servedMonths} months (${results.completionPercentage}%)
@@ -256,7 +269,7 @@ export default function FijiTslsCalculator() {
 *Disclaimer: Educational mathematical estimate based on the TSLS 9-tier penalty system (TSLS Act 2026). Official clearance must be obtained via the TSLS Travel & Bond Clearance Portal.*`;
       }
     } else {
-      text = `Fiji TSLS / TELS Overseas Repayment Plan:
+      return `Fiji TSLS / TELS Overseas Repayment Plan:
 • Total Outstanding Balance: FJD $${results.award.toLocaleString('en-US', { minimumFractionDigits: 2 })}
 • Repayment Term: ${results.repaymentTermMonths} months
 • Estimated Monthly Payment: FJD $${results.monthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2 })}
@@ -264,11 +277,6 @@ export default function FijiTslsCalculator() {
 
 *Disclaimer: Estimate only. Subject to official arrangements with TSLS / FRCS.*`;
     }
-
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-    trackToolUsage('fiji-tsls-calculator', 'Fiji TSLS Calculator', 'Fiji Tools', 'copy_results');
   };
 
   const handleReset = () => {
@@ -314,21 +322,18 @@ export default function FijiTslsCalculator() {
               <p className="text-xs sm:text-sm font-bold text-gray-700">Official 2026–2027 statutory rules &bull; 9-tier penalty schedule &bull; Bond tracker</p>
             </div>
           </div>
-          <div className="flex items-center gap-2 self-stretch sm:self-auto">
+          <div className="flex flex-wrap items-center gap-2 self-stretch sm:self-auto">
             <button
               onClick={handleReset}
-              className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-2 bg-neutral-200 border-2 border-black font-black text-xs uppercase hover:bg-neutral-300 active:translate-x-0.5 active:translate-y-0.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none transition-all"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-1.5 bg-neutral-200 border-2 border-black font-black text-xs uppercase hover:bg-neutral-300 active:translate-x-0.5 active:translate-y-0.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none transition-all cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" /> Reset
             </button>
             {results && (
-              <button
-                onClick={handleCopy}
-                className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-2 bg-yellow-400 border-2 border-black font-black text-xs uppercase hover:bg-yellow-300 active:translate-x-0.5 active:translate-y-0.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none transition-all"
-              >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-800" /> : <Copy className="w-3.5 h-3.5" />}
-                {copied ? 'Copied!' : 'Copy Summary'}
-              </button>
+              <ShareResultActions
+                title="Fiji TSLS Service Bond & Clearance Calculation"
+                summary={getSummaryText()}
+              />
             )}
           </div>
         </div>
@@ -679,6 +684,13 @@ export default function FijiTslsCalculator() {
                 </div>
               </div>
             )}
+            
+            <div className="border-2 border-black p-3 bg-neutral-50 text-xs text-neutral-800 space-y-1">
+              <p><strong>Last reviewed:</strong> Oct 2026</p>
+              <p><strong>Applicable period:</strong> 2026/2027 Regulatory Schedule</p>
+              <p><strong>Reference:</strong> Tertiary Scholarships and Loans Service (TSLS) Handbook</p>
+              <p className="italic">Disclaimer: Estimates based on TSLS Bond Conversion & 2026 Budget Amendment Act. Seek official TSLS clearance for specific bond status.</p>
+            </div>
 
             {/* Metrics Breakdown Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">

@@ -47,46 +47,48 @@ export function getToolCategoryInfo(tool: Tool): CategoryInfo {
  */
 const RELATED_TOOLS_MAP: Record<string, string[]> = {
   // Text & Developer Tools
-  'diff-checker': ['markdown-to-html', 'word-counter', 'json-formatter', 'base64-encoder-decoder'],
-  'markdown-to-html': ['diff-checker', 'word-counter', 'lorem-ipsum', 'base64-encoder-decoder'],
-  'word-counter': ['diff-checker', 'markdown-to-html', 'lorem-ipsum', 'json-formatter'],
-  'lorem-ipsum': ['word-counter', 'markdown-to-html', 'diff-checker', 'qr-code-generator'],
-  'json-formatter': ['diff-checker', 'base64-encoder-decoder', 'url-encoder', 'qr-code-generator'],
-  'base64-encoder-decoder': ['url-encoder', 'json-formatter', 'diff-checker', 'password-generator'],
-  'url-encoder': ['base64-encoder-decoder', 'json-formatter', 'qr-code-generator', 'diff-checker'],
-  'password-generator': ['qr-code-generator', 'base64-encoder-decoder', 'url-encoder', 'diff-checker'],
-  'qr-code-generator': ['url-encoder', 'password-generator', 'color-picker', 'image-resizer'],
+  'diff-checker': ['markdown-to-html', 'word-counter', 'json-formatter', 'base64-encoder-decoder', 'url-encoder'],
+  'markdown-to-html': ['diff-checker', 'word-counter', 'lorem-ipsum', 'base64-encoder-decoder', 'url-encoder'],
+  'word-counter': ['diff-checker', 'markdown-to-html', 'lorem-ipsum', 'json-formatter', 'pdf-compressor'],
+  'lorem-ipsum': ['word-counter', 'markdown-to-html', 'diff-checker', 'qr-code-generator', 'image-resizer'],
+  'json-formatter': ['diff-checker', 'base64-encoder-decoder', 'url-encoder', 'qr-code-generator', 'password-generator'],
+  'base64-encoder-decoder': ['url-encoder', 'json-formatter', 'diff-checker', 'password-generator', 'qr-code-generator'],
+  'url-encoder': ['base64-encoder-decoder', 'json-formatter', 'qr-code-generator', 'diff-checker', 'password-generator'],
+  'password-generator': ['qr-code-generator', 'base64-encoder-decoder', 'url-encoder', 'diff-checker', 'json-formatter'],
+  'qr-code-generator': ['url-encoder', 'password-generator', 'image-resizer', 'color-picker', 'base64-encoder-decoder'],
   
   // Converters & Image
-  'pdf-compressor': ['image-resizer', 'unit-converter', 'word-counter', 'markdown-to-html'],
-  'image-resizer': ['pdf-compressor', 'color-picker', 'unit-converter', 'qr-code-generator'],
-  'color-picker': ['image-resizer', 'qr-code-generator', 'base64-encoder-decoder', 'markdown-to-html'],
-  'unit-converter': ['percentage-calculator', 'pdf-compressor', 'image-resizer', 'loan-calculator'],
+  'pdf-compressor': ['image-resizer', 'word-counter', 'markdown-to-html', 'unit-converter', 'qr-code-generator'],
+  'image-resizer': ['pdf-compressor', 'color-picker', 'qr-code-generator', 'unit-converter', 'lorem-ipsum'],
+  'color-picker': ['image-resizer', 'qr-code-generator', 'base64-encoder-decoder', 'markdown-to-html', 'json-formatter'],
+  'unit-converter': ['percentage-calculator', 'loan-calculator', 'roi-calculator', 'bmi-calculator', 'pdf-compressor'],
 
-  // Fiji Tools Suite
-  'fiji-vat-calculator': ['fiji-salary-calculator', 'fiji-grocery-budget-calculator', 'fiji-duty-import-calculator', 'fiji-electricity-bill-calculator'],
-  'fiji-fnpf-calculator': ['fiji-salary-calculator', 'fiji-tsls-calculator', 'fiji-mortgage-calculator', 'fiji-annual-leave-calculator'],
-  'fiji-tsls-calculator': ['fiji-salary-calculator', 'fiji-fnpf-calculator', 'fiji-loan-repayment-calculator', 'fiji-mortgage-calculator'],
-  'fiji-salary-calculator': ['fiji-fnpf-calculator', 'fiji-vat-calculator', 'fiji-overtime-calculator', 'fiji-tsls-calculator'],
-  'fiji-taxi-fare-calculator': ['fiji-vehicle-cost-calculator', 'fiji-grocery-budget-calculator', 'fiji-electricity-bill-calculator', 'fiji-vat-calculator'],
-  'fiji-grocery-budget-calculator': ['fiji-vat-calculator', 'fiji-salary-calculator', 'fiji-electricity-bill-calculator', 'fiji-taxi-fare-calculator'],
-  'fiji-loan-repayment-calculator': ['fiji-mortgage-calculator', 'fiji-tsls-calculator', 'fiji-salary-calculator', 'fiji-vehicle-cost-calculator'],
-  'fiji-mortgage-calculator': ['fiji-loan-repayment-calculator', 'fiji-salary-calculator', 'fiji-fnpf-calculator', 'fiji-vehicle-cost-calculator'],
-  'fiji-electricity-bill-calculator': ['fiji-grocery-budget-calculator', 'fiji-taxi-fare-calculator', 'fiji-salary-calculator', 'fiji-vat-calculator'],
-  'fiji-overtime-calculator': ['fiji-salary-calculator', 'fiji-annual-leave-calculator', 'fiji-fnpf-calculator', 'fiji-vat-calculator'],
-  'fiji-annual-leave-calculator': ['fiji-overtime-calculator', 'fiji-salary-calculator', 'fiji-fnpf-calculator', 'fiji-tsls-calculator'],
-  'fiji-vehicle-cost-calculator': ['fiji-taxi-fare-calculator', 'fiji-duty-import-calculator', 'fiji-loan-repayment-calculator', 'fiji-vat-calculator'],
-  'fiji-duty-import-calculator': ['fiji-vat-calculator', 'fiji-vehicle-cost-calculator', 'fiji-grocery-budget-calculator', 'fiji-loan-repayment-calculator'],
+  // Fiji Tools Suite (Deep Interlinking)
+  'fiji-salary-calculator': ['fiji-fnpf-calculator', 'fiji-vat-calculator', 'fiji-overtime-calculator', 'fiji-tsls-calculator', 'fiji-annual-leave-calculator'],
+  'fiji-vat-calculator': ['fiji-salary-calculator', 'fiji-duty-import-calculator', 'fiji-grocery-budget-calculator', 'fiji-electricity-bill-calculator', 'fiji-taxi-fare-calculator'],
+  'fiji-fnpf-calculator': ['fiji-salary-calculator', 'fiji-tsls-calculator', 'fiji-mortgage-calculator', 'fiji-annual-leave-calculator', 'fiji-loan-repayment-calculator'],
+  'fiji-tsls-calculator': ['fiji-salary-calculator', 'fiji-fnpf-calculator', 'fiji-loan-repayment-calculator', 'fiji-mortgage-calculator', 'fiji-annual-leave-calculator'],
+  'fiji-overtime-calculator': ['fiji-salary-calculator', 'fiji-annual-leave-calculator', 'fiji-fnpf-calculator', 'fiji-vat-calculator', 'fiji-grocery-budget-calculator'],
+  'fiji-annual-leave-calculator': ['fiji-salary-calculator', 'fiji-overtime-calculator', 'fiji-fnpf-calculator', 'fiji-tsls-calculator', 'fiji-vat-calculator'],
+  'fiji-loan-repayment-calculator': ['fiji-mortgage-calculator', 'fiji-salary-calculator', 'fiji-tsls-calculator', 'fiji-vehicle-cost-calculator', 'fiji-fnpf-calculator'],
+  'fiji-mortgage-calculator': ['fiji-loan-repayment-calculator', 'fiji-salary-calculator', 'fiji-fnpf-calculator', 'fiji-vehicle-cost-calculator', 'fiji-tsls-calculator'],
+  'fiji-duty-import-calculator': ['fiji-vat-calculator', 'fiji-vehicle-cost-calculator', 'fiji-grocery-budget-calculator', 'fiji-loan-repayment-calculator', 'fiji-taxi-fare-calculator'],
+  'fiji-vehicle-cost-calculator': ['fiji-taxi-fare-calculator', 'fiji-duty-import-calculator', 'fiji-loan-repayment-calculator', 'fiji-vat-calculator', 'fiji-mortgage-calculator'],
+  'fiji-taxi-fare-calculator': ['fiji-vehicle-cost-calculator', 'fiji-grocery-budget-calculator', 'fiji-electricity-bill-calculator', 'fiji-vat-calculator', 'fiji-duty-import-calculator'],
+  'fiji-electricity-bill-calculator': ['fiji-grocery-budget-calculator', 'fiji-taxi-fare-calculator', 'fiji-vat-calculator', 'fiji-salary-calculator', 'fiji-vehicle-cost-calculator'],
+  'fiji-grocery-budget-calculator': ['fiji-vat-calculator', 'fiji-salary-calculator', 'fiji-electricity-bill-calculator', 'fiji-taxi-fare-calculator', 'fiji-duty-import-calculator'],
 
-  // Standard Calculators
-  'loan-calculator': ['compound-interest-calculator', 'roi-calculator', 'sip-calculator', 'percentage-calculator'],
-  'percentage-calculator': ['loan-calculator', 'roi-calculator', 'compound-interest-calculator', 'unit-converter'],
-  'compound-interest-calculator': ['sip-calculator', 'roi-calculator', 'loan-calculator', 'percentage-calculator'],
-  'sip-calculator': ['compound-interest-calculator', 'roi-calculator', 'loan-calculator', 'percentage-calculator'],
-  'roi-calculator': ['compound-interest-calculator', 'sip-calculator', 'loan-calculator', 'percentage-calculator'],
-  'bmi-calculator': ['tdee-calculator', 'age-calculator', 'percentage-calculator', 'unit-converter'],
-  'tdee-calculator': ['bmi-calculator', 'age-calculator', 'percentage-calculator', 'unit-converter'],
-  'age-calculator': ['bmi-calculator', 'tdee-calculator', 'percentage-calculator', 'unit-converter'],
+  // Standard Calculators & Finance
+  'loan-calculator': ['compound-interest-calculator', 'roi-calculator', 'sip-calculator', 'percentage-calculator', 'unit-converter'],
+  'compound-interest-calculator': ['sip-calculator', 'roi-calculator', 'loan-calculator', 'percentage-calculator', 'unit-converter'],
+  'sip-calculator': ['compound-interest-calculator', 'roi-calculator', 'loan-calculator', 'percentage-calculator', 'compound-interest-calculator'],
+  'roi-calculator': ['compound-interest-calculator', 'sip-calculator', 'loan-calculator', 'percentage-calculator', 'unit-converter'],
+  'percentage-calculator': ['loan-calculator', 'roi-calculator', 'compound-interest-calculator', 'unit-converter', 'vat-calculator'],
+  
+  // Health Tools
+  'bmi-calculator': ['tdee-calculator', 'age-calculator', 'percentage-calculator', 'unit-converter', 'word-counter'],
+  'tdee-calculator': ['bmi-calculator', 'age-calculator', 'percentage-calculator', 'unit-converter', 'bmi-calculator'],
+  'age-calculator': ['bmi-calculator', 'tdee-calculator', 'percentage-calculator', 'unit-converter', 'word-counter'],
 };
 
 /**

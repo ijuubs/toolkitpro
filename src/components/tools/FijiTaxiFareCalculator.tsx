@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function FijiTaxiFareCalculator() {
   const [distance, setDistance] = useState<string>('8'); // default 8 km
@@ -102,14 +103,25 @@ export default function FijiTaxiFareCalculator() {
 
       {results && (
         <div className="border-4 border-black bg-yellow-100 p-6 space-y-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <div>
-            <span className="text-sm font-black uppercase text-gray-600 block">Estimated TAXI Fare (Viti Levu)</span>
-            <span className="text-4xl sm:text-5xl font-black text-black">
-              FJD ${results.totalFare.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </span>
-            <span className="block text-[10px] font-bold text-gray-600 mt-2">
-              Based on FCCC & LTA regulated standards in force from 1 October 2026. Covers general Viti Levu taxis only.
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span className="text-sm font-black uppercase text-gray-600 block">Estimated TAXI Fare (Viti Levu)</span>
+              <span className="text-4xl sm:text-5xl font-black text-black">
+                FJD ${results.totalFare.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </span>
+              <span className="block text-[10px] font-bold text-gray-600 mt-2">
+                Based on FCCC & LTA regulated standards in force from 1 October 2026. Covers general Viti Levu taxis only.
+              </span>
+            </div>
+            <ShareResultActions
+              title="Fiji Taxi Fare Estimate"
+              summary={`Fiji Taxi Fare Estimate (ToolKitPro):
+• Estimated Taxi Fare: FJD $${results.totalFare.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Distance: ${distance} km (Fare: FJD $${results.distanceFare.toFixed(2)})
+• Waiting / Idling: ${waitingTime} mins (Fee: FJD $${results.waitingFare.toFixed(2)})
+• Base Flag Drop: FJD $${results.baseFare.toFixed(2)} (${isNightTime ? 'Night Rate' : 'Day Rate'})
+• Standards: FCCC & LTA Regulated Fare Schedule`}
+            />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t-4 border-black pt-4">
@@ -125,6 +137,13 @@ export default function FijiTaxiFareCalculator() {
               <span className="block text-[8px] font-bold uppercase text-gray-600">Waiting Fee ($0.18/min)</span>
               <span className="text-sm font-black text-rose-700">FJD ${results.waitingFare.toFixed(2)}</span>
             </div>
+          </div>
+          
+          <div className="border-2 border-black p-3 bg-neutral-50 text-xs text-neutral-800 space-y-1 mt-4">
+            <p><strong>Last reviewed:</strong> Oct 2026</p>
+            <p><strong>Applicable period:</strong> 2026/2027 Regulatory Schedule</p>
+            <p><strong>Reference:</strong> Fijian Competition and Consumer Commission (FCCC)</p>
+            <p className="italic">Disclaimer: Fares are estimates based on FCCC regulated taxi meter rates. Actual fares may vary based on traffic conditions and specific taxi operator policies.</p>
           </div>
         </div>
       )}

@@ -175,7 +175,7 @@ export default function AnalyticsPage() {
               Web Analytics
             </h1>
             <p className="font-bold text-black text-sm sm:text-base max-w-2xl">
-              100% genuine, real-time client-side metrics. Tracks live active sessions, real page views, tool executions, and download conversions without fabricated seed data.
+              Real-time client-side metrics for your browser session. Tracks page navigation, tool executions, and download conversions occurring locally in this tab. Website-wide traffic is aggregated separately via Google Analytics.
             </p>
           </div>
 
@@ -219,7 +219,7 @@ export default function AnalyticsPage() {
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-black uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
-                Real Traffic
+                Local Tab
               </span>
               <Eye size={18} className="text-blue-600" />
             </div>
@@ -231,8 +231,8 @@ export default function AnalyticsPage() {
             </p>
           </div>
           <div className="mt-4 pt-3 border-t-2 border-black text-xs font-bold flex justify-between items-center text-neutral-600 dark:text-neutral-400">
-            <span>Live Router Sync</span>
-            <span className="font-mono text-green-600 font-black">● Recording</span>
+            <span>In-Browser Count</span>
+            <span className="font-mono text-green-600 font-black">● Active</span>
           </div>
         </div>
 
@@ -241,12 +241,12 @@ export default function AnalyticsPage() {
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-black uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
-                Audience
+                Local ID
               </span>
               <Users size={18} className="text-purple-600" />
             </div>
             <h3 className="text-xl sm:text-2xl font-black uppercase mb-1">
-              Unique Visitors
+              Browser Session
             </h3>
             <p className="text-4xl sm:text-5xl font-black tracking-tight text-purple-700 dark:text-purple-400 font-mono">
               {data.uniqueVisitorsCount.toLocaleString()}

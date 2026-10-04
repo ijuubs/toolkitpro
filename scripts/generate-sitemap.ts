@@ -88,20 +88,33 @@ const categoryRoutes = [
 
   const sitemapContent = `${sitemapHeader}\n${urlNodes}${sitemapFooter}`;
 
+  // Generate a valid Sitemap Index
+  const sitemapIndexHeader = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+  const sitemapIndexFooter = `\n</sitemapindex>\n`;
+  const sitemapIndexContent = `${sitemapIndexHeader}
+  <sitemap>
+    <loc>${BASE_URL}/sitemap.xml</loc>
+    <lastmod>${TODAY}</lastmod>
+  </sitemap>
+${sitemapIndexFooter}`;
+
   const publicDir = path.join(__dirname, '..', 'public');
   if (!fs.existsSync(publicDir)) {
     fs.mkdirSync(publicDir, { recursive: true });
   }
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapContent, 'utf8');
-  fs.writeFileSync(path.join(publicDir, 'sitemap_index.xml'), sitemapContent, 'utf8');
+  fs.writeFileSync(path.join(publicDir, 'sitemap_index.xml'), sitemapIndexContent, 'utf8');
 
   // Also update robots.txt with current base URL
   const robotsTxtContent = `User-agent: *
 Allow: /
+Disallow: /analytics
 
 # Googlebot & Search Crawlers
 User-agent: Googlebot
 Allow: /
+Disallow: /analytics
 
 User-agent: Googlebot-Image
 Allow: /
@@ -113,17 +126,20 @@ Allow: /
 # Allow AI Search Crawlers
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /analytics
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /analytics
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /analytics
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /analytics
 
-Sitemap: ${BASE_URL}/sitemap.xml
 Sitemap: ${BASE_URL}/sitemap_index.xml
 `;
   fs.writeFileSync(path.join(publicDir, 'robots.txt'), robotsTxtContent, 'utf8');
@@ -131,11 +147,12 @@ Sitemap: ${BASE_URL}/sitemap_index.xml
   const distDir = path.join(__dirname, '..', 'dist');
   if (fs.existsSync(distDir)) {
     fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapContent, 'utf8');
-    fs.writeFileSync(path.join(distDir, 'sitemap_index.xml'), sitemapContent, 'utf8');
+    fs.writeFileSync(path.join(distDir, 'sitemap_index.xml'), sitemapIndexContent, 'utf8');
     fs.writeFileSync(path.join(distDir, 'robots.txt'), robotsTxtContent, 'utf8');
   }
 
   console.log(`Sitemap generated successfully (${urls.length} URLs, domain: ${BASE_URL})`);
+  console.log(`Sitemap Index generated successfully pointing to ${BASE_URL}/sitemap.xml`);
 }
 
 generateSitemap();

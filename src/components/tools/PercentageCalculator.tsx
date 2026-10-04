@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function PercentageCalculator() {
   const [percentA, setPercentA] = useState<number>(20);
@@ -10,11 +11,33 @@ export default function PercentageCalculator() {
   const [partA, setPartA] = useState<number>(50);
   const [partB, setPartB] = useState<number>(200);
 
+  const res1 = ((percentA / 100) * percentB).toLocaleString(undefined, { maximumFractionDigits: 4 });
+  const res2 = ((((increaseB - increaseA) / Math.abs(increaseA || 1)) * 100)).toLocaleString(undefined, { maximumFractionDigits: 4 });
+  const res3 = ((partA / (partB || 1)) * 100).toLocaleString(undefined, { maximumFractionDigits: 4 });
+
+  const summary1 = `Percentage Calculation (ToolKitPro):
+What is ${percentA}% of ${percentB}?
+Result = ${res1}`;
+
+  const summary2 = `Percentage Change Calculation (ToolKitPro):
+From ${increaseA} to ${increaseB}
+Percentage Change = ${res2}% (${increaseB > increaseA ? 'Increase' : increaseB < increaseA ? 'Decrease' : 'No Change'})`;
+
+  const summary3 = `Percentage Proportion Calculation (ToolKitPro):
+${partA} is what percentage of ${partB}?
+Result = ${res3}%`;
+
   return (
     <div className="space-y-8 max-w-2xl mx-auto">
       {/* What is X% of Y? */}
       <div className="border-4 border-black p-6 bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-        <h3 className="font-black uppercase mb-4 text-xl border-b-2 border-black pb-2">What is X% of Y?</h3>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b-2 border-black pb-2">
+          <h3 className="font-black uppercase text-xl">What is X% of Y?</h3>
+          <ShareResultActions
+            title="Percentage Calculation"
+            summary={summary1}
+          />
+        </div>
         <div className="flex flex-wrap items-center gap-4">
           <span className="font-bold uppercase">What is</span>
           <input
@@ -32,14 +55,20 @@ export default function PercentageCalculator() {
           />
           <span className="font-bold uppercase">=</span>
           <span className="text-2xl font-black text-black bg-yellow-200 px-4 py-2 border-2 border-black">
-            {((percentA / 100) * percentB).toLocaleString(undefined, { maximumFractionDigits: 4 })}
+            {res1}
           </span>
         </div>
       </div>
 
       {/* Percentage Increase/Decrease */}
       <div className="border-4 border-black p-6 bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-        <h3 className="font-black uppercase mb-4 text-xl border-b-2 border-black pb-2">Percentage Change</h3>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b-2 border-black pb-2">
+          <h3 className="font-black uppercase text-xl">Percentage Change</h3>
+          <ShareResultActions
+            title="Percentage Change Calculation"
+            summary={summary2}
+          />
+        </div>
         <div className="flex flex-wrap items-center gap-4">
           <span className="font-bold uppercase">From</span>
           <input
@@ -57,7 +86,7 @@ export default function PercentageCalculator() {
           />
           <span className="font-bold uppercase">=</span>
           <span className="text-2xl font-black text-black bg-yellow-200 px-4 py-2 border-2 border-black">
-            {((((increaseB - increaseA) / Math.abs(increaseA || 1)) * 100)).toLocaleString(undefined, { maximumFractionDigits: 4 })}%
+            {res2}%
           </span>
         </div>
         <p className="mt-4 font-bold text-sm text-gray-600">
@@ -67,7 +96,13 @@ export default function PercentageCalculator() {
 
       {/* X is what % of Y? */}
       <div className="border-4 border-black p-6 bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-        <h3 className="font-black uppercase mb-4 text-xl border-b-2 border-black pb-2">X is what % of Y?</h3>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b-2 border-black pb-2">
+          <h3 className="font-black uppercase text-xl">X is what % of Y?</h3>
+          <ShareResultActions
+            title="Percentage Proportion Calculation"
+            summary={summary3}
+          />
+        </div>
         <div className="flex flex-wrap items-center gap-4">
           <input
             type="number"
@@ -84,7 +119,7 @@ export default function PercentageCalculator() {
           />
           <span className="font-bold uppercase">=</span>
           <span className="text-2xl font-black text-black bg-yellow-200 px-4 py-2 border-2 border-black">
-            {((partA / (partB || 1)) * 100).toLocaleString(undefined, { maximumFractionDigits: 4 })}%
+            {res3}%
           </span>
         </div>
       </div>

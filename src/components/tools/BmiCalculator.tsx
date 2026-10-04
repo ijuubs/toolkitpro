@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function BmiCalculator() {
   const [weight, setWeight] = useState('');
@@ -17,6 +18,12 @@ export default function BmiCalculator() {
     if (val < 30) return 'Overweight';
     return 'Obese';
   };
+
+  const shareSummary = bmi !== null ? `BMI Health Analysis (ToolKitPro):
+• BMI Score: ${bmi.toFixed(1)}
+• Category: ${getCategory(bmi)}
+• Weight: ${weight} kg
+• Height: ${height} cm` : '';
 
   return (
     <div className="space-y-6">
@@ -45,14 +52,20 @@ export default function BmiCalculator() {
       
       <button 
         onClick={calculate} 
-        className="w-full py-4 bg-black text-white font-black uppercase text-xl shadow-[8px_8px_0px_0px_rgba(34,197,94,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all"
+        className="w-full py-4 bg-black text-white font-black uppercase text-xl shadow-[8px_8px_0px_0px_rgba(34,197,94,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all cursor-pointer"
       >
         Analyze BMI
       </button>
 
-      {bmi && (
-        <div className="p-6 md:p-8 border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <p className="text-sm font-bold uppercase text-[var(--muted)] mb-2">Result</p>
+      {bmi !== null && (
+        <div className="p-6 md:p-8 border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <p className="text-sm font-bold uppercase text-[var(--muted)]">Result</p>
+            <ShareResultActions
+              title="BMI Health Analysis"
+              summary={shareSummary}
+            />
+          </div>
           <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
             <span className="text-5xl sm:text-6xl font-black leading-none">{bmi.toFixed(1)}</span>
             <span className="inline-block text-xl sm:text-2xl font-bold uppercase px-4 py-1.5 bg-yellow-200 border-2 border-black max-w-max">

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function FijiDutyImportCalculator() {
   const [itemCost, setItemCost] = useState<string>('500');
@@ -123,11 +124,24 @@ export default function FijiDutyImportCalculator() {
 
       {results && (
         <div className="border-4 border-black bg-yellow-100 p-6 space-y-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <div>
-            <span className="text-xs font-black uppercase text-gray-600 block">Estimated Import Charges Payable</span>
-            <span className="text-4xl sm:text-5xl font-black text-rose-800">
-              FJD ${results.totalCharges.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span className="text-xs font-black uppercase text-gray-600 block">Estimated Import Charges Payable</span>
+              <span className="text-4xl sm:text-5xl font-black text-rose-800">
+                FJD ${results.totalCharges.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </span>
+            </div>
+            <ShareResultActions
+              title="Fiji Customs Duty & Import VAT Estimate"
+              summary={`Fiji Customs Duty & Import Tax Estimate (ToolKitPro):
+• Estimated Import Charges: FJD $${results.totalCharges.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Total Landed Cost: FJD $${results.totalLandedCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Item FOB Value: FJD $${Number(itemCost).toLocaleString()}
+• Shipping & Freight: FJD $${Number(shippingCost).toLocaleString()}
+• Customs CIF Value: FJD $${results.cifValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Applied Fiscal Duty (${results.appliedDutyRate}%): FJD $${results.fiscalDuty.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Import VAT (15%): FJD $${results.importVat.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+            />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t-4 border-black pt-4">

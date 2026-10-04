@@ -7,7 +7,7 @@ interface AdSlotProps {
   adFormat?: string; 
 }
 
-export default function AdSlot({ minHeight = '250px', className = '', adSlot, adFormat }: AdSlotProps) {
+export default function AdSlot({ minHeight = '250px', className = '', adSlot = '9791142997', adFormat = 'auto' }: AdSlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [adError, setAdError] = useState(false);
   const [canRenderAd, setCanRenderAd] = useState(false);
@@ -52,7 +52,7 @@ export default function AdSlot({ minHeight = '250px', className = '', adSlot, ad
   useEffect(() => {
     if (!canRenderAd || isPushed || adError || isDev) return;
 
-    let timeoutId = window.setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       if (!containerRef.current) return;
       const ins = containerRef.current.querySelector('.adsbygoogle') as HTMLElement;
       if (!ins || ins.hasAttribute('data-adsbygoogle-status')) {
@@ -77,30 +77,46 @@ export default function AdSlot({ minHeight = '250px', className = '', adSlot, ad
     return () => window.clearTimeout(timeoutId);
   }, [canRenderAd, isPushed, adError, isDev]);
 
-  if (adError || (isDev && !(window as any).adsbygoogle)) {
-    return (
-      <div className={`my-8 ${className} bg-yellow-50 border-4 border-dashed border-black flex flex-col items-center justify-center text-xs text-black font-black uppercase p-4`} style={{ minHeight }}>
-        <span className="bg-yellow-400 px-2 mb-1">Ad Slot</span>
-        <span>{adFormat || 'AUTO'} - {adSlot || 'Auto'}</span>
-      </div>
-    );
-  }
-
   return (
-    <div ref={containerRef} className={`block w-full min-w-[250px] max-w-full overflow-hidden my-8 ${className} z-0 relative`} style={{ minHeight }}>
-      <div className="absolute top-0 left-0 text-[10px] uppercase font-black tracking-widest text-gray-600 bg-white/80 px-1 select-none pointer-events-none z-10">
-        Advertisement
+    <div
+      ref={containerRef}
+      className={`border-4 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden ${className}`}
+      role="region"
+      aria-label="Advertisement"
+    >
+      {/* Policy-compliant distinct header disclosure */}
+      <div className="bg-neutral-100 border-b-2 border-black/20 px-3 py-1 flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-neutral-500 select-none">
+        <span>Advertisement</span>
+        <span className="text-[9px] text-neutral-400 font-bold">Sponsored</span>
       </div>
-      {canRenderAd && (
-        <ins
-          className="adsbygoogle"
-          style={{ display: 'block', minWidth: '250px', width: '100%' }}
-          data-ad-client="ca-pub-6659085318131236"
-          data-ad-slot={adSlot || "9791142997"}
-          data-ad-format={adFormat || 'auto'}
-          data-full-width-responsive="true"
-        />
-      )}
+
+      {/* Ad creative container with enforced minHeight to prevent CLS */}
+      <div
+        className="w-full flex items-center justify-center p-2 relative bg-neutral-50/50"
+        style={{ minHeight }}
+      >
+        {adError || (isDev && !(window as any).adsbygoogle) ? (
+          <div className="flex flex-col items-center justify-center text-center p-4">
+            <span className="bg-yellow-300 border-2 border-black px-2 py-0.5 text-xs font-black uppercase mb-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+              AdSense Slot Preview
+            </span>
+            <span className="text-[11px] font-bold text-neutral-600 mt-1 uppercase tracking-tight">
+              Format: {adFormat} • Slot: {adSlot}
+            </span>
+          </div>
+        ) : (
+          canRenderAd && (
+            <ins
+              className="adsbygoogle"
+              style={{ display: 'block', minWidth: '250px', width: '100%', minHeight }}
+              data-ad-client="ca-pub-6659085318131236"
+              data-ad-slot={adSlot}
+              data-ad-format={adFormat}
+              data-full-width-responsive="true"
+            />
+          )
+        )}
+      </div>
     </div>
   );
 }

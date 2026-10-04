@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function CompoundInterestCalculator() {
   const [principal, setPrincipal] = useState<number | ''>(1000);
@@ -52,6 +53,15 @@ export default function CompoundInterestCalculator() {
   };
 
   const results = calculateCompoundInterest();
+
+  const shareSummary = results ? `Compound Interest Growth Projection (ToolKitPro):
+• Future Value: $${Math.round(results.futureValue).toLocaleString()}
+• Total Principal: $${Math.round(results.totalContributions).toLocaleString()}
+• Total Interest Earned: $${Math.round(results.totalInterest).toLocaleString()}
+• Initial Principal: $${Number(principal).toLocaleString()}
+• Regular Contribution: $${Number(contribution).toLocaleString()} (${contributionFrequency === 12 ? 'Monthly' : contributionFrequency === 52 ? 'Weekly' : 'Annually'})
+• Annual Interest Rate: ${rate}%
+• Time Horizon: ${years} Years` : '';
 
   return (
     <div className="space-y-6">
@@ -127,8 +137,14 @@ export default function CompoundInterestCalculator() {
       </div>
 
       {results && (
-        <div className="bg-yellow-400 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <h2 className="text-2xl font-black uppercase mb-4 text-center">Growth Projection</h2>
+        <div className="bg-yellow-400 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <h2 className="text-2xl font-black uppercase text-center sm:text-left">Growth Projection</h2>
+            <ShareResultActions
+              title="Compound Interest Growth Projection"
+              summary={shareSummary}
+            />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-white border-4 border-black p-4 text-center flex flex-col justify-center">
               <div className="text-sm font-bold uppercase text-neutral-800 dark:text-neutral-200 mb-1">Total Principal</div>

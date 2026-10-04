@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ShareResultActions from '../ShareResultActions';
 
 export default function FijiSalaryCalculator() {
   const [grossInput, setGrossInput] = useState<string>('45000');
@@ -137,12 +138,24 @@ export default function FijiSalaryCalculator() {
 
       {results && !error && (
         <div className="border-4 border-black bg-yellow-100 p-6 space-y-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <div className="space-y-1">
-            <span className="text-sm font-black uppercase text-gray-600 block">Estimated Net Pay (Take Home)</span>
-            <span className="text-4xl sm:text-5xl font-black text-black">
-              FJD ${results.net.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              <span className="text-lg font-bold uppercase text-gray-700 ml-2">/ {frequency}</span>
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-sm font-black uppercase text-gray-600 block">Estimated Net Pay (Take Home)</span>
+              <span className="text-4xl sm:text-5xl font-black text-black">
+                FJD ${results.net.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                <span className="text-lg font-bold uppercase text-gray-700 ml-2">/ {frequency}</span>
+              </span>
+            </div>
+            <ShareResultActions
+              title="Fiji Salary & PAYE Tax Calculation"
+              summary={`Fiji Salary & PAYE Tax Calculation (ToolKitPro):
+• Estimated Net Pay: FJD $${results.net.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / ${frequency}
+• Gross Salary: FJD $${results.gross.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Employee FNPF (${fnpfRate}%): FJD $${results.fnpf.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• PAYE Tax Estimated: FJD $${results.paye.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Chargeable Income: FJD $${results.chargeableIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+• Annual Equivalent: FJD $${results.annualGross.toLocaleString('en-US', { maximumFractionDigits: 0 })} Gross | FJD $${results.annualNet.toLocaleString('en-US', { maximumFractionDigits: 0 })} Net`}
+            />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t-4 border-black pt-4">
@@ -184,6 +197,13 @@ export default function FijiSalaryCalculator() {
                 <span className="text-sm font-black text-emerald-700">FJD ${results.annualNet.toLocaleString('en-US', { maximumFractionDigits: 0 })}</span>
               </div>
             </div>
+          </div>
+          
+          <div className="border-2 border-black p-3 bg-neutral-50 text-xs text-neutral-800 space-y-1 mt-4">
+            <p><strong>Last reviewed:</strong> Oct 2026</p>
+            <p><strong>Applicable period:</strong> 2026/2027 Financial Year</p>
+            <p><strong>Reference:</strong> Fiji Revenue and Customs Service (FRCS) Tax Tables</p>
+            <p className="italic">Disclaimer: Tax calculation is an estimate based on statutory tax brackets. Seek professional tax advice for your specific situation.</p>
           </div>
         </div>
       )}
