@@ -48,6 +48,7 @@ const FijiTaxiFareCalculator = lazy(() => import('../components/tools/FijiTaxiFa
 const FijiVatCalculator = lazy(() => import('../components/tools/FijiVatCalculator'));
 const FijiFnpfCalculator = lazy(() => import('../components/tools/FijiFnpfCalculator'));
 const FijiTslsCalculator = lazy(() => import('../components/tools/FijiTslsCalculator'));
+const FijiBusinessStartupCostCalculator = lazy(() => import('../components/tools/FijiBusinessStartupCostCalculator'));
 const DiffChecker = lazy(() => import('../components/tools/DiffChecker'));
 
 export default function ToolTemplate() {
@@ -126,6 +127,7 @@ export default function ToolTemplate() {
         case 'fiji-vat-calculator': return <FijiVatCalculator />;
         case 'fiji-fnpf-calculator': return <FijiFnpfCalculator />;
         case 'fiji-tsls-calculator': return <FijiTslsCalculator />;
+        case 'fiji-business-startup-cost': return <FijiBusinessStartupCostCalculator />;
         case 'diff-checker': return <DiffChecker />;
         
         default: return <p className="text-center text-[var(--muted)]">Tool interface for {tool.name} coming soon.</p>;

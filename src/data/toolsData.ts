@@ -3104,6 +3104,94 @@ Planning multi-decade retirement savings and capital accumulation requires absol
         answer: 'No. All calculations run strictly inside your browser’s local client memory via JavaScript. No financial numbers, time horizons, or balance projections are ever transmitted or saved to external servers.'
       }
     ]
+  },
+  {
+    id: 'fiji-business-startup-cost',
+    slug: 'fiji-business-startup-cost',
+    name: 'Fiji Business Startup Cost Calculator',
+    titleTag: 'Fiji Business Startup Cost Calculator | Estimate Setup Budget FJD',
+    description: 'Estimate initial startup expenses for launching a small business or company in Fiji. Calculate setup fees, premises, equipment, inventory, and working capital in FJD.',
+    category: 'Fiji Business',
+    usp: 'Comprehensive financial estimator for new business ventures across Fiji with localized FJD budgeting.',
+    aliases: ['fiji-startup-cost-calculator', 'business-setup-cost-fiji', 'startup-budget-fiji'],
+    metaDescription: 'Free online business startup cost calculator for Fiji. Estimate business registration fees, premises deposit, equipment, stock, and working capital requirements in FJD.',
+    howTo: `### Comprehensive Guide to Calculating Business Startup Costs in Fiji
+
+Starting a new enterprise in the Republic of Fiji—whether launching a retail storefront in Suva Central, establishing an eco-tourism venture on Vanua Levu, opening a cafe in Nadi, or registering an export consultancy—requires meticulous financial planning. Underestimating initial capital requirements is one of the leading causes of early-stage business failure. 
+
+Our **Fiji Business Startup Cost Calculator** is designed for entrepreneurs, micro, small, and medium enterprises (MSMEs), and startup founders to model, categorize, and calculate preliminary capital needs in Fiji Dollars (FJD).
+
+---
+
+#### 1. Major Cost Categories in Fiji Business Setup
+
+When establishing a business entity in Fiji, expenses generally fall into six core categories:
+
+1. **Business Setup & Legal Compliance:**
+   - Company registration with the **Registrar of Companies (Ministry of Trade, Co-operatives, Small and Medium Enterprises and Communications)**.
+   - Local municipal council trading licenses (e.g., Suva City Council, Lautoka City Council, Nadi Town Council).
+   - Professional service fees for accountants, tax agents (FRCS compliance setup), and legal advisors.
+
+2. **Premises & Commercial Real Estate:**
+   - Commercial security deposits (typically 2 to 3 months' rent in prime urban areas).
+   - Advance rent payments.
+   - Fit-out, partitioning, electrical wiring, security shutter installation, and interior painting.
+
+3. **Equipment, Technology & Furniture:**
+   - Commercial machinery, kitchen appliances, or office desks.
+   - Point of Sale (POS) hardware, barcode scanners, desktop computers, and secure Wi-Fi routers.
+
+4. **Initial Inventory & Stock:**
+   - Raw materials or wholesale finished goods.
+   - Branded packaging, shopping bags, labels, and operational consumables.
+
+5. **Operations & Launch Marketing:**
+   - Utilities connection fees (Energy Fiji Limited - EFL, Water Authority of Fiji - WAF, and telecommunications).
+   - Business insurance policies (public liability, fire, and theft).
+   - Launch advertising, digital social media campaigns, and signage.
+   - Initial transport or delivery setup costs.
+
+6. **Working Capital Reserve:**
+   - Cash buffer to cover staff wages, ongoing rent, and operational overhead during the initial 3 to 6 months while revenue scales up.
+
+---
+
+#### 2. Statutory Context & Regulatory Bodies in Fiji
+
+- **FRCS (Fiji Revenue and Customs Service):** Companies operating in Fiji must register for Tax Identification Number (TIN) and Value Added Tax (VAT) if annual turnover exceeds statutory registration thresholds.
+- **FNPF (Fiji National Provident Fund):** Employers are legally mandated to register and remit monthly FNPF contributions for all local employees (matching employer contributions of minimum 7% to 10% alongside employee deductions).
+- **FCCC (Fijian Competition and Consumer Commission):** Monitors fair trade and regulated pricing where applicable.
+
+---
+
+#### 3. Frequently Asked Questions
+
+*   **What is the minimum working capital recommended for a startup in Fiji?**
+    Most financial advisors recommend keeping at least 3 to 6 months of projected operating expenses as working capital reserve to absorb initial cash flow fluctuations.
+*   **Are commercial lease deposits subject to VAT in Fiji?**
+    Commercial rent in Fiji is subject to standard 15% Value Added Tax (VAT) when leased from registered VAT taxpayers.
+*   **How long does company registration take in Fiji?**
+    Online business registration via the official digital portal can often be completed within a few business days once all documentation is correctly submitted.
+*   **Is this calculator an official government fee schedule?**
+    No. This tool is an independent estimation utility. Official registration fees and licensing costs should be verified directly with the Registrar of Companies and respective municipal councils.`,
+    faqs: [
+      {
+        question: 'What expenses are included in Fiji business setup costs?',
+        answer: 'Business setup costs include Registrar of Companies registration fees, municipal trading licenses, and professional accounting or legal advisory fees.'
+      },
+      {
+        question: 'Why is working capital important for startups in Fiji?',
+        answer: 'Working capital provides a cash reserve to pay rent, utilities, and staff wages during the critical initial months before the business achieves positive cash flow.'
+      },
+      {
+        question: 'How do I calculate non-working-capital startup costs?',
+        answer: 'Non-working-capital startup costs sum up immediate capital expenditures including setup fees, premises fit-out, equipment, inventory, and operations setup.'
+      },
+      {
+        question: 'Are there statutory employer obligations in Fiji?',
+        answer: 'Yes, employers must register with FNPF for mandatory employee retirement fund contributions and comply with FRCS tax reporting requirements.'
+      }
+    ]
   }
 ];
 
