@@ -89,7 +89,7 @@ const SESSION_START_KEY = 'tkp_session_start';
 const CHANNEL_NAME = 'tkp_realtime_analytics_bus';
 
 export const GA_MEASUREMENT_ID = 
-  import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-QR3WP8T7T6';
+  import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-2K0SM7HDM8';
 
 interface StoredAnalytics {
   visitorIds: string[];
