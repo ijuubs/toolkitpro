@@ -3192,6 +3192,152 @@ When establishing a business entity in Fiji, expenses generally fall into six co
         answer: 'Yes, employers must register with FNPF for mandatory employee retirement fund contributions and comply with FRCS tax reporting requirements.'
       }
     ]
+  },
+  {
+    id: 'fiji-financial-planner',
+    slug: 'fiji-financial-planner',
+    name: 'Fiji Financial Planner',
+    titleTag: 'Fiji Financial Planner | Personal & Household Budget Calculator FJD',
+    description: 'Plan your personal or household finances in Fiji. Calculate net pay after FNPF and PAYE, track living expenses, debts, groceries, and project monthly cash flow in FJD.',
+    category: 'Fiji Tools',
+    usp: 'All-in-one personal finance and household cash flow planner tailored to Fiji salaries, FNPF, PAYE tax brackets, and local living expenses.',
+    aliases: ['fiji-budget-planner', 'fiji-household-budget', 'personal-finance-calculator-fiji', 'fiji-cash-flow-planner', 'fiji-money-planner', 'fiji-expense-planner'],
+    metaDescription: 'Free comprehensive personal and household financial planner for Fiji. Calculate take-home pay with 8% FNPF and FRCS tax, budget rent, food, debts, and savings in FJD.',
+    howTo: `### The Definitive Guide to Personal & Household Financial Planning in Fiji
+
+Managing personal finances and running a household budget in the Republic of Fiji requires balancing modern economic realities with deeply ingrained cultural, community, and religious commitments. From navigating the rising costs of imported goods and urban housing along the Suva-Nausori or Nadi-Lautoka corridors to managing statutory deductions like the Fiji National Provident Fund (FNPF) and Fiji Revenue and Customs Service (FRCS) PAYE income tax, financial stability demands intentional planning.
+
+The **ToolKitPro Fiji Financial Planner** provides an integrated, localized financial operating system engineered specifically for Fijian wage earners, civil servants, dual-income households, and sole proprietors. It allows you to model your exact take-home pay, audit monthly living expenditures, evaluate bank debt-to-income benchmarks, and protect your family with emergency runway buffers.
+
+---
+
+#### 1. Understanding Fiji's Statutory Income Deductions: FNPF & PAYE
+
+Before allocating money towards rent, groceries, or savings, you must understand how your gross salary converts into net take-home pay under Fiji law.
+
+##### A. Fiji National Provident Fund (FNPF)
+- **Mandatory Employee Contribution:** Under the FNPF Act, formal employees in Fiji contribute **8%** of their gross wages towards their retirement savings fund.
+- **Mandatory Employer Contribution:** Employers are legally required to contribute a matching amount—typically **8% to 10%**—directly into the employee's FNPF account.
+- **Tax Deductibility:** In Fiji, your mandatory employee FNPF contribution is 100% tax-deductible when determining your taxable (chargeable) income for PAYE purposes.
+- **Preserved vs. General Accounts:** FNPF balances are partitioned into a Preserved Account (reserved strictly for retirement at age 55) and a General Account (accessible for approved pre-retirement purposes such as home purchase, education, and medical emergencies).
+
+##### B. FRCS PAYE (Pay As You Earn) Progressive Income Tax
+Fiji operates a progressive individual income tax schedule administered by the Fiji Revenue and Customs Service (FRCS):
+1. **$0 to $30,000 FJD (Tax-Free Threshold):** Individuals earning chargeable income up to $30,000 annually pay **0% income tax**. This progressive threshold ensures that lower and middle-income earners take home the maximum possible share of their earnings.
+2. **$30,001 to $50,000 FJD:** Chargeable income within this bracket is taxed at **18%** on the portion exceeding $30,000.
+3. **$50,001+ FJD:** Chargeable income above $50,000 incurs a base tax of **$3,600 FJD plus 20%** on every dollar earned above $50,000.
+
+**Chargeable Income Formula:**
+$$\\text{Chargeable Income} = \\text{Gross Annual Salary} - \\text{Employee FNPF Contribution (8\\%)} $$
+
+---
+
+#### 2. Structuring Your Household Budget for Fiji Living Costs
+
+A practical Fiji financial plan categorizes spending into four primary buckets: Housing & Utilities, Food & Living, Transport & Obligations, and Debt Servicing.
+
+##### 1. Housing & Accommodation
+- **Urban Rent vs. Mortgage:** In Suva Central, Raiwai, Domain, or Namadi Heights, rental prices for 2 to 3-bedroom flats can range from $800 to $2,500+ FJD monthly. In the Western Division (Lautoka, Nadi), rental rates range from $600 to $1,800 FJD.
+- **Rule of Thumb:** Housing costs (rent or mortgage payment) should never exceed **30% of your net monthly take-home pay**. Spending beyond 35% leaves families vulnerable to cash crunches when utility or medical costs spike.
+- **Municipal Rates & Ground Rent:** Homeowners in municipal council boundaries (Suva City Council, Lautoka City Council, Nadi Town Council) or on TLTB (iTaukei Land Trust Board) leasehold land must budget for semi-annual municipal rates and annual lease rentals.
+
+##### 2. Essential Utilities (EFL, WAF, Communications)
+- **Energy Fiji Limited (EFL):** Residential electricity in Fiji is billed on progressive consumption tiers per kilowatt-hour (kWh). Households running air conditioning or multiple refrigerators frequently experience monthly bills between $120 and $300 FJD.
+- **Water Authority of Fiji (WAF):** Residential water bills are generally affordable (typically $15 to $40 FJD per month), though water tank storage and water pump maintenance represent occasional capital costs.
+- **Telecommunications:** Data recharges with Vodafone Fiji, Digicel Fiji, or Telecom Fiji fiber broadband generally demand $70 to $150 FJD monthly per household.
+
+##### 3. Food, Groceries & Market Shopping
+The most effective way to optimize grocery spending in Fiji is understanding the dual-market dynamic:
+- **Price-Controlled & Zero-VAT Supermarket Staples:** The Fijian Competition and Consumer Commission (FCCC) regulates maximum retail prices for core staples such as flour, sharps, rice, sugar, baby milk, and canned mackerel. Essential foodstuffs are exempt from Value Added Tax (0% VAT), keeping baseline nutrition accessible.
+- **Municipal Produce Markets:** Fresh fruits, leafy greens (bele, rourou, tubua), root crops (dalo, cassava, kumala), and fresh seafood should always be purchased at local municipal markets (Suva Market, Nausori Market, Lautoka Market) rather than high-end supermarkets. Buying local produce in season reduces family food expenditure by 30% to 50% while supporting local growers.
+
+##### 4. Transport & Mobility
+- **Public Transport:** Fiji's mandatory electronic ticketing system (Vodafone eTransport card) makes bus travel predictable and economical. Daily commuters spend between $60 and $120 FJD monthly.
+- **Private Vehicle Ownership:** Owning an imported hybrid vehicle (e.g., Toyota Prius, Aqua, or Fielder) requires budgeting for fuel ($150 to $350 FJD/mo), annual Land Transport Authority (LTA) wheel tax and vehicle inspection (fitness), and third-party or comprehensive motor insurance.
+
+##### 5. Cultural, Religious & Community Obligations
+Unique to Fiji is the cultural expectation of communal giving and family solidarity:
+- **Church Tithing & Soli:** Many Fijian families contribute weekly or monthly tithes and participate in annual church fundraising soli.
+- **Reguregu, Weddings & Village Contributions:** Traditional obligations, funeral gatherings (reguregu), and rural village development funds are standard aspects of life.
+- **Budgeting Strategy:** Rather than treating cultural contributions as unexpected emergencies, allocate a dedicated monthly line item (typically 5% to 10% of take-home pay). This protects your emergency savings while honoring family and community ties.
+
+---
+
+#### 3. Managing Debt & The Fiji Commercial Bank Lending Standard
+
+In Fiji, retail credit is readily available through commercial banks (BSP Financial Group, ANZ Fiji, Westpac Fiji, HFC Bank, Bred Bank) and commercial hire-purchase retailers (Courts Fiji, Vinod Patel Home & Living, Carpenters Morris Hedstrom).
+
+##### A. The 35% Debt-to-Income (DTI) Benchmark
+When applying for a home loan, vehicle finance, or personal loan, Fiji commercial banks rigorously calculate your **Total Debt-to-Income (DTI) Ratio**:
+$$\\text{DTI Ratio (\\%)} = \\left( \\frac{\\text{Total Monthly Debt Repayments}}{\\text{Net Monthly Take-Home Income}} \\right) \\times 100$$
+- **Healthy Level (\\le 35\\%):** Banks consider your finances stable. You maintain adequate cash flow for living expenses and emergencies.
+- **Elevated Risk (> 35\\%):** You will encounter difficulty securing new credit, and interest rate increases or inflation will strain your household budget.
+
+##### B. The True Cost of Hire-Purchase Accounts
+Buying furniture, television sets, washing machines, or smartphones on hire purchase allows immediate access to goods, but carries high effective interest rates, administrative ledger fees, and mandatory credit insurance.
+- **Recommendation:** Prioritize paying off hire-purchase balances aggressively before taking on additional loans.
+
+---
+
+#### 4. Building Wealth: Emergency Reserves & Investments in Fiji
+
+True financial resilience comes from intentional savings and long-term asset accumulation:
+
+##### A. Establishing an Emergency Fund Runway
+Aim to build an emergency fund equal to **3 to 6 months of essential living expenses** in an accessible Fiji bank account. This provides a safety cushion against unexpected car breakdowns, medical expenses, or sudden economic shocks.
+
+##### B. Unit Trust of Fiji (UTOF) & SPX Shares
+Beyond standard commercial bank savings accounts (which often offer modest interest rates), Fijian residents can invest in managed investment schemes such as the **Unit Trust of Fiji (UTOF)**:
+- Low minimum entry threshold ($50 to $100 FJD).
+- Historical annual dividend yields typically between 4% and 7%.
+- Tax-exempt dividend distribution under current Fijian tax legislation.
+
+##### C. Voluntary FNPF Contributions
+Individuals can deposit additional voluntary funds directly into their FNPF account, benefiting from compound annual interest returns declared by the FNPF board.
+
+---
+
+#### 5. Step-by-Step Guide to Using the Fiji Financial Planner
+
+1. **Step 1: Enter Your Income & Select Pay Frequency:** Input your regular gross wage or salary and select your pay cycle (fortnightly for civil servants and corporate staff, or monthly/weekly).
+2. **Step 2: Review Statutory Deductions:** The tool automatically computes your statutory 8% FNPF contribution and FRCS PAYE tax brackets. Add any secondary income or side-business cash flow.
+3. **Step 3: Fill in Housing, Food & Living Costs:** Navigate through the category tabs to record your rent, EFL electricity, water, supermarket food, municipal market produce, and transport.
+4. **Step 4: Input Cultural & Debt Commitments:** Enter your church giving, soli, bank loans, and hire-purchase payments.
+5. **Step 5: Inspect the Cash Flow Dashboard & Health Scorecard:**
+   - Toggle between **Monthly, Fortnightly, and Weekly views** to match your real-life pay schedule.
+   - Check your **Debt-to-Income (DTI)** ratio against the 35% bank limit.
+   - Verify that your **Net Free Cash Flow Buffer** is positive.
+6. **Step 6: Copy or Share Your Plan:** Use the **Copy Summary** button to generate a clean, formatted budget breakdown to share with your spouse or financial advisor.`,
+    faqs: [
+      {
+        question: 'How does FNPF affect my taxable income in Fiji?',
+        answer: 'Under Fiji Revenue and Customs Service (FRCS) rules, the mandatory 8% employee FNPF contribution is fully tax-deductible. PAYE tax is only assessed on your Chargeable Income (Gross Salary minus 8% FNPF).'
+      },
+      {
+        question: 'What is the personal income tax threshold in Fiji?',
+        answer: 'Fiji has a generous personal income tax-free threshold of $30,000 FJD per year. If your annual chargeable income is $30,000 or less, you pay 0% PAYE income tax.'
+      },
+      {
+        question: 'What is a healthy debt-to-income (DTI) ratio for Fiji banks?',
+        answer: 'Commercial banks in Fiji (BSP, ANZ, Westpac, HFC, Bred Bank) generally recommend that total monthly debt payments (personal loans, car loans, hire-purchase, credit cards) not exceed 35% of your net monthly take-home salary.'
+      },
+      {
+        question: 'How should I budget for traditional obligations like soli and reguregu?',
+        answer: 'Cultural and church contributions (soli, church tithing, reguregu, village dues) are regular aspects of life in Fiji. Financial planners advise treating them as a planned monthly line item (typically 5% to 10% of your budget) rather than unexpected emergencies.'
+      },
+      {
+        question: 'Why should I track market shopping separately from supermarket groceries?',
+        answer: 'In Fiji, fresh root crops, fruits, vegetables, and seafood purchased at municipal markets (Suva, Nausori, Lautoka, Nadi) are substantially cheaper and fresher than imported supermarket produce. Separating these items allows families to optimize their food budgets.'
+      },
+      {
+        question: 'How many months of emergency fund should a household in Fiji maintain?',
+        answer: 'Financial experts recommend keeping 3 to 6 months of essential living expenses (housing, food, utilities, transport, and debt minimums) in liquid savings or accessible accounts.'
+      },
+      {
+        question: 'Can I view my budget on a fortnightly basis?',
+        answer: 'Yes. Many employers and the civil service in Fiji pay employees on a fortnightly cycle. The ToolKitPro Fiji Financial Planner features an instant toggle to view your income, expenses, and surplus on a monthly, fortnightly, weekly, or annual basis.'
+      }
+    ]
   }
 ];
 

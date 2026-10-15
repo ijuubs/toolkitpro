@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { TOOLS } from '../data/toolsData';
 import { Suspense, lazy, useEffect } from 'react';
-import { trackToolView } from '../utils/analytics';
+import { trackToolView, trackToolUsage } from '../utils/analytics';
 import { addRecentTool } from '../utils/recentTools';
 import AdSlot from '../components/AdSlot';
 import ErrorBoundary from '../components/ErrorBoundary';
@@ -49,6 +49,7 @@ const FijiVatCalculator = lazy(() => import('../components/tools/FijiVatCalculat
 const FijiFnpfCalculator = lazy(() => import('../components/tools/FijiFnpfCalculator'));
 const FijiTslsCalculator = lazy(() => import('../components/tools/FijiTslsCalculator'));
 const FijiBusinessStartupCostCalculator = lazy(() => import('../components/tools/FijiBusinessStartupCostCalculator'));
+const FijiFinancialPlanner = lazy(() => import('../components/tools/FijiFinancialPlanner'));
 const DiffChecker = lazy(() => import('../components/tools/DiffChecker'));
 
 export default function ToolTemplate() {
@@ -60,6 +61,7 @@ export default function ToolTemplate() {
   useEffect(() => {
     if (tool) {
       trackToolView(tool.id, tool.name, tool.category);
+      trackToolUsage(tool.id, tool.name, tool.category, 'open_tool');
       addRecentTool(tool.id);
     }
   }, [tool?.id]);
@@ -128,6 +130,7 @@ export default function ToolTemplate() {
         case 'fiji-fnpf-calculator': return <FijiFnpfCalculator />;
         case 'fiji-tsls-calculator': return <FijiTslsCalculator />;
         case 'fiji-business-startup-cost': return <FijiBusinessStartupCostCalculator />;
+        case 'fiji-financial-planner': return <FijiFinancialPlanner />;
         case 'diff-checker': return <DiffChecker />;
         
         default: return <p className="text-center text-[var(--muted)]">Tool interface for {tool.name} coming soon.</p>;

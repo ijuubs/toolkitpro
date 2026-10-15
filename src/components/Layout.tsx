@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Menu, X, ChevronRight, LayoutGrid, BookOpen, Info, HelpCircle, Mail, Map, Cookie } from 'lucide-react';
+import { Menu, X, ChevronRight, LayoutGrid, BookOpen, Info, HelpCircle, Mail, Map, Cookie, TrendingUp } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import Logo from './Logo';
 import CookieConsent, { OPEN_CONSENT_EVENT } from './CookieConsent';
@@ -88,6 +88,7 @@ export default function Layout() {
           </div>
           <div className="flex gap-1.5 sm:gap-3 md:gap-6 items-center">
             <Link to="/" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">Tools</Link>
+            <Link to="/analytics" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">Analytics</Link>
             <Link to="/blog" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">Blog</Link>
             <Link to="/about" className="hidden md:block text-sm font-black uppercase px-2 py-1 hover:bg-yellow-400 hover:text-black transition-colors">About</Link>
             <ThemeToggle />
@@ -123,6 +124,14 @@ export default function Layout() {
                   >
                     <LayoutGrid size={16} />
                     <span>All Tools</span>
+                  </Link>
+                  <Link
+                    to="/analytics"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-2 p-3 bg-white dark:bg-[#202020] border-2 border-black font-black uppercase text-xs hover:bg-yellow-300 hover:text-black transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 min-h-[44px]"
+                  >
+                    <TrendingUp size={16} />
+                    <span>Analytics</span>
                   </Link>
                   <Link
                     to="/blog"
@@ -241,6 +250,7 @@ export default function Layout() {
             <h4 className="font-black uppercase text-base mb-4 text-yellow-400 tracking-wider">Platform</h4>
             <ul className="space-y-2.5 font-bold uppercase text-xs text-neutral-300">
               <li><Link to="/blog" className="hover:text-yellow-400 transition-colors">Articles & Guides</Link></li>
+              <li><Link to="/analytics" className="hover:text-yellow-400 transition-colors">Web Analytics</Link></li>
               <li><Link to="/about" className="hover:text-yellow-400 transition-colors">About ToolKitPro</Link></li>
               <li><Link to="/contact" className="hover:text-yellow-400 transition-colors">Feedback & Contact</Link></li>
               <li><Link to="/faq" className="hover:text-yellow-400 transition-colors">Frequently Asked Questions</Link></li>
