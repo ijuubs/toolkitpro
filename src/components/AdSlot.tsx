@@ -85,9 +85,9 @@ export default function AdSlot({ minHeight = '250px', className = '', adSlot = '
       aria-label="Advertisement"
     >
       {/* Policy-compliant distinct header disclosure */}
-      <div className="bg-neutral-100 border-b-2 border-black/20 px-3 py-1 flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-neutral-500 select-none">
+      <div className="bg-neutral-100 border-b-2 border-black/20 px-3 py-1 flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-neutral-700 select-none">
         <span>Advertisement</span>
-        <span className="text-[9px] text-neutral-400 font-bold">Sponsored</span>
+        <span className="text-[9px] text-neutral-700 font-bold">Sponsored</span>
       </div>
 
       {/* Ad creative container with enforced minHeight to prevent CLS */}
@@ -100,7 +100,7 @@ export default function AdSlot({ minHeight = '250px', className = '', adSlot = '
             <span className="bg-yellow-300 border-2 border-black px-2 py-0.5 text-xs font-black uppercase mb-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
               AdSense Slot Preview
             </span>
-            <span className="text-[11px] font-bold text-neutral-600 mt-1 uppercase tracking-tight">
+            <span className="text-[11px] font-bold text-neutral-800 mt-1 uppercase tracking-tight">
               Format: {adFormat} • Slot: {adSlot}
             </span>
           </div>

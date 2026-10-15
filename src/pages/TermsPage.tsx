@@ -42,7 +42,7 @@ export default function TermsPage() {
       
       <div className="prose prose-lg max-w-none text-neutral-800 space-y-6 text-sm sm:text-base leading-relaxed">
         <p>
-          Welcome to <strong>{SITE_NAME}</strong>. By accessing or using our website located at <a href={SITE_URL} className="underline font-bold text-black">{SITE_URL}</a> and any of our associated utility tools, calculators, and applications, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+          Welcome to <strong>{SITE_NAME}</strong>. By accessing or using our website located at <a href={SITE_URL} className="underline font-bold text-black">{SITE_NAME} Official Website ({SITE_URL})</a> and any of our associated utility tools, calculators, and applications, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
         </p>
 
         <section className="space-y-3">

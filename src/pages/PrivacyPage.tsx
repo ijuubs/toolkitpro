@@ -53,7 +53,7 @@ export default function PrivacyPage() {
             Overview: In-Browser Tool Processing
           </h2>
           <p className="font-medium text-xs sm:text-sm text-neutral-700 leading-relaxed">
-            At <strong>{SITE_NAME}</strong> (accessible at <a href={SITE_URL} className="underline font-bold text-black">{SITE_URL}</a>), all file modifications, text manipulation, and calculation tool inputs are processed locally in your browser and not uploaded to our servers. This policy explains what information is collected, how cookies and third-party advertising partners operate, and how you can manage your privacy choices.
+            At <strong>{SITE_NAME}</strong> (accessible at <a href={SITE_URL} className="underline font-bold text-black">{SITE_NAME} Official Website ({SITE_URL})</a>), all file modifications, text manipulation, and calculation tool inputs are processed locally in your browser and not uploaded to our servers. This policy explains what information is collected, how cookies and third-party advertising partners operate, and how you can manage your privacy choices.
           </p>
         </div>
 
@@ -197,9 +197,9 @@ export default function PrivacyPage() {
             If you have questions or inquiries regarding this Privacy Policy, please contact:
           </p>
           <div className="bg-neutral-100 border-2 border-black p-4 font-mono text-xs sm:text-sm space-y-1">
-            <p><strong>Website:</strong> <a href={SITE_URL} className="underline">{SITE_URL}</a></p>
-            <p><strong>Contact Email:</strong> <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a></p>
-            <p><strong>Contact Form:</strong> <a href={`${SITE_URL}/contact`} className="underline">{SITE_URL}/contact</a></p>
+            <p><strong>Website:</strong> <a href={SITE_URL} className="underline">{SITE_NAME} Official Website ({SITE_URL})</a></p>
+            <p><strong>Contact Email:</strong> <a href={`mailto:${CONTACT_EMAIL}`} className="underline">Send Email to {CONTACT_EMAIL}</a></p>
+            <p><strong>Contact Form:</strong> <a href={`${SITE_URL}/contact`} className="underline">ToolKitPro Contact Form ({SITE_URL}/contact)</a></p>
           </div>
         </section>
       </div>

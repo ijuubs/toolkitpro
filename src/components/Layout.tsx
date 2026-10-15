@@ -226,7 +226,7 @@ export default function Layout() {
               <Logo size="md" theme="dark" />
               ToolKitPro
             </Link>
-            <p className="text-neutral-400 font-medium text-sm leading-relaxed">
+            <p className="text-neutral-300 font-medium text-sm leading-relaxed">
               Open browser-based utility platform. All operations execute locally. Inputs are processed in your browser and not uploaded.
             </p>
             <div className="inline-block px-2.5 py-1 bg-neutral-900 border border-neutral-700 text-xs text-yellow-300 font-mono font-bold">
@@ -279,7 +279,7 @@ export default function Layout() {
           </div>
         </div>
         
-        <div className="max-w-[1200px] mx-auto mt-12 pt-6 border-t border-neutral-800 text-xs font-bold uppercase tracking-wider text-neutral-400 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="max-w-[1200px] mx-auto mt-12 pt-6 border-t border-neutral-800 text-xs font-bold uppercase tracking-wider text-neutral-300 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p>&copy; {new Date().getFullYear()} ToolKitPro. Built for speed, privacy, and utility.</p>
           <div className="flex flex-wrap gap-4 text-xs font-black uppercase text-yellow-400 items-center">
             <Link to="/about" className="hover:underline">About</Link>

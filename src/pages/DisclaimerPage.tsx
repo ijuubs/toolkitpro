@@ -47,7 +47,7 @@ export default function DisclaimerPage() {
             1. General Information Only
           </h2>
           <p>
-            All information, tools, converters, and calculators on this website—<a href={SITE_URL} className="underline font-bold text-black">{SITE_URL}</a>—are published in good faith and for general informational and educational purposes only. {SITE_NAME} makes no representations or warranties of any kind, express or implied, regarding the completeness, accuracy, reliability, suitability, or availability of the results generated. Any reliance you place on such information is strictly at your own risk.
+            All information, tools, converters, and calculators on this website—<a href={SITE_URL} className="underline font-bold text-black">{SITE_NAME} Official Website ({SITE_URL})</a>—are published in good faith and for general informational and educational purposes only. {SITE_NAME} makes no representations or warranties of any kind, express or implied, regarding the completeness, accuracy, reliability, suitability, or availability of the results generated. Any reliance you place on such information is strictly at your own risk.
           </p>
         </section>
 
