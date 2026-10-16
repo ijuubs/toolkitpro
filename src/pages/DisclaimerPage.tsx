@@ -16,6 +16,13 @@ export default function DisclaimerPage() {
         <meta property="og:description" content={`Important legal, financial, tax, and health disclaimer regarding the use of utility tools and calculators on ${SITE_NAME}.`} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Disclaimer | ${SITE_NAME}`} />
+        <meta name="twitter:description" content={`Important legal, financial, tax, and health disclaimer regarding the use of utility tools and calculators on ${SITE_NAME}.`} />
+        <meta name="twitter:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

@@ -22,6 +22,13 @@ export default function PrivacyPage() {
         <meta property="og:description" content={`Privacy Policy for ${SITE_NAME}. Disclosures on in-browser data processing, Google AdSense cookies, Google Analytics, and privacy choices.`} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Privacy Policy | ${SITE_NAME}`} />
+        <meta name="twitter:description" content={`Privacy Policy for ${SITE_NAME}. Disclosures on in-browser data processing, Google AdSense cookies, Google Analytics, and privacy choices.`} />
+        <meta name="twitter:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

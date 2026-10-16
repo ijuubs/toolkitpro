@@ -11,6 +11,7 @@ import ReactMarkdown from 'react-markdown';
 import { generateToolSEO, getToolCategoryInfo } from '../utils/seo';
 import { getRelatedTools } from '../utils/relatedTools';
 import { ToolSkeleton } from '../components/SkeletonLoader';
+import { SITE_URL } from '../config/site';
 
 // Lazy load tools
 const WordCounter = lazy(() => import('../components/tools/WordCounter'));
@@ -175,10 +176,30 @@ export default function ToolTemplate() {
           <meta property="og:description" content={metaDescription} />
           <meta property="og:url" content={canonicalUrl} />
           <meta property="og:type" content="website" />
+          <meta property="og:image" content={
+            (tool.category === 'Fiji Tools' || tool.id.startsWith('fiji-'))
+              ? `${SITE_URL.replace(/\/+$/, '')}/images/blog/fiji_finance_hero.jpg`
+              : (['Web Tools', 'Security'].includes(tool.category) || tool.id === 'diff-checker')
+              ? `${SITE_URL.replace(/\/+$/, '')}/images/blog/developer_tools_hero.jpg`
+              : tool.category === 'Text Tools'
+              ? `${SITE_URL.replace(/\/+$/, '')}/images/blog/text_content_hero.jpg`
+              : `${SITE_URL.replace(/\/+$/, '')}/images/blog/math_converters_hero.jpg`
+          } />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="675" />
           
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={titleTag} />
           <meta name="twitter:description" content={metaDescription} />
+          <meta name="twitter:image" content={
+            (tool.category === 'Fiji Tools' || tool.id.startsWith('fiji-'))
+              ? `${SITE_URL.replace(/\/+$/, '')}/images/blog/fiji_finance_hero.jpg`
+              : (['Web Tools', 'Security'].includes(tool.category) || tool.id === 'diff-checker')
+              ? `${SITE_URL.replace(/\/+$/, '')}/images/blog/developer_tools_hero.jpg`
+              : tool.category === 'Text Tools'
+              ? `${SITE_URL.replace(/\/+$/, '')}/images/blog/text_content_hero.jpg`
+              : `${SITE_URL.replace(/\/+$/, '')}/images/blog/math_converters_hero.jpg`
+          } />
 
           <script type="application/ld+json">
             {JSON.stringify(structuredData)}

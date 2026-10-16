@@ -33,6 +33,13 @@ export default function ContactPage() {
         <meta property="og:description" content={`Contact ${SITE_NAME}. Send tool suggestions, bug reports, algorithmic feedback, or general inquiries.`} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Contact Us | ${SITE_NAME}`} />
+        <meta name="twitter:description" content={`Contact ${SITE_NAME}. Send tool suggestions, bug reports, algorithmic feedback, or general inquiries.`} />
+        <meta name="twitter:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

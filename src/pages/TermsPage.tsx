@@ -15,6 +15,13 @@ export default function TermsPage() {
         <meta property="og:description" content={`Official Terms of Service for ${SITE_NAME}. Review permitted client-side tool usage, intellectual property, and disclaimers.`} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Terms & Conditions | ${SITE_NAME}`} />
+        <meta name="twitter:description" content={`Official Terms of Service for ${SITE_NAME}. Review permitted client-side tool usage, intellectual property, and disclaimers.`} />
+        <meta name="twitter:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

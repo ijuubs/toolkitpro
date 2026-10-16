@@ -67,14 +67,19 @@ export default function HomePage() {
           <meta name="description" content="Access a massive collection of free online utility tools, developer utilities, calculators, and productivity apps. Process everything instantly and securely in your browser." />
           
           <link rel="canonical" href={`${SITE_URL}/`} />
+          <meta property="og:site_name" content="ToolKitPro" />
           <meta property="og:title" content="Free Online Utility Tools & Calculators | ToolKitPro" />
           <meta property="og:description" content="Access a massive collection of free online utility tools, developer utilities, calculators, and productivity apps. Process everything instantly and securely in your browser." />
           <meta property="og:url" content={`${SITE_URL}/`} />
           <meta property="og:type" content="website" />
+          <meta property="og:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
           
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content="Free Online Utility Tools & Calculators | ToolKitPro" />
           <meta name="twitter:description" content="Access a massive collection of free online utility tools, developer utilities, calculators, and productivity apps. Process everything instantly and securely in your browser." />
+          <meta name="twitter:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
 
           <script type="application/ld+json">
             {JSON.stringify([
@@ -83,7 +88,15 @@ export default function HomePage() {
                 "@type": "WebSite",
                 "name": "ToolKitPro",
                 "url": `${SITE_URL}/`,
-                "description": "Free online utility tools, developer utilities, calculators, and productivity apps."
+                "description": "Free online utility tools, developer utilities, calculators, and productivity apps.",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": `${SITE_URL}/?q={search_term_string}`
+                  },
+                  "query-input": "required name=search_term_string"
+                }
               },
               {
                 "@context": "https://schema.org",

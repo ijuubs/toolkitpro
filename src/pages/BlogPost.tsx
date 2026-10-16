@@ -23,7 +23,15 @@ export default function BlogPost() {
     );
   }
 
-  const { titleTag, metaDescription, canonicalUrl, structuredData } = generateBlogSEO(post);
+  const { 
+    titleTag, 
+    metaDescription, 
+    canonicalUrl, 
+    structuredData, 
+    imageUrl, 
+    imageAlt,
+    relativeImageUrl 
+  } = generateBlogSEO(post);
 
   return (
     <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 pb-16">
@@ -35,9 +43,15 @@ export default function BlogPost() {
         <meta property="og:description" content={metaDescription} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="675" />
+        <meta property="og:image:alt" content={imageAlt} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={titleTag} />
         <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:image:alt" content={imageAlt} />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
@@ -68,6 +82,24 @@ export default function BlogPost() {
             </div>
         </div>
       </header>
+
+      {/* Flagship Neu-Brutalist 3D Article Hero Banner */}
+      <div className="border-4 border-black bg-yellow-400 p-2 sm:p-3 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] sm:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
+        <div className="overflow-hidden border-2 border-black bg-black">
+          <img 
+            src={relativeImageUrl} 
+            alt={imageAlt} 
+            className="w-full aspect-[16/9] object-cover hover:scale-[1.01] transition-transform duration-300"
+            loading="eager"
+            width="1200"
+            height="675"
+          />
+        </div>
+        <div className="mt-2.5 flex items-center justify-between px-1 text-[10px] sm:text-xs font-black uppercase tracking-wider text-black">
+          <span>Neu-Brutalist 3D Tech Series</span>
+          <span className="bg-black text-yellow-400 px-2 py-0.5">{post.category}</span>
+        </div>
+      </div>
 
       <div className="prose prose-xl max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-black border-4 border-black p-4 sm:p-8 md:p-12 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
         <p className="text-base sm:text-xl md:text-2xl font-bold italic border-l-4 sm:border-l-8 border-yellow-400 pl-4 sm:pl-6 my-4 sm:my-8">

@@ -4,6 +4,7 @@ import { TOOLS, Tool } from '../data/toolsData';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { generateCategorySEO } from '../utils/seo';
 import { getRecentTools } from '../utils/recentTools';
+import { SITE_URL } from '../config/site';
 import { useState } from 'react';
 import { 
   CircleDollarSign, 
@@ -69,6 +70,8 @@ export default function FijiToolsPage() {
     }
   ];
 
+  const heroImageUrl = `${SITE_URL.replace(/\/+$/, '')}/images/blog/fiji_finance_hero.jpg`;
+
   return (
     <div className="space-y-8 sm:space-y-12">
       <Helmet>
@@ -79,6 +82,13 @@ export default function FijiToolsPage() {
         <meta property="og:description" content={seo.metaDescription} />
         <meta property="og:url" content={seo.canonicalUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={heroImageUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="675" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={seo.titleTag} />
+        <meta name="twitter:description" content={seo.metaDescription} />
+        <meta name="twitter:image" content={heroImageUrl} />
         <script type="application/ld+json">
           {JSON.stringify(seo.structuredData)}
         </script>
@@ -97,17 +107,34 @@ export default function FijiToolsPage() {
           </span>
         </div>
         
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-black leading-tight">
-          Fiji Calculators &amp; Utilities
-        </h1>
-        
-        <div className="max-w-4xl space-y-4">
-          <p className="text-base sm:text-lg md:text-xl text-neutral-700 font-bold leading-relaxed">
-            A comprehensive suite of localized tools built specifically for the people, workers, and businesses of the Republic of Fiji. 
-          </p>
-          <p className="text-sm sm:text-base text-neutral-600 leading-relaxed font-medium">
-            Every calculator is aligned with current Fiji statutory regulations and market standards, including FRCS tax scales, FNPF contribution rates, TSLS bond conversion rules, and FCCC regulated tariffs. All calculations are performed 100% in your browser for total privacy.
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div className="lg:col-span-7 space-y-4">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-black leading-tight">
+              Fiji Calculators &amp; Utilities
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl text-neutral-700 font-bold leading-relaxed">
+              A comprehensive suite of localized tools built specifically for the people, workers, and businesses of the Republic of Fiji. 
+            </p>
+            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed font-medium">
+              Every calculator is aligned with current Fiji statutory regulations and market standards, including FRCS tax scales, FNPF contribution rates, TSLS bond conversion rules, and FCCC regulated tariffs. All calculations are performed 100% in your browser for total privacy.
+            </p>
+          </div>
+          <div className="lg:col-span-5 border-4 border-black bg-yellow-400 p-2 sm:p-3 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+            <div className="overflow-hidden border-2 border-black bg-black">
+              <img 
+                src="/images/blog/fiji_finance_hero.jpg" 
+                alt="Fiji Financial & Tax Suite 3D Neu-Brutalist Render" 
+                className="w-full aspect-[16/9] object-cover"
+                loading="eager"
+                width="600"
+                height="338"
+              />
+            </div>
+            <div className="mt-2 flex items-center justify-between text-[11px] font-black uppercase text-black">
+              <span>FRCS • FNPF • TSLS • FCCC</span>
+              <span className="bg-black text-yellow-400 px-1.5 py-0.5">Fiji Dollars (FJD)</span>
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-wrap gap-3">

@@ -33,15 +33,15 @@ function assert(condition: boolean, message: string, isWarning = false) {
 // 1. ROUTE INVENTORY AUDIT
 console.log('1. Route Inventory & Canonical Count Audit');
 const toolSlugs = new Set(TOOLS.map(t => t.slug));
-assert(TOOLS.length === 34, `Expected 34 registered tools, found ${TOOLS.length}`);
-assert(toolSlugs.size === 34, `Expected 34 unique tool slugs, found ${toolSlugs.size}`);
+assert(TOOLS.length === 36, `Expected 36 registered tools, found ${TOOLS.length}`);
+assert(toolSlugs.size === 36, `Expected 36 unique tool slugs, found ${toolSlugs.size}`);
 
 const categorySlugs = Object.keys(CATEGORY_METAS);
 assert(categorySlugs.length === 7, `Expected 7 category hubs, found ${categorySlugs.length}`);
 
-assert(BLOG_POSTS.length === 10, `Expected 10 blog posts / technical guides, found ${BLOG_POSTS.length}`);
+assert(BLOG_POSTS.length === 20, `Expected 20 blog posts / technical guides, found ${BLOG_POSTS.length}`);
 const blogSlugs = new Set(BLOG_POSTS.map(b => b.slug));
-assert(blogSlugs.size === 10, `Expected 10 unique blog slugs, found ${blogSlugs.size}`);
+assert(blogSlugs.size === 20, `Expected 20 unique blog slugs, found ${blogSlugs.size}`);
 
 const staticPaths = [
   '/',
@@ -57,8 +57,8 @@ const staticPaths = [
 assert(staticPaths.length === 9, `Expected 9 static routes, found ${staticPaths.length}`);
 
 const totalExpectedRoutes = staticPaths.length + categorySlugs.length + TOOLS.length + BLOG_POSTS.length;
-console.log(`  ℹ️  Total Canonical Public URLs: ${totalExpectedRoutes} (9 static + 7 categories + 34 tools + 10 blog posts)`);
-assert(totalExpectedRoutes === 60, `Expected 60 total canonical URLs, found ${totalExpectedRoutes}`);
+console.log(`  ℹ️  Total Canonical Public URLs: ${totalExpectedRoutes} (9 static + 7 categories + ${TOOLS.length} tools + ${BLOG_POSTS.length} blog posts)`);
+assert(totalExpectedRoutes === 72, `Expected 72 total canonical URLs, found ${totalExpectedRoutes}`);
 
 // 2. SITEMAP AUDIT
 console.log('\n2. Sitemap (public/sitemap.xml) Audit');
@@ -123,7 +123,7 @@ if (fs.existsSync(robotsPath)) {
   const robots = fs.readFileSync(robotsPath, 'utf8');
   assert(robots.includes('User-agent: *'), 'Contains User-agent: *');
   assert(robots.includes('Allow: /'), 'Contains Allow: /');
-  assert(robots.includes(`Sitemap: ${PROD_DOMAIN}/sitemap.xml`), `Contains production sitemap: Sitemap: ${PROD_DOMAIN}/sitemap.xml`);
+  assert(robots.includes(`Sitemap: ${PROD_DOMAIN}/sitemap_index.xml`) || robots.includes(`Sitemap: ${PROD_DOMAIN}/sitemap.xml`), `Contains production sitemap in robots.txt`);
   assert(!robots.includes('localhost'), 'No localhost in robots.txt');
   assert(!robots.includes('127.0.0.1'), 'No 127.0.0.1 in robots.txt');
 }
@@ -182,7 +182,9 @@ for (const post of BLOG_POSTS) {
   if (!seo.titleTag || !seo.metaDescription || !seo.canonicalUrl.startsWith(PROD_DOMAIN)) {
     assert(false, `Blog post ${post.slug} has invalid SEO metadata`);
   }
-  if (!seo.structuredData || seo.structuredData['@type'] !== 'BlogPosting') {
+  const schemas = Array.isArray(seo.structuredData) ? seo.structuredData : [seo.structuredData as any];
+  const hasBlogPosting = schemas.some((s: any) => s['@type'] === 'BlogPosting');
+  if (!hasBlogPosting) {
     assert(false, `Blog post ${post.slug} has invalid BlogPosting schema`);
   }
 }
@@ -218,7 +220,7 @@ assert(blogPostSrc.includes('noindex, follow'), 'BlogPost.tsx includes noindex f
 // 7. FIJI TOOLS REGRESSION VERIFICATION
 console.log('\n7. Fiji Tools Suite Audit (No formula changes)');
 const fijiTools = TOOLS.filter(t => t.slug.startsWith('fiji-'));
-assert(fijiTools.length === 13, `Expected 13 Fiji utility tools, found ${fijiTools.length}`);
+assert(fijiTools.length === 15, `Expected 15 Fiji utility tools, found ${fijiTools.length}`);
 
 const expectedFijiSlugs = [
   'fiji-salary-calculator',
@@ -233,7 +235,9 @@ const expectedFijiSlugs = [
   'fiji-taxi-fare-calculator',
   'fiji-vat-calculator',
   'fiji-fnpf-calculator',
-  'fiji-tsls-calculator'
+  'fiji-tsls-calculator',
+  'fiji-business-startup-cost',
+  'fiji-financial-planner'
 ];
 
 for (const slug of expectedFijiSlugs) {

@@ -83,7 +83,7 @@ const RELATED_TOOLS_MAP: Record<string, string[]> = {
   'compound-interest-calculator': ['sip-calculator', 'roi-calculator', 'loan-calculator', 'percentage-calculator', 'unit-converter'],
   'sip-calculator': ['compound-interest-calculator', 'roi-calculator', 'loan-calculator', 'percentage-calculator', 'compound-interest-calculator'],
   'roi-calculator': ['compound-interest-calculator', 'sip-calculator', 'loan-calculator', 'percentage-calculator', 'unit-converter'],
-  'percentage-calculator': ['loan-calculator', 'roi-calculator', 'compound-interest-calculator', 'unit-converter', 'vat-calculator'],
+  'percentage-calculator': ['loan-calculator', 'roi-calculator', 'compound-interest-calculator', 'unit-converter', 'fiji-vat-calculator'],
   
   // Health Tools
   'bmi-calculator': ['tdee-calculator', 'age-calculator', 'percentage-calculator', 'unit-converter', 'word-counter'],

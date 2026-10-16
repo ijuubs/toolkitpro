@@ -43,6 +43,13 @@ export default function FAQPage() {
         <meta property="og:description" content="Frequently Asked Questions about ToolKitPro tools, browser-based processing, cookies, and ads." />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Frequently Asked Questions | ${SITE_NAME}`} />
+        <meta name="twitter:description" content="Frequently Asked Questions about ToolKitPro tools, browser-based processing, cookies, and ads." />
+        <meta name="twitter:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

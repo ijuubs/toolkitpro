@@ -81,9 +81,13 @@ export default function SitemapPage() {
         <meta property="og:description" content={`Explore all ${totalUrls} verified canonical URLs on ${SITE_NAME}.`} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`Sitemap & XML Index | ${SITE_NAME}`} />
         <meta name="twitter:description" content={`Explore all ${totalUrls} verified canonical URLs on ${SITE_NAME}.`} />
+        <meta name="twitter:image" content={`${SITE_URL}/toolkitpro-logo.jpg`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

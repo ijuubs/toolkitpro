@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { TOOLS } from '../data/toolsData';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { generateCategorySEO } from '../utils/seo';
+import { SITE_URL } from '../config/site';
 
 export default function CategoryPage() {
   const { pathname } = useLocation();
@@ -43,6 +44,14 @@ export default function CategoryPage() {
     tools
   );
 
+  const getCategoryHeroImage = () => {
+    if (safeSlug === 'fiji-tools') return `${SITE_URL.replace(/\/+$/, '')}/images/blog/fiji_finance_hero.jpg`;
+    if (safeSlug === 'text-tools') return `${SITE_URL.replace(/\/+$/, '')}/images/blog/text_content_hero.jpg`;
+    if (['developer-tools', 'image-tools', 'color-tools'].includes(safeSlug)) return `${SITE_URL.replace(/\/+$/, '')}/images/blog/developer_tools_hero.jpg`;
+    return `${SITE_URL.replace(/\/+$/, '')}/images/blog/math_converters_hero.jpg`;
+  };
+  const categoryHeroImage = getCategoryHeroImage();
+
   if (tools.length === 0) {
     return (
         <div className="max-w-4xl mx-auto py-20 px-4 text-center">
@@ -72,9 +81,13 @@ export default function CategoryPage() {
         <meta property="og:description" content={metaDescription} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={categoryHeroImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="675" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={titleTag} />
         <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={categoryHeroImage} />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>

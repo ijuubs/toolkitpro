@@ -197,6 +197,59 @@ export function generateToolSEO(tool: Tool, currentSlug?: string) {
 }
 
 /**
+ * Resolves the flagship on-brand Neu-Brutalist 3D tech render hero image for any blog post.
+ */
+export function getBlogPostImage(post: BlogPost): { url: string; alt: string } {
+  if (post.image) {
+    return {
+      url: post.image,
+      alt: post.imageAlt || `${post.title} - ToolKitPro Guide`
+    };
+  }
+
+  const category = (post.category || '').toLowerCase();
+  const slug = (post.slug || '').toLowerCase();
+
+  // Fiji localized suite
+  if (category.startsWith('fiji') || slug.includes('fiji') || category.includes('tax') || category.includes('vat')) {
+    return {
+      url: '/images/blog/fiji_finance_hero.jpg',
+      alt: `${post.title} - 3D Neu-Brutalist Fiji Financial & Statutory Guide`
+    };
+  }
+
+  // Developer, Engineering & Security suite
+  if (
+    category.includes('engineering') || 
+    category.includes('security') || 
+    category.includes('development') || 
+    slug.includes('client-side') || 
+    slug.includes('entropy') || 
+    slug.includes('debugging') ||
+    slug.includes('pdf-compression')
+  ) {
+    return {
+      url: '/images/blog/developer_tools_hero.jpg',
+      alt: `${post.title} - 3D Neu-Brutalist Code & In-Browser Engineering`
+    };
+  }
+
+  // Text, Content, Marketing & Web Optimization suite
+  if (category.includes('marketing') || slug.includes('optimization') || slug.includes('best-free-online')) {
+    return {
+      url: '/images/blog/text_content_hero.jpg',
+      alt: `${post.title} - 3D Neu-Brutalist Content & Performance Guide`
+    };
+  }
+
+  // Math, Calculators & Health suite
+  return {
+    url: '/images/blog/math_converters_hero.jpg',
+    alt: `${post.title} - 3D Neu-Brutalist Mathematical & Health Analysis`
+  };
+}
+
+/**
  * Helper to generate complete SEO metadata & structured data for a Blog post page
  */
 export function generateBlogSEO(post: BlogPost) {
@@ -205,38 +258,73 @@ export function generateBlogSEO(post: BlogPost) {
   const canonicalUrl = generateCanonicalUrl(`/blog/${post.slug}`);
   const logoUrl = `${SITE_URL.replace(/\/+$/, '')}/toolkitpro-logo.jpg`;
 
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.title,
-    description: metaDescription,
-    image: [logoUrl],
-    datePublished: post.date,
-    dateModified: post.date,
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': canonicalUrl
+  const imageInfo = getBlogPostImage(post);
+  const absoluteImageUrl = imageInfo.url.startsWith('http') 
+    ? imageInfo.url 
+    : `${SITE_URL.replace(/\/+$/, '')}${imageInfo.url.startsWith('/') ? imageInfo.url : `/${imageInfo.url}`}`;
+
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: `${SITE_URL}/`
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Blog',
+          item: `${SITE_URL}/blog`
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: post.title,
+          item: canonicalUrl
+        }
+      ]
     },
-    author: {
-      '@type': 'Person',
-      name: post.author
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: SITE_NAME,
-      url: `${SITE_URL}/`,
-      logo: {
-        '@type': 'ImageObject',
-        url: logoUrl
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: post.title,
+      description: metaDescription,
+      image: [absoluteImageUrl, logoUrl],
+      datePublished: post.date,
+      dateModified: post.date,
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': canonicalUrl
+      },
+      author: {
+        '@type': 'Person',
+        name: post.author,
+        url: `${SITE_URL}/about`
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: SITE_NAME,
+        url: `${SITE_URL}/`,
+        logo: {
+          '@type': 'ImageObject',
+          url: logoUrl
+        }
       }
     }
-  };
+  ];
 
   return {
     titleTag,
     metaDescription,
     canonicalUrl,
-    structuredData
+    structuredData,
+    imageUrl: absoluteImageUrl,
+    imageAlt: imageInfo.alt,
+    relativeImageUrl: imageInfo.url
   };
 }
 
