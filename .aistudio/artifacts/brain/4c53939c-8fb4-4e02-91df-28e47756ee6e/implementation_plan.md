@@ -1,122 +1,64 @@
-# Implementation Plan: SEO Audit, Sitewide Metadata/Schema Overhaul, AI Imagery & Neu-Brutalist Favicon
+# Implementation Plan: Fiji VAT Lodgement & Reconciliation Calculator (FRCS Form IRS024)
 
-This plan outlines the complete execution strategy for **ToolKitPro**, fulfilling the four core user objectives:
-1. **Full SEO Audit and Market Analysis** of the platform.
-2. **Schema, Titles, and Metadata Overhaul** across every page (Tools, Blog, Categories, Hubs, and Static Pages).
-3. **On-Brand AI Imagery** for articles and categories featuring Neu-Brutalist 3D tech renders with yellow (`#FACC15`) and black accents.
-4. **Brutalist Favicon Suite** featuring a bold black letter "T" on a vibrant yellow brutalist tile with crisp SVG and multi-device support.
+Build an interactive, high-precision statutory VAT Lodgement Calculator tailored for Fiji businesses, tax agents, and sole proprietors complying with the Fiji Revenue and Customs Service (FRCS) VAT Return framework (Form IRS024 / VTS guidelines).
 
----
+## 1. Core Architecture & Features
 
-## 1. Executive SEO Audit & Market Analysis
+### A. Form IRS024 Complete Structure & Calculations
+1. **Taxpayer & Return Period Details**:
+   - Business / Trading Name, Taxpayer Identification Number (TIN), Branch Number.
+   - Filing Frequency: Monthly or Quarterly.
+   - Return Period Ending Date with automatic statutory statutory FRCS due date calculation (last day of the calendar month following the period end).
+2. **Output Tax (Sales & Supplies)**:
+   - **Line 1 - Standard Rated Supplies (12.5% VAT)**: Gross sales inclusive of 12.5% VAT. Computes Output Tax using the FRCS tax fraction $12.5 / 112.5$ (or $1/9$).
+   - **Line 2 - Zero-Rated Supplies (0% VAT)**: Eligible exports, qualifying basic consumer staples (rice, flour, tinned fish, edible oil, etc.), prescribed pharmaceuticals.
+   - **Line 3 - Exempt Supplies**: Non-taxable supplies (residential accommodation rent, financial services, education).
+   - **Line 4 - Total Supplies**: Sum of Lines 1, 2, and 3.
+   - **Line 5 - Adjustments & Output Tax Total**: Output tax payable on standard supplies plus any debit notes, bad debt recoveries, or adjustments.
+3. **Input Tax Credits (Purchases, Imports & Expenses)**:
+   - **Line 6 - Local Standard Rated Purchases / Expenses**: Operating expenses with valid FRCS Tax Invoices ($12.5 / 112.5$).
+   - **Line 7 - Capital Asset Acquisitions**: Qualifying business machinery, equipment, motor vehicles.
+   - **Line 8 - Customs Import VAT**: VAT paid directly on FRCS Customs Single Administrative Documents (SAD).
+   - **Line 9 - Input Tax Adjustments**: Supplier credit notes, allowable Section 24 bad debt write-offs, prior-period allowable adjustments.
+   - **Line 10 - Total Allowable Input Tax**: Sum of claimable input VAT.
+4. **Net VAT Determination**:
+   - **Line 11 - Net VAT Position**: Line 5 minus Line 10.
+   - High-contrast visual status: **PAYABLE TO FRCS** (dark red/amber badge) or **REFUND CLAIMABLE / CREDIT FORWARD** (emerald/cyan badge).
 
-### 1.1 Technical & On-Page SEO Audit Findings
-- **Metadata Consistency**: Currently, meta titles and descriptions are dynamically produced, but several static and dynamic routes lack complete OpenGraph/Twitter card properties, canonical normalization, and structured article schemas.
-- **Structured Data (Schema.org)**:
-  - *Tools*: Ensure valid `WebApplication`, `BreadcrumbList`, and `FAQPage` schemas are universally rendered without schema errors.
-  - *Blog Articles*: Ensure valid `BlogPosting` / `Article` schema with required fields (`headline`, `image`, `datePublished`, `dateModified`, `author`, `publisher`, `mainEntityOfPage`).
-  - *Sitewide*: Ensure `Organization` and `WebSite` with `SearchAction` potential actions.
-- **Accessibility & Contrast**:
-  - Resolve background-to-foreground contrast ratios to guarantee WCAG 2.1 AA compliance (especially `#F5F5F5` background vs text and yellow badges).
-  - Add descriptive aria-labels and meaningful anchor text to external links (e.g., cookie compliance links, tool reference links).
-- **AdSense & CLS Protection**:
-  - Verify all advertisement containers utilize `<AdSlot />` with predefined `min-height` attributes so ads never trigger Cumulative Layout Shift (CLS) or displace primary interactive tool canvases.
+### B. Statutory Late Filing & Payment Penalty Calculator
+- Interactive due date check comparing statutory FRCS due date against actual/planned lodgement date.
+- Days overdue counter.
+- FRCS statutory penalty modeling (Tax Administration Act 2009):
+  - Late Lodgement Penalty: Estimated 20% on net unpaid tax + 5% per month (or fraction of month) overdue.
+  - Late Payment Penalty: Estimated statutory late payment interest/penalty.
+  - Clear statutory disclaimer regarding official FRCS assessment notices.
 
-### 1.2 Market Analysis: Dual-Engine Traffic Strategy
-ToolKitPro operates on a high-leverage hybrid programmatic SEO model targeting two high-intent niches:
+### C. Export & Practical Workflow Tools
+- **Printable Official Return Worksheet**: Print-optimized stylesheet (`@media print`) rendering a clean, professional Form IRS024 reconciliation report with taxpayer details, line-item numbers, and signature section.
+- **CSV Data Export**: Formatted spreadsheet download with line numbers, descriptions, taxable amounts, and calculated tax for accounting ledgers.
+- **Instant Pre-fill Presets**:
+  - "Load Retail Store Sample" (standard sales, local purchases, modest import VAT).
+  - "Load Tourism / Export Operator Sample" (high zero-rated export sales, input tax refund scenario).
+  - "Clear All Fields" button.
 
-1. **Global High-Volume Utility Tools (Broad TAM, High Monetization Potential)**:
-   - *Target Queries*: "word counter online", "json formatter validator", "percentage calculator", "base64 encoder decoder", "lorem ipsum generator".
-   - *User Intent*: Fast, instant client-side execution with zero sign-up friction and zero latency.
-   - *SEO Tactic*: Clean, minimal DOM payload; instant interactivity (FID/INP < 50ms); deep FAQ sections and detailed "How It Works" documentation below each tool.
-2. **Fiji Localized Finance & Statutory Tools (High Authority, High RPM, Low Competition)**:
-   - *Target Queries*: "Fiji PAYE tax calculator 2024/2026", "FNPF contribution calculator", "Fiji mortgage calculator", "Suva budget planner", "FRCS salary tax rates".
-   - *User Intent*: Accurate statutory compliance with Fiji Revenue and Customs Service (FRCS) and Fiji National Provident Fund (FNPF) regulations.
-   - *SEO Tactic*: Hub page (`/fiji-tools`), programmatic internal linking between Fiji tools and localized blog guides, authoritative citations to FRCS/FNPF tax brackets, and localized `FAQPage` structured data.
+## 2. Design System & Compliance (Neu-Brutalism & AGENTS.md)
+- **Visuals**: Stark high-contrast borders (`border-4 border-black`), sharp corners, drop shadows (`shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]`), `#F5F5F5` canvas, and bold accents (`bg-yellow-400`, `bg-yellow-300`, `bg-black text-white`).
+- **Interactive Feedback**: Hover button press animations (`active:translate-x-0.5 active:translate-y-0.5 active:shadow-none`).
+- **Zero Pill / Anti-AI Slop**: Hard corners, uppercase bold headers, authentic Fijian currency formatting (`FJD $`).
+- **AdSlot Integration**: Proper placement outside primary calculation and export controls to avoid CLS.
 
----
-
-## 2. Sitewide Schema, Titles & Metadata Overhaul
-
-### 2.1 Title & Description Standards
-- **Page Titles**: Formatted as `{Action-Oriented Primary Keyword} - {Secondary Context} | ToolKitPro` (strictly 50–60 characters to eliminate SERP truncation).
-- **Meta Descriptions**: Active voice, value-driven summary strictly between 145 and 158 characters.
-- **Canonical URLs**: Strictly standardized protocol (`https`), domain, lowercase paths, and stripped query params/hashes via `generateCanonicalUrl`.
-
-### 2.2 Schema.org JSON-LD Implementation Matrix
-| Page Type | Route Pattern | Structured Data Types |
-| :--- | :--- | :--- |
-| **Home** | `/` | `WebSite` (with `SearchAction`), `Organization`, `SoftwareApplication` list |
-| **Tool Pages** | `/tools/:slug` | `WebApplication` (with `operatingSystem`, `applicationCategory`, `offers`), `FAQPage`, `BreadcrumbList` |
-| **Blog Index** | `/blog` | `CollectionPage`, `BreadcrumbList` |
-| **Blog Post** | `/blog/:slug` | `Article` / `BlogPosting`, `BreadcrumbList`, `Organization` (Publisher) |
-| **Category Hubs**| `/category/:category` | `CollectionPage`, `ItemList`, `BreadcrumbList` |
-| **Fiji Hub** | `/fiji-tools` | `CollectionPage`, `ItemList`, `FAQPage`, `BreadcrumbList` |
-| **Static Pages** | `/about`, `/contact`, `/privacy`, `/terms`, `/disclaimer`, `/faq`, `/sitemap` | `WebPage`, `BreadcrumbList`, plus `AboutPage` / `ContactPage` / `QAPage` |
-
-### 2.3 OpenGraph & Social Cards
-- Add `og:site_name`, `og:locale` (`en_US`), `og:image:width`, `og:image:height`, and `og:image:alt` across all pages.
-- Standardize `twitter:card` to `summary_large_image` for rich preview rendering on X/Twitter, LinkedIn, and Discord.
-
----
-
-## 3. Neu-Brutalist AI Imagery Strategy for Blog Articles
-
-### 3.1 Visual Aesthetic Requirements
-- **Style**: Neu-Brutalist 3D tech renders with stark black lines, vibrant ToolKitPro yellow (`#FACC15` / `#EAB308`), tactile geometric shapes, and isometric elevation.
-- **Composition**: High contrast, minimal clutter, punchy technical iconography, solid drop shadows (`shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]`).
-- **Aspect Ratio**: `16:9` widescreen banner for optimal social previews, OpenGraph cards, and article hero headers.
-
-### 3.2 Category Flagships & Dynamic Article Mapping
-We will generate flagship 3D render assets using `generate_image` for the major site categories:
-1. `fiji_finance_hero`: 3D isometric brutalist render featuring Fijian currency motifs, gold coins, financial charts, and calculator modules on a yellow brutalist pedestal.
-2. `developer_tools_hero`: 3D isometric brutalist render of code brackets, terminal windows, clean geometric cubes, and glowing cyber-yellow data streams.
-3. `text_content_hero`: 3D isometric brutalist render of typographic letter blocks, magnifying glasses, word count dials, and document sheets.
-4. `math_converters_hero`: 3D isometric brutalist render of percentage symbols, calipers, gears, measurement rules, and geometric polyhedrons.
-
-Each of the 24 articles in `src/data/blogData.ts` will receive:
-- Assigned flagship high-resolution category hero artwork.
-- Custom brutalist SVG visual badge overlay and topic-specific color accent.
-- Dynamic responsive fallback and rich alt-text for accessibility and image search indexing.
-
----
-
-## 4. Neu-Brutalist Favicon Suite & Head Integration
-
-### 4.1 Favicon Design Specifications
-- **Concept**: Bold, black capital letter **"T"** set inside a vibrant yellow (`#FACC15`) brutalist square tile.
-- **Accents**: Heavy 4px black border, solid 3px bottom-right drop shadow, and clean geometric sans-serif glyph.
-- **Vector Source**: Vector SVG (`/public/favicon.svg`) ensuring razor-sharp rendering on Retina, 4K, and dark-mode browser tabs.
-- **PNG & Apple Touch Icons**:
-  - `/public/favicon.svg` (Primary vector favicon for modern browsers)
-  - `/public/apple-touch-icon.png` (High-res iOS touch icon)
-  - `/public/icon-192.png` and `/public/icon-512.png` for PWA / Web App Manifest.
-
-### 4.2 `index.html` Head Overhaul
-- Update `<link rel="icon" type="image/svg+xml" href="/favicon.svg" />`.
-- Update `<link rel="apple-touch-icon" href="/apple-touch-icon.png" />`.
-- Set `<meta name="theme-color" content="#FACC15" />` to color mobile browser chrome in ToolKitPro signature yellow.
-- Ensure proper `<title>` and `<meta name="description">` defaults match `metadata.json`.
-
----
-
-## 5. Step-by-Step Implementation Sequence
-
-1. **Step 1: Favicon Assets & Root Head Update**
-   - Create crisp Neu-Brutalist SVG favicon and canvas icon assets in `/public`.
-   - Update `index.html` with modern favicon tags, theme color, and base meta tags.
-2. **Step 2: AI Category Artwork Generation**
-   - Call `generate_image` to produce high-impact 3D Neu-Brutalist hero renders for top content pillars.
-   - Save and optimize images in `/public/images/blog/`.
-3. **Step 3: Blog Data & Article Visual Enhancement**
-   - Enhance `src/data/blogData.ts` with dedicated image paths, refined SEO titles, rich meta descriptions, and image alt attributes for all 24 posts.
-   - Update `src/pages/BlogPost.tsx` to render responsive brutalist hero banners with proper lazy-loading and schema integration.
-4. **Step 4: Sitewide Schema & Metadata Engine Upgrade**
-   - Refactor `src/utils/seo.ts` to output complete Google Rich Snippet-compliant JSON-LD (`Article`, `WebApplication`, `BreadcrumbList`, `FAQPage`).
-   - Audit and upgrade metadata across all pages: `HomePage`, `ToolTemplate`, `CategoryPage`, `FijiToolsPage`, `BlogPage`, `AboutPage`, `ContactPage`, `PrivacyPage`, `TermsPage`, `DisclaimerPage`, `FAQPage`, and `SitemapPage`.
-5. **Step 5: Accessibility & Contrast Audit Fixes**
-   - Verify color contrast across brutalist UI elements.
-   - Add descriptive labels to links and buttons.
-6. **Step 6: Build Verification & SEO Testing**
-   - Execute `compile_applet` and `lint_applet` to guarantee error-free compilation.
-   - Validate structured data output syntax and sitemap integration.
+## 3. SEO & Application Integration
+1. **Tool Component**: `src/components/tools/FijiVatLodgementCalculator.tsx`.
+2. **Metadata & Content** (`src/data/toolsData.ts`):
+   - Slug: `fiji-vat-lodgement-calculator`
+   - Aliases: `fiji-vat-return-calculator`, `frcs-vat-calculator`, `fiji-irs024-calculator`, `fiji-vat-filing-tool`.
+   - Comprehensive `howTo` guide (1,200+ words) covering FRCS Form IRS024 line-by-line instructions, tax fractions ($12.5 / 112.5$), zero-rated vs exempt distinctions, input tax invoice substantiation rules, and lodgement calendars.
+   - Rich FAQs answering 6+ specific questions on penalties, VTS compliance, and refunds.
+   - Schema.org `WebApplication` structured data.
+3. **Routing & Dynamic Loading** (`src/pages/ToolTemplate.tsx`):
+   - Lazy load `FijiVatLodgementCalculator` component.
+4. **Internal Linking** (`src/utils/relatedTools.ts`):
+   - Cross-link with `fiji-vat-calculator`, `fiji-paye-calculator`, `freight-calculator`, `invoice-generator`, etc.
+5. **Audits & Verification**:
+   - Update `scripts/seo-audit.ts` expected tools count and list.
+   - Run `npm run lint` and `npm run build` (`compile_applet`).

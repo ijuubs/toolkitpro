@@ -3338,6 +3338,156 @@ Individuals can deposit additional voluntary funds directly into their FNPF acco
         answer: 'Yes. Many employers and the civil service in Fiji pay employees on a fortnightly cycle. The ToolKitPro Fiji Financial Planner features an instant toggle to view your income, expenses, and surplus on a monthly, fortnightly, weekly, or annual basis.'
       }
     ]
+  },
+  {
+    id: 'fiji-vat-lodgement-calculator',
+    slug: 'fiji-vat-lodgement-calculator',
+    name: 'Fiji VAT Lodgement Calculator',
+    titleTag: 'Fiji VAT Lodgement Calculator | Form IRS024 Reference & Reconciliation',
+    description: 'Fiji VAT Return (Form IRS024 reference layout) lodgement and reconciliation calculator. Estimate standard 12.5% output tax, zero-rated supplies, input tax credits, and customs import VAT with clear statutory disclaimers.',
+    category: 'Fiji Tools',
+    usp: 'Form IRS024 reference layout, 12.5% tax fraction reconciliation, customs SAD import VAT deduction, directional adjustments, and printable return worksheet.',
+    aliases: ['fiji-vat-return-calculator', 'frcs-vat-return-calculator', 'fiji-irs024-calculator', 'fiji-vat-filing-tool', 'vat-lodgement-fiji'],
+    metaDescription: 'Estimate your Fiji VAT Return using the Form IRS024 reference layout. Reconcile standard output tax, export zero-rated sales, claimable input tax credits, and customs import VAT with full disclaimers.',
+    howTo: `### Statutory Guide & Reference for Fiji VAT Lodgements (Form IRS024 Reference)
+
+> **Informational Estimation Notice:** This calculator provides estimates for informational purposes only. Tax rates, eligibility rules, return-box mappings, filing deadlines and other requirements must be verified against the applicable Fiji Revenue and Customs Service guidance. This tool is not an official FRCS filing service, and its output should be reviewed before being used for a tax return.
+
+Value Added Tax (VAT) is a broad-based consumption levy administered by the **Fiji Revenue and Customs Service (FRCS)** under the statutory mandate of the **Value Added Tax Act 1991** and the **Tax Administration Act 2009**. Every registered business entity, sole trader, company, partnership, and non-profit organization operating in Fiji whose annual taxable gross turnover exceeds the statutory registration threshold of **$100,000 FJD** is legally required to register for VAT, issue electronic fiscalized tax invoices (VTS/VMS), collect output tax on taxable supplies, and file periodic VAT Returns (**Form IRS024**).
+
+The **ToolKitPro Fiji VAT Lodgement & Reconciliation Calculator** is a client-side accounting utility built to assist Fiji business owners and accountants in modeling Form IRS024 reference returns. It structures taxable supplies, zero-rated exports, exempt turnovers, local allowable purchases, capital asset acquisitions, and Customs import VAT payments into a clear, print-ready working paper.
+
+---
+
+#### 1. Understanding the 12.5% VAT Framework & The Statutory Tax Fraction
+
+Following national budget reforms, Fiji's unified standard Value Added Tax rate is **12.5%** on all taxable domestic supplies and commercial importations. Because retail, wholesale, and service prices in Fiji are legally required to be displayed on a **VAT-inclusive basis**, business operators cannot simply multiply gross cash register receipts by 0.125. Doing so would overstate tax liability.
+
+##### The FRCS Tax Fraction Formula:
+To extract the exact VAT liability embedded within a VAT-inclusive dollar turnover, the statutory tax fraction prescribed under Section 2 of the VAT Act must be applied:
+
+$$\\text{Tax Fraction} = \\frac{R}{100 + R} = \\frac{12.5}{112.5} = \\frac{1}{9} \\approx 0.111111$$
+
+- **Output Tax Calculation:** For every $100 FJD of VAT-inclusive standard sales, the VAT payable to FRCS is:
+  $$\\text{Output Tax} = \\$100 \\times \\frac{12.5}{112.5} = \\$11.11 \\text{ FJD}$$
+  The net revenue retained by the business is $\\$88.89 \\text{ FJD}$.
+- **Input Tax Credit Calculation:** For every $1,125 FJD spent on allowable local business expenses with a valid tax invoice:
+  $$\\text{Allowable Input VAT} = \\$1,125 \\times \\frac{12.5}{112.5} = \\$125.00 \\text{ FJD}$$
+
+---
+
+#### 2. Line-by-Line Breakdown of the Form IRS024 Reference Layout
+
+The Form IRS024 reference layout is organized into two primary operational parts: **Part A (Output Tax on Supplies/Sales)** and **Part B (Input Tax Credits on Purchases/Expenses)**, culminating in **Box 11 (Final Net VAT Determination)**.
+
+##### Part A: Output Tax (Supplies & Sales)
+1. **Box 1 — Standard-Rated Supplies (Gross Sales @ 12.5% Inclusive):**
+   - The total dollar value of all standard goods and services sold during the taxable period (including cash sales, credit sales, EFTPOS, and VTS invoices).
+   - The embedded Output Tax is calculated as $\\text{Box 1 Value} \\times (12.5 / 112.5)$.
+2. **Box 2 — Zero-Rated Supplies (0% VAT):**
+   - Supplies where the tax rate is explicitly zero under Schedule 2 of the VAT Act.
+   - **Eligible items include:** Exported goods delivered outside Fiji, exported professional services, qualifying international passenger transport, and prescribed basic consumer food staples (such as flour, sharp, packaged rice, tea, canned fish, cooking oil, liquid milk, infant formula, and prescribed medicinal items).
+   - *Key Distinction:* Businesses selling zero-rated supplies charge 0% VAT to customers but **retain the legal right to claim full input tax credits** on their business expenses.
+3. **Box 3 — Exempt Supplies (0% VAT):**
+   - Supplies specifically excluded from the VAT mechanism under Schedule 1 of the VAT Act.
+   - **Exempt supplies include:** Long-term residential dwelling rental accommodation, financial services (bank interest, loan fees, credit facilities), life insurance, and approved educational courses.
+   - *Critical Distinction:* Businesses earning exempt turnover **cannot claim input tax credits** on purchases attributable to making those exempt supplies.
+4. **Box 4 — Total Supplies:**
+   - Sum of Box 1, Box 2, and Box 3. Represents total gross turnover for the period.
+5. **Box 5 — Total Output Tax Payable:**
+   - The VAT amount from Box 1 plus/minus statutory output adjustments (e.g., customer debit notes as additions; customer credit notes as deductions).
+
+##### Part B: Input Tax Credits (Purchases, Imports & Expenses)
+6. **Box 6 — Local Taxable Operating Purchases (Gross @ 12.5% Inclusive):**
+   - Routine business operating expenses (OPEX) incurred from local VAT-registered suppliers with valid FRCS Tax Invoices (e.g., commercial shop rent, trading inventory, electricity, telecommunications, professional accounting services).
+   - The allowable credit equals $\\text{Gross Expenses} \\times (12.5 / 112.5)$.
+7. **Box 7 — Capital Asset Purchases (Gross @ 12.5% Inclusive):**
+   - Capital acquisitions (CAPEX) utilized exclusively in commercial operations, such as commercial delivery trucks, factory machinery, point-of-sale computers, and store fixtures.
+8. **Box 8 — Customs Import VAT Paid on SAD:**
+   - VAT paid directly to the FRCS Customs Division on imported inventory, raw materials, or equipment.
+   - Verified directly from the stamped **Single Administrative Document (SAD)** or Customs entry assessment receipt. Enter the exact VAT amount paid to avoid double-counting.
+9. **Box 9 — Input Tax Adjustments:**
+   - Directional adjustments: deductions for supplier credit notes received or purchase returns; additions for allowable Section 24 bad debt deductions where a trade debtor has been formally written off.
+10. **Box 10 — Total Allowable Input Tax Credits:**
+    - The cumulative sum of input credits from Boxes 6, 7, 8, and 9.
+
+##### Box 11: Final Net VAT Determination
+$$\\text{Net VAT Position} = \\text{Box 5 (Total Output Tax)} - \\text{Box 10 (Total Input Tax)}$$
+
+- **If Box 5 > Box 10:** The business has collected more VAT from customers than it paid on expenses. The net surplus represents an **Estimated Net VAT Payable**.
+- **If Box 10 > Box 5:** The business has paid more VAT on purchases, capital equipment, or customs imports than it collected on sales. The difference represents an **Estimated Credit Balance (Subject to FRCS Verification / Audit)**.
+
+---
+
+#### 3. Statutory Filing Calendars & Deadlines
+
+Under the Tax Administration Act 2009, registered VAT taxpayers in Fiji must observe the statutory calendar:
+
+| Filing Classification | Qualification Criteria | Statutory Filing Deadline |
+| :--- | :--- | :--- |
+| **Monthly Return** | Standard business entities, commercial importers, and turnover > $300,000 FJD | **Last calendar day of the month** following the end of the taxable period (e.g., March return due April 30) |
+| **Quarterly Return** | Small businesses and sole traders approved by FRCS (turnover $100k - $300k FJD) | **Last day of the month** following the calendar quarter end (April 30, July 31, October 31, January 31) |
+
+*Weekend & Public Holiday Notice:* If the statutory deadline falls on a weekend or gazetted Fijian public holiday, verify official extension rules directly with FRCS.
+
+---
+
+#### 4. Penalties & Statutory Compliance Safeguards
+
+Late lodgement and late payment penalties are prescribed under the Fiji Tax Administration Act 2009. Because official penalty assessments depend on individual taxpayer compliance histories, statutory remissions, and formal assessment notices issued by the Commissioner, this calculator **does not display automated penalty figures** or add unverified penalty estimates to your payable balance. Consult your tax agent or FRCS for formal assessments.
+
+---
+
+#### 5. Step-by-Step Instructions: How to Use This Calculator
+
+1. **Enter Taxpayer & Return Identifiers:** Type your registered Trading Name, Taxpayer Identification Number (TIN), and Branch code.
+2. **Select Taxable Period & Filing Dates:** Pick your period end date (e.g., 2026-03-31) and actual planned lodgement date. The calculator projects the statutory deadline and flags any overdue days.
+3. **Record Sales Turnovers in Part A:**
+   - Input your gross standard-rated sales in **Box 1**.
+   - Input your zero-rated exports and basic food sales in **Box 2**.
+   - Input your exempt turnover in **Box 3**.
+4. **Record Business Purchases in Part B:**
+   - Enter standard local operating purchases in **Box 6**.
+   - Enter capital machinery or vehicle purchases in **Box 7**.
+   - Input the exact Customs VAT paid from your Customs SAD receipt in **Box 8**.
+5. **Inspect the Net Reconciliation (Box 11):** Review your estimated net VAT position.
+6. **Print or Export Your Worksheet:**
+   - Click **Print Lodgement Worksheet** to generate a clean, Form IRS024 reference layout formatted for internal records.
+   - Click **Download CSV Summary** to export a line-by-line spreadsheet into your accounting ledger.`,
+    faqs: [
+      {
+        question: 'What is the statutory filing deadline for VAT returns in Fiji?',
+        answer: 'Under the Fiji Tax Administration Act 2009, standard monthly VAT returns must be lodged and settled on or before the last calendar day of the month following the taxable period (for example, the return for the month ending March 31st must be lodged by April 30th). Approved quarterly filers must lodge by the last day of the month following the quarter end.'
+      },
+      {
+        question: 'How is the VAT component extracted from a VAT-inclusive price in Fiji?',
+        answer: 'Because retail and wholesale prices in Fiji include 12.5% VAT, the embedded tax is extracted using the statutory tax fraction: 12.5 / 112.5 (which simplifies to 1/9). For example, if your gross sales total $90,000 FJD, the output tax liability is $90,000 multiplied by (12.5 / 112.5), which equals exactly $10,000 FJD.'
+      },
+      {
+        question: 'What is the difference between Zero-Rated and Exempt supplies under FRCS rules?',
+        answer: 'Zero-rated supplies (such as eligible export sales and prescribed essential foods like rice, flour, and tea) are taxed at 0%, but the business retains the legal right to claim all input tax credits on its business purchases. Exempt supplies (such as residential dwelling rents and financial services) are not subject to VAT, but the business cannot claim input tax credits on expenses incurred to generate that exempt income.'
+      },
+      {
+        question: 'Can I claim input tax on imported goods paid through FRCS Customs?',
+        answer: 'Yes. Import VAT paid directly to the FRCS Customs Division on a Single Administrative Document (SAD) or Customs entry receipt is an allowable input tax credit entered in Box 8 of Form IRS024, provided the goods were imported for taxable commercial business operations.'
+      },
+      {
+        question: 'Does this calculator compute official FRCS late filing penalties?',
+        answer: 'No. Late lodgement penalties and interest are assessed by FRCS under the Tax Administration Act based on formal notices and compliance records. This calculator displays a statutory safeguard notice and does not add unverified penalty estimates to your payable balance.'
+      },
+      {
+        question: 'What documentation is required to substantiate input tax credits in Fiji?',
+        answer: 'To claim input tax credits in Boxes 6, 7, and 8, the business must hold a valid FRCS Tax Invoice containing the supplier’s registered business name, TIN, the words "Tax Invoice", a sequential invoice number, date, clear description of goods/services, and the explicit VAT amount. For imports, a stamped Customs SAD and official receipt are required.'
+      },
+      {
+        question: 'How does FRCS process VAT credit balances and refunds?',
+        answer: 'When allowable input tax credits exceed output tax liability (Box 10 > Box 5), a net credit balance is established. FRCS requires documentation verification before approving any refund payout or applying credits to other tax obligations (such as PAYE or Corporate Income Tax).'
+      },
+      {
+        question: 'What is the mandatory VAT registration turnover threshold in Fiji?',
+        answer: 'The statutory VAT registration threshold in Fiji is $100,000 FJD in gross annual taxable supplies. Any business or sole proprietor whose annual turnover exceeds this threshold must register for VAT with FRCS and integrate with the statutory VAT Monitoring System (VTS/VMS).'
+      }
+    ]
   }
 ];
 

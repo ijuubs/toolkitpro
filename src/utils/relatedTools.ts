@@ -64,8 +64,9 @@ const RELATED_TOOLS_MAP: Record<string, string[]> = {
   'unit-converter': ['percentage-calculator', 'loan-calculator', 'roi-calculator', 'bmi-calculator', 'pdf-compressor'],
 
   // Fiji Tools Suite (Deep Interlinking)
+  'fiji-vat-lodgement-calculator': ['fiji-vat-calculator', 'fiji-business-startup-cost', 'fiji-duty-import-calculator', 'fiji-salary-calculator', 'fiji-financial-planner'],
   'fiji-salary-calculator': ['fiji-fnpf-calculator', 'fiji-vat-calculator', 'fiji-overtime-calculator', 'fiji-tsls-calculator', 'fiji-annual-leave-calculator'],
-  'fiji-vat-calculator': ['fiji-salary-calculator', 'fiji-duty-import-calculator', 'fiji-grocery-budget-calculator', 'fiji-electricity-bill-calculator', 'fiji-taxi-fare-calculator'],
+  'fiji-vat-calculator': ['fiji-vat-lodgement-calculator', 'fiji-salary-calculator', 'fiji-duty-import-calculator', 'fiji-grocery-budget-calculator', 'fiji-business-startup-cost'],
   'fiji-fnpf-calculator': ['fiji-salary-calculator', 'fiji-tsls-calculator', 'fiji-mortgage-calculator', 'fiji-annual-leave-calculator', 'fiji-loan-repayment-calculator'],
   'fiji-tsls-calculator': ['fiji-salary-calculator', 'fiji-fnpf-calculator', 'fiji-loan-repayment-calculator', 'fiji-mortgage-calculator', 'fiji-annual-leave-calculator'],
   'fiji-overtime-calculator': ['fiji-salary-calculator', 'fiji-annual-leave-calculator', 'fiji-fnpf-calculator', 'fiji-vat-calculator', 'fiji-grocery-budget-calculator'],

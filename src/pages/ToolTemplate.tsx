@@ -47,6 +47,7 @@ const FijiElectricityBillCalculator = lazy(() => import('../components/tools/Fij
 const FijiGroceryBudgetCalculator = lazy(() => import('../components/tools/FijiGroceryBudgetCalculator'));
 const FijiTaxiFareCalculator = lazy(() => import('../components/tools/FijiTaxiFareCalculator'));
 const FijiVatCalculator = lazy(() => import('../components/tools/FijiVatCalculator'));
+const FijiVatLodgementCalculator = lazy(() => import('../components/tools/FijiVatLodgementCalculator'));
 const FijiFnpfCalculator = lazy(() => import('../components/tools/FijiFnpfCalculator'));
 const FijiTslsCalculator = lazy(() => import('../components/tools/FijiTslsCalculator'));
 const FijiBusinessStartupCostCalculator = lazy(() => import('../components/tools/FijiBusinessStartupCostCalculator'));
@@ -128,6 +129,7 @@ export default function ToolTemplate() {
         case 'fiji-grocery-budget-calculator': return <FijiGroceryBudgetCalculator />;
         case 'fiji-taxi-fare-calculator': return <FijiTaxiFareCalculator />;
         case 'fiji-vat-calculator': return <FijiVatCalculator />;
+        case 'fiji-vat-lodgement-calculator': return <FijiVatLodgementCalculator />;
         case 'fiji-fnpf-calculator': return <FijiFnpfCalculator />;
         case 'fiji-tsls-calculator': return <FijiTslsCalculator />;
         case 'fiji-business-startup-cost': return <FijiBusinessStartupCostCalculator />;

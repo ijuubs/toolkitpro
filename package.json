@@ -11,6 +11,7 @@
     "build": "npm run generate-sitemap && vite build && tsx scripts/prerender-seo.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist",
+    "test:vat": "tsx scripts/test-fiji-vat-lodgement.ts",
     "lint": "tsc --noEmit"
   },
   "dependencies": {

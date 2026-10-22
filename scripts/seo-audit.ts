@@ -33,8 +33,8 @@ function assert(condition: boolean, message: string, isWarning = false) {
 // 1. ROUTE INVENTORY AUDIT
 console.log('1. Route Inventory & Canonical Count Audit');
 const toolSlugs = new Set(TOOLS.map(t => t.slug));
-assert(TOOLS.length === 36, `Expected 36 registered tools, found ${TOOLS.length}`);
-assert(toolSlugs.size === 36, `Expected 36 unique tool slugs, found ${toolSlugs.size}`);
+assert(TOOLS.length === 37, `Expected 37 registered tools, found ${TOOLS.length}`);
+assert(toolSlugs.size === 37, `Expected 37 unique tool slugs, found ${toolSlugs.size}`);
 
 const categorySlugs = Object.keys(CATEGORY_METAS);
 assert(categorySlugs.length === 7, `Expected 7 category hubs, found ${categorySlugs.length}`);
@@ -58,7 +58,7 @@ assert(staticPaths.length === 9, `Expected 9 static routes, found ${staticPaths.
 
 const totalExpectedRoutes = staticPaths.length + categorySlugs.length + TOOLS.length + BLOG_POSTS.length;
 console.log(`  ℹ️  Total Canonical Public URLs: ${totalExpectedRoutes} (9 static + 7 categories + ${TOOLS.length} tools + ${BLOG_POSTS.length} blog posts)`);
-assert(totalExpectedRoutes === 72, `Expected 72 total canonical URLs, found ${totalExpectedRoutes}`);
+assert(totalExpectedRoutes === 73, `Expected 73 total canonical URLs, found ${totalExpectedRoutes}`);
 
 // 2. SITEMAP AUDIT
 console.log('\n2. Sitemap (public/sitemap.xml) Audit');
@@ -220,7 +220,7 @@ assert(blogPostSrc.includes('noindex, follow'), 'BlogPost.tsx includes noindex f
 // 7. FIJI TOOLS REGRESSION VERIFICATION
 console.log('\n7. Fiji Tools Suite Audit (No formula changes)');
 const fijiTools = TOOLS.filter(t => t.slug.startsWith('fiji-'));
-assert(fijiTools.length === 15, `Expected 15 Fiji utility tools, found ${fijiTools.length}`);
+assert(fijiTools.length === 16, `Expected 16 Fiji utility tools, found ${fijiTools.length}`);
 
 const expectedFijiSlugs = [
   'fiji-salary-calculator',
@@ -234,6 +234,7 @@ const expectedFijiSlugs = [
   'fiji-grocery-budget-calculator',
   'fiji-taxi-fare-calculator',
   'fiji-vat-calculator',
+  'fiji-vat-lodgement-calculator',
   'fiji-fnpf-calculator',
   'fiji-tsls-calculator',
   'fiji-business-startup-cost',

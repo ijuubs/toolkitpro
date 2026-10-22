@@ -32,4 +32,3 @@ Allow: /
 Disallow: /analytics
 
 Sitemap: https://toolkitpro-e5y5.vercel.app/sitemap_index.xml
-Sitemap: https://toolkitpro-e5y5.vercel.app/sitemap.xml
