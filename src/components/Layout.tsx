@@ -3,7 +3,6 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Menu, X, ChevronRight, LayoutGrid, BookOpen, Info, HelpCircle, Mail, Map, Cookie, TrendingUp } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
-import Logo from './Logo';
 import CookieConsent, { OPEN_CONSENT_EVENT } from './CookieConsent';
 import BackToTop from './BackToTop';
 import { SITE_URL } from '../config/site';
@@ -78,9 +77,19 @@ export default function Layout() {
       </Helmet>
       <header className="sticky top-0 z-50 bg-[rgba(244,250,244,0.92)] dark:bg-[#1a1a1a]/90 backdrop-blur-lg border-b-4 border-black">
         <nav className="max-w-[1200px] mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
-          <Link to="/" className="flex items-center gap-2 sm:gap-3 font-black text-lg sm:text-2xl md:text-3xl uppercase tracking-tighter shrink-0">
-            <Logo size="sm" />
-            <span className="text-lg sm:text-2xl md:text-3xl text-[var(--g6)]">ToolKitPro</span>
+          <Link 
+            to="/" 
+            className="flex items-center shrink-0 border-2 border-black bg-black px-2 py-1 sm:px-2.5 sm:py-1.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+            aria-label="ToolKitPro Home"
+          >
+            <img 
+              src="/toolkitpro-logo-web.webp" 
+              alt="ToolKitPro" 
+              className="h-6 sm:h-8 md:h-9 w-auto object-contain block"
+              width="180"
+              height="42"
+              loading="eager"
+            />
           </Link>
           <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 bg-yellow-300 text-black border-2 border-black font-black text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse inline-block" />
@@ -222,9 +231,15 @@ export default function Layout() {
       <footer className="bg-black text-white py-12 md:py-16 px-4 sm:px-6 border-t-8 border-yellow-400">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
           <div className="space-y-4 sm:col-span-2 md:col-span-1">
-            <Link to="/" className="flex items-center gap-3 font-black text-2xl uppercase tracking-tighter text-white">
-              <Logo size="md" theme="dark" />
-              ToolKitPro
+            <Link to="/" className="inline-block" aria-label="ToolKitPro Home">
+              <img 
+                src="/toolkitpro-logo-web.webp" 
+                alt="ToolKitPro" 
+                className="h-9 sm:h-10 w-auto object-contain block"
+                width="180"
+                height="42"
+                loading="lazy"
+              />
             </Link>
             <p className="text-neutral-300 font-medium text-sm leading-relaxed">
               Open browser-based utility platform. All operations execute locally. Inputs are processed in your browser and not uploaded.
