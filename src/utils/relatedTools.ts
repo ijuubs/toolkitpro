@@ -58,10 +58,13 @@ const RELATED_TOOLS_MAP: Record<string, string[]> = {
   'qr-code-generator': ['url-encoder', 'password-generator', 'image-resizer', 'color-picker', 'base64-encoder-decoder'],
   
   // Converters & Image
-  'pdf-compressor': ['image-resizer', 'word-counter', 'markdown-to-html', 'unit-converter', 'qr-code-generator'],
+  'pdf-compressor': ['audio-compressor', 'video-to-mp3-converter', 'image-resizer', 'word-counter', 'qr-code-generator'],
   'image-resizer': ['pdf-compressor', 'color-picker', 'qr-code-generator', 'unit-converter', 'lorem-ipsum'],
-  'color-picker': ['image-resizer', 'qr-code-generator', 'base64-encoder-decoder', 'markdown-to-html', 'json-formatter'],
+  'color-picker': ['css-glassmorphism-generator', 'image-resizer', 'qr-code-generator', 'base64-encoder-decoder', 'json-formatter'],
   'unit-converter': ['percentage-calculator', 'loan-calculator', 'roi-calculator', 'bmi-calculator', 'pdf-compressor'],
+  'video-to-mp3-converter': ['audio-compressor', 'pdf-compressor', 'image-resizer', 'qr-code-generator'],
+  'audio-compressor': ['video-to-mp3-converter', 'pdf-compressor', 'image-resizer', 'qr-code-generator'],
+  'css-glassmorphism-generator': ['color-picker', 'qr-code-generator', 'image-resizer', 'base64-encoder-decoder'],
 
   // Fiji Tools Suite (Deep Interlinking)
   'fiji-vat-lodgement-calculator': ['fiji-vat-calculator', 'fiji-business-startup-cost', 'fiji-duty-import-calculator', 'fiji-salary-calculator', 'fiji-financial-planner'],

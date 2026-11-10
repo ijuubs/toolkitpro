@@ -3488,6 +3488,143 @@ Late lodgement and late payment penalties are prescribed under the Fiji Tax Admi
         answer: 'The statutory VAT registration threshold in Fiji is $100,000 FJD in gross annual taxable supplies. Any business or sole proprietor whose annual turnover exceeds this threshold must register for VAT with FRCS and integrate with the statutory VAT Monitoring System (VTS/VMS).'
       }
     ]
+  },
+  {
+    id: 'video-to-mp3-converter',
+    slug: 'video-to-mp3-converter',
+    name: 'Video to MP3 Converter',
+    titleTag: 'Video to MP3 Converter | Extract Audio Online Free',
+    description: 'Convert video files (MP4, WebM, MOV) to high-quality MP3 audio tracks instantly in your browser with zero server uploads and complete privacy.',
+    category: 'Converters',
+    usp: 'In-browser audio track extraction, adjustable bitrate, instant MP3 download, 100% private sandbox processing.',
+    aliases: ['extract-audio-from-video', 'mp4-to-mp3-online', 'video-audio-extractor', 'convert-video-to-audio'],
+    metaDescription: 'Free online video to MP3 converter. Extract audio tracks from MP4, WebM, and MOV video files directly in your web browser with zero server uploads.',
+    howTo: `### Comprehensive Guide to Video Audio Extraction & MP3 Conversion
+
+Extracting audio tracks from video files is a frequent requirement for podcasters, video editors, researchers, and music enthusiasts who want to listen to interviews, lectures, or sound design without video overhead. 
+
+Our **Video to MP3 Converter** is a robust, client-side browser utility powered by the HTML5 Media API and Web Audio API. It decodes video media streams locally on your device and exports pristine audio recordings without uploading your private video files to any remote server.
+
+---
+
+#### 1. How Client-Side Media Extraction Works
+
+Traditional online converters require uploading multi-gigabyte video files over slow internet connections to cloud servers, consuming bandwidth and risking privacy. Our tool operates entirely inside your local browser sandbox:
+- **Local Decoding:** The video file is loaded into a local HTML5 video element and decoded by your browser's native media decoders.
+- **Audio Routing:** The Web Audio API routes the audio signal through a local media stream destination.
+- **Encoding:** The recorded audio stream is captured and serialized into a downloadable MP3-compatible audio blob.
+
+---
+
+#### 2. Step-by-Step Instructions
+
+1. **Select Your Video File:** Click the dropzone or drag and drop your video file (MP4, WebM, MOV, AVI) into the converter box.
+2. **Choose Target Bitrate:** Select your desired audio bitrate (128 kbps standard, 192 kbps high fidelity, or 320 kbps maximum fidelity).
+3. **Extract & Convert:** Click **Extract & Convert to MP3** and watch the live progress indicator.
+4. **Download MP3:** Once extraction completes, click **Download MP3 Audio** to save your file instantly.`,
+    faqs: [
+      {
+        question: 'Are my video files uploaded to a remote server?',
+        answer: 'No. All video decoding and audio extraction happen 100% locally inside your web browser sandbox using client-side Web Audio APIs. Your files never leave your device.'
+      },
+      {
+        question: 'What video formats are supported?',
+        answer: 'The converter supports standard browser-compatible video formats including MP4, WebM, MOV, and AVI.'
+      },
+      {
+        question: 'Is there a file size limit?',
+        answer: 'Because processing happens entirely in your browser memory, file size limits depend primarily on your device RAM and available browser memory.'
+      }
+    ]
+  },
+  {
+    id: 'audio-compressor',
+    slug: 'audio-compressor',
+    name: 'Audio Compressor',
+    titleTag: 'Audio Compressor | Reduce Audio File Size Online Free',
+    description: 'Compress MP3, WAV, OGG, and M4A audio files online. Reduce audio file size instantly with adjustable quality presets while preserving acoustic clarity.',
+    category: 'Converters',
+    usp: 'Client-side audio resampling, adjustable quality presets, size reduction up to 70%, 100% secure in-browser processing.',
+    aliases: ['reduce-mp3-size', 'compress-wav-online', 'audio-size-reducer', 'compress-music-file'],
+    metaDescription: 'Free online audio compressor. Reduce the file size of MP3, WAV, and AAC audio files instantly in your browser with zero cloud storage retention.',
+    howTo: `### Complete Guide to Audio Compression & Bitrate Optimization
+
+Audio files—especially uncompressed WAV or high-bitrate MP3 recordings—can consume excessive storage space and cause slow upload times for email attachments, podcasts, and web publishing. 
+
+Our **Audio Compressor** utility utilizes the Web Audio API and OfflineAudioContext rendering to downsample and re-encode audio tracks locally in your browser.
+
+---
+
+#### 1. Understanding Audio Compression Presets
+
+- **High Quality (~80% of original):** Preserves near-lossless acoustic fidelity at 44.1kHz stereo, ideal for master music tracks.
+- **Balanced (~50% of original):** Reduces file size significantly while retaining crisp vocal and instrument clarity at 32kHz.
+- **Voice / Speech (~30% of original):** Optimized for voice memos, podcasts, and lecture recordings at 22.05kHz mono.
+
+---
+
+#### 2. Step-by-Step Instructions
+
+1. **Upload Audio File:** Select or drop your audio file (MP3, WAV, OGG, M4A).
+2. **Choose Preset:** Select High Quality, Balanced, or Voice / Speech.
+3. **Compress:** Click **Compress Audio File** to process audio samples offline.
+4. **Review & Download:** Compare original vs. compressed file size and download your optimized audio file.`,
+    faqs: [
+      {
+        question: 'Will compressing my audio reduce its quality?',
+        answer: 'Depending on the preset chosen, audio compression adjusts sample rates and bitrates to reduce file size. The Balanced and High Quality presets retain excellent acoustic fidelity.'
+      },
+      {
+        question: 'What audio formats can I compress?',
+        answer: 'You can upload MP3, WAV, OGG, M4A, and AAC audio files.'
+      },
+      {
+        question: 'Is my audio data private?',
+        answer: 'Yes. All audio processing runs locally in your browser sandbox with zero server uploads.'
+      }
+    ]
+  },
+  {
+    id: 'css-glassmorphism-generator',
+    slug: 'css-glassmorphism-generator',
+    name: 'CSS Glassmorphism Generator',
+    titleTag: 'CSS Glassmorphism Generator | Frosted Glass UI Effect',
+    description: 'Design modern frosted glass UI cards with live previews. Adjust backdrop blur, background opacity, border width, and tint color, then copy clean CSS.',
+    category: 'Developer Tools',
+    usp: 'Live frosted glass preview, adjustable backdrop blur and opacity sliders, one-click CSS code copy.',
+    aliases: ['glassmorphism-css-generator', 'frosted-glass-generator', 'css-blur-generator', 'glass-ui-generator'],
+    metaDescription: 'Free online CSS glassmorphism generator. Create frosted glass UI components with adjustable backdrop blur, opacity, and borders. Copy clean CSS instantly.',
+    howTo: `### Comprehensive Guide to Glassmorphism UI Design & CSS backdrop-filter
+
+Glassmorphism is a popular UI design trend characterized by translucent frosted-glass visual elements, vibrant colorful backgrounds, and subtle semi-transparent borders. It creates a sense of depth and hierarchy in modern web applications.
+
+Our **CSS Glassmorphism Generator** provides an interactive playground for web designers and front-end engineers to fine-tune backdrop blur, background transparency, and borders with live visual feedback.
+
+---
+
+#### 1. Core CSS Properties of Glassmorphism
+
+- **backdrop-filter: blur(Xpx):** Blurs the visual content directly behind the translucent element.
+- **background: rgba(r, g, b, alpha):** Semi-transparent white or tinted background overlay.
+- **border: width solid rgba(r, g, b, alpha):** Delicate semi-transparent border that defines the edge of the glass pane.
+
+---
+
+#### 2. Step-by-Step Instructions
+
+1. **Adjust Sliders:** Customize backdrop blur intensity, background opacity, border width, and corner radius.
+2. **Select Tint:** Choose a base tint color that complements your UI palette.
+3. **Copy CSS:** Click **Copy CSS Code** to instantly paste production-ready styles into your stylesheet.`,
+    faqs: [
+      {
+        question: 'Do all browsers support backdrop-filter?',
+        answer: 'Modern web browsers (Chrome, Safari, Firefox, Edge) fully support CSS backdrop-filter.'
+      },
+      {
+        question: 'Can I customize the background behind the glass card?',
+        answer: 'The generator features a vibrant multi-color gradient backdrop to preview how frosted glass renders over rich imagery and colors.'
+      }
+    ]
   }
 ];
 

@@ -53,6 +53,9 @@ const FijiTslsCalculator = lazy(() => import('../components/tools/FijiTslsCalcul
 const FijiBusinessStartupCostCalculator = lazy(() => import('../components/tools/FijiBusinessStartupCostCalculator'));
 const FijiFinancialPlanner = lazy(() => import('../components/tools/FijiFinancialPlanner'));
 const DiffChecker = lazy(() => import('../components/tools/DiffChecker'));
+const VideoToMp3Converter = lazy(() => import('../components/tools/VideoToMp3Converter'));
+const AudioCompressor = lazy(() => import('../components/tools/AudioCompressor'));
+const CssGlassmorphismGenerator = lazy(() => import('../components/tools/CssGlassmorphismGenerator'));
 
 export default function ToolTemplate() {
   const { slug } = useParams<{ slug: string }>();
@@ -135,6 +138,9 @@ export default function ToolTemplate() {
         case 'fiji-business-startup-cost': return <FijiBusinessStartupCostCalculator />;
         case 'fiji-financial-planner': return <FijiFinancialPlanner />;
         case 'diff-checker': return <DiffChecker />;
+        case 'video-to-mp3-converter': return <VideoToMp3Converter />;
+        case 'audio-compressor': return <AudioCompressor />;
+        case 'css-glassmorphism-generator': return <CssGlassmorphismGenerator />;
         
         default: return <p className="text-center text-[var(--muted)]">Tool interface for {tool.name} coming soon.</p>;
     }

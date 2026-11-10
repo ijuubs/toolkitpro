@@ -33,8 +33,8 @@ function assert(condition: boolean, message: string, isWarning = false) {
 // 1. ROUTE INVENTORY AUDIT
 console.log('1. Route Inventory & Canonical Count Audit');
 const toolSlugs = new Set(TOOLS.map(t => t.slug));
-assert(TOOLS.length === 37, `Expected 37 registered tools, found ${TOOLS.length}`);
-assert(toolSlugs.size === 37, `Expected 37 unique tool slugs, found ${toolSlugs.size}`);
+assert(TOOLS.length === 40, `Expected 40 registered tools, found ${TOOLS.length}`);
+assert(toolSlugs.size === 40, `Expected 40 unique tool slugs, found ${toolSlugs.size}`);
 
 const categorySlugs = Object.keys(CATEGORY_METAS);
 assert(categorySlugs.length === 7, `Expected 7 category hubs, found ${categorySlugs.length}`);
@@ -58,7 +58,7 @@ assert(staticPaths.length === 9, `Expected 9 static routes, found ${staticPaths.
 
 const totalExpectedRoutes = staticPaths.length + categorySlugs.length + TOOLS.length + BLOG_POSTS.length;
 console.log(`  ℹ️  Total Canonical Public URLs: ${totalExpectedRoutes} (9 static + 7 categories + ${TOOLS.length} tools + ${BLOG_POSTS.length} blog posts)`);
-assert(totalExpectedRoutes === 73, `Expected 73 total canonical URLs, found ${totalExpectedRoutes}`);
+assert(totalExpectedRoutes === 76, `Expected 76 total canonical URLs, found ${totalExpectedRoutes}`);
 
 // 2. SITEMAP AUDIT
 console.log('\n2. Sitemap (public/sitemap.xml) Audit');
